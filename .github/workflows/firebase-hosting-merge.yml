@@ -26,10 +26,14 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
 
+      - name: Sync musics
+        run: yarn sync-music
+
       - name: Build
         run: yarn build
         env:
           GATSBY_GIT_COMMIT: ${{ github.sha }}
+          NODE_ENV: production
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
