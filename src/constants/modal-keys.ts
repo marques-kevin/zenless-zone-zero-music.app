@@ -1,0 +1,16 @@
+export enum MODAL_KEYS {
+  "playlist-details" = "playlist-details",
+  player = "player",
+  search = "search",
+  "change-language" = "change-language",
+  "create-playlist" = "create-playlist",
+  "add-to-playlist" = "add-to-playlist",
+  "playlists-list-modal" = "playlists-list-modal",
+  "request-login" = "request-login",
+  news = "news",
+  "update-available" = "update-available",
+  "change-profile-picture" = "change-profile-picture",
+  "change-playlist-picture" = "change-playlist-picture",
+  "change-playlist-name" = "change-playlist-name",
+  "download-app-ios" = "download-app-ios",
+}
