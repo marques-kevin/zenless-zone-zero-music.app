@@ -3,25 +3,28 @@ import {
   ListObjectsV2Command,
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
-import { readdir, readFile } from "fs/promises";
+import { readdir } from "fs/promises";
 import { join } from "path";
 import { createReadStream } from "fs";
+import dotenv from "dotenv";
+import { z } from "zod";
+
+dotenv.config();
+
+const ENV_SCHEMA = z.object({
+  CLOUDFLARE_ACCOUNT_ID: z.string(),
+  CLOUDFLARE_ACCESS_KEY_ID: z.string(),
+  CLOUDFLARE_SECRET_ACCESS_KEY: z.string(),
+  CLOUDFLARE_BUCKET_NAME: z.string(),
+});
+
+const env = ENV_SCHEMA.parse(process.env);
 
 // Cloudflare R2 configuration
-const R2_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
-const R2_ACCESS_KEY_ID = process.env.CLOUDFLARE_ACCESS_KEY_ID;
-const R2_SECRET_ACCESS_KEY = process.env.CLOUDFLARE_SECRET_ACCESS_KEY;
-const R2_BUCKET_NAME = process.env.CLOUDFLARE_BUCKET_NAME;
-
-if (
-  !R2_ACCOUNT_ID ||
-  !R2_ACCESS_KEY_ID ||
-  !R2_SECRET_ACCESS_KEY ||
-  !R2_BUCKET_NAME
-) {
-  console.error("Missing required environment variables");
-  process.exit(1);
-}
+const R2_ACCOUNT_ID = env.CLOUDFLARE_ACCOUNT_ID;
+const R2_ACCESS_KEY_ID = env.CLOUDFLARE_ACCESS_KEY_ID;
+const R2_SECRET_ACCESS_KEY = env.CLOUDFLARE_SECRET_ACCESS_KEY;
+const R2_BUCKET_NAME = env.CLOUDFLARE_BUCKET_NAME;
 
 const s3Client = new S3Client({
   region: "auto",
@@ -91,6 +94,7 @@ async function main() {
     );
 
     console.log(`Found ${missingFiles.length} missing files`);
+    console.log(missingFiles);
 
     // Upload missing files
     for (const file of missingFiles) {

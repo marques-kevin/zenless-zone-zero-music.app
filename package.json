@@ -8,9 +8,11 @@
     "gatsby"
   ],
   "scripts": {
-    "start": "yarn clean && gatsby develop -H 0.0.0.0",
+    "start": "concurrently \"yarn clean && gatsby develop -H 0.0.0.0\" \"yarn serve:musics\"",
     "build": "NODE_ENV=production gatsby build",
     "serve": "gatsby serve",
+    "serve:musics": "npx serve -p 8002",
+    "sync-music": "tsx scripts/sync-music.ts",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
@@ -55,6 +57,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "concurrently": "^9.1.2",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.1",
     "firebase": "^11.0.1",
