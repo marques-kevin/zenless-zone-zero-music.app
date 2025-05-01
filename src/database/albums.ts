@@ -265,4 +265,10 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "1.7",
     playlist_type: "jukebox",
   },
+  hugo: {
+    playlist_name: "Hugo",
+    playlist_cover: "/characters/hugo.png",
+    playlist_id: "hugo",
+    playlist_type: "character",
+  },
 };

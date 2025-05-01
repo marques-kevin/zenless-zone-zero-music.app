@@ -174,4 +174,13 @@ export const Album14: Track[] = [
     ...Artists["1.4"],
     ...Albums["1.4"],
   },
+  {
+    title: "Road Destiny",
+    title_id: "road-destiny",
+    source: "/musics/road-destiny.mp3",
+    duration: 60 * 4 + 33,
+    created_at: new Date("2025-05-01"),
+    ...Artists["1.4"],
+    ...Albums["1.4"],
+  },
 ];

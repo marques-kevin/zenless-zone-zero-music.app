@@ -46,6 +46,14 @@ export const AstraNomicalMomentsTracks: Track[] = [
     created_at: new Date("2025-02-08"),
     ...Artists["1.5"],
   },
+  {
+    title: "Wonderland Revery - Reverb Version",
+    title_id: "wonderland-revery--reverb-version",
+    source: "/musics/wonderland-revery--reverb-version.mp3",
+    duration: 60 * 2 + 56,
+    created_at: new Date("2025-02-08"),
+    ...Artists["1.5"],
+  },
   EllenTracks.find(
     (track) => track.title_id === "astra-nomical--moments--ellen-battle-theme"
   ) as Track,
