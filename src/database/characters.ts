@@ -29,4 +29,5 @@ export const characters = [
   { name: "sanby", image: "/characters/sanby.png" },
   { name: "trigger", image: "/characters/trigger.png" },
   { name: "vivian", image: "/characters/vivian.png" },
+  { name: "hugo", image: "/characters/hugo.png" },
 ];

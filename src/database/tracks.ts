@@ -24,6 +24,8 @@ import { AstraNomicalMomentsTracks } from "./albums/astra-nomical--moments";
 import { SanbyTracks } from "./albums/sanby";
 import { TriggerTracks } from "./albums/trigger";
 import { Album16Tracks } from "./albums/1.6";
+import { HugoTracks } from "./albums/hugo";
+import { EvelynTracks } from "./albums/evelyn";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -246,7 +248,7 @@ const RandomPlayTracks: Track[] = [
   {
     title: "Gatcha Theme",
     title_id: "gatcha-theme",
-    duration: 208,
+    duration: 60 * 3 + 7,
     source: "/musics/gatcha-theme.mp3",
     created_at: new Date("2025-05-01"),
   },
@@ -1016,4 +1018,6 @@ export const tracks: Track[] = [
   ...SanbyTracks,
   ...TriggerTracks,
   ...Album16Tracks,
+  ...EvelynTracks,
+  ...HugoTracks,
 ];
