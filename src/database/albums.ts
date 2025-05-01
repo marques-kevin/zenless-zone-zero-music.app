@@ -223,4 +223,46 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "grace",
     playlist_type: "character",
   },
+  sanby: {
+    playlist_name: "Sanby",
+    playlist_cover: "/characters/sanby.png",
+    playlist_id: "sanby",
+    playlist_type: "character",
+  },
+  trigger: {
+    playlist_name: "Trigger",
+    playlist_cover: "/characters/trigger.png",
+    playlist_id: "trigger",
+    playlist_type: "character",
+  },
+  vivian: {
+    playlist_name: "Vivian",
+    playlist_cover: "/characters/vivian.png",
+    playlist_id: "vivian",
+    playlist_type: "character",
+  },
+  evelyn: {
+    playlist_name: "Evelyn",
+    playlist_cover: "/characters/evelyn.png",
+    playlist_id: "evelyn",
+    playlist_type: "character",
+  },
+  pulchra: {
+    playlist_name: "Pulchra",
+    playlist_cover: "/characters/pulchra.png",
+    playlist_id: "pulchra",
+    playlist_type: "character",
+  },
+  "1.6": {
+    playlist_name: "Among the Forgotten Ruins",
+    playlist_cover: "/covers/1.6.jpg",
+    playlist_id: "1.6",
+    playlist_type: "jukebox",
+  },
+  "1.7": {
+    playlist_name: "Bury Your Tears With the Past",
+    playlist_cover: "/covers/1.7.jpg",
+    playlist_id: "1.7",
+    playlist_type: "jukebox",
+  },
 };

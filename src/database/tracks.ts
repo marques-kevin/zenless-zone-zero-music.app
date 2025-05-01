@@ -21,6 +21,9 @@ import { LighterTracks } from "./albums/lighter";
 import { KoledaTracks } from "./albums/koleda";
 import { AstraYaoTracks } from "./albums/astra-yao";
 import { AstraNomicalMomentsTracks } from "./albums/astra-nomical--moments";
+import { SanbyTracks } from "./albums/sanby";
+import { TriggerTracks } from "./albums/trigger";
+import { Album16Tracks } from "./albums/1.6";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -239,6 +242,13 @@ const RandomPlayTracks: Track[] = [
     duration: 208,
     source: "/musics/outer-ring-dinner-etiquette.mp3",
     created_at: new Date("2024-10-10"),
+  },
+  {
+    title: "Gatcha Theme",
+    title_id: "gatcha-theme",
+    duration: 208,
+    source: "/musics/gatcha-theme.mp3",
+    created_at: new Date("2025-05-01"),
   },
 ].map((track) => ({
   ...track,
@@ -969,7 +979,6 @@ export const tracks: Track[] = [
     ...Albums["eous-anthems"],
     created_at: new Date("2024-12-04"),
   },
-
   ...LycaonTracks,
   ...NicoleTracks,
   ...QingyiTracks,
@@ -1004,4 +1013,7 @@ export const tracks: Track[] = [
   ...AstraYaoTracks,
   ...ComeAliveTracks,
   ...AstraNomicalMomentsTracks,
+  ...SanbyTracks,
+  ...TriggerTracks,
+  ...Album16Tracks,
 ];
