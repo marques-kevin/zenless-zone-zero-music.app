@@ -14,6 +14,7 @@ import { navigate } from "@reach/router";
 import { characters } from "@/database/characters";
 import {
   BellIcon,
+  GithubIcon,
   LinkIcon,
   MessageCircle,
   RefreshCcw,
@@ -28,6 +29,7 @@ import {
 } from "@/components/ui/tooltip";
 import { DownloadAppButton } from "../download-app-button/download-app-button";
 import { NavbarOtherTools } from "../navbar-other-tools/navbar-other-tools";
+import { BuyMeCoffeeButton } from "../buy-me-coffee-button/buy-me-coffee-button";
 
 const DISCORD_URL = "https://discord.gg/8eJMfkRD3E";
 
@@ -76,6 +78,8 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
           )}
 
         <DownloadAppButton />
+
+        <BuyMeCoffeeButton />
 
         <NavbarOtherTools />
 
@@ -132,7 +136,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
                 </DropdownMenuItem>
               )}
 
-              <div className="grid mt-2 pt-2 border-t border-zinc-700 grid-cols-3 gap-2 items-center justify-end">
+              <div className="grid mt-2 pt-2 border-t border-zinc-700 grid-cols-4 gap-2 items-center justify-end">
                 <a
                   href="https://twitter.com/KM_Marques"
                   target="_blank"
@@ -161,6 +165,14 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
                   className="text-sm flex items-center justify-center text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
                 >
                   <DiscordIcon />
+                </a>
+
+                <a
+                  href="https://github.com/marques-kevin/zenless-zone-zero-music.app"
+                  target="_blank"
+                  className="text-sm flex items-center justify-center text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
+                >
+                  <GithubIcon className="w-4 h-4" />
                 </a>
               </div>
 

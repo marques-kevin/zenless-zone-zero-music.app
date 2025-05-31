@@ -1,5 +1,6 @@
 export enum MODAL_KEYS {
   "playlist-details" = "playlist-details",
+  "buy-me-coffee" = "buy-me-coffee",
   player = "player",
   search = "search",
   "change-language" = "change-language",

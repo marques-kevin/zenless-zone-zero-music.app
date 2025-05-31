@@ -80,6 +80,7 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.53.1",
     "react-intl": "^6.8.7",
+    "react-markdown": "^10.1.0",
     "react-redux": "^9.1.2",
     "react-resizable-panels": "^2.1.6",
     "react-responsive": "^10.0.0",

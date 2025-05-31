@@ -34,6 +34,10 @@ type ProfileEvents = BaseEvent<
 
 type DownloadAppEvents = BaseEvent<"download-app", "button-navbar-clicked">;
 
+type BuyMeCoffeeEvents =
+  | BaseEvent<"buy-me-coffee", "button-navbar-clicked">
+  | BaseEvent<"buy-me-coffee", "clicked-on-link">;
+
 type GlobalEvents = BaseEvent<"global", "reload">;
 
 export type AnalyticsEntity =
@@ -43,4 +47,5 @@ export type AnalyticsEntity =
   | AuthEvents
   | ProfileEvents
   | DownloadAppEvents
-  | GlobalEvents;
+  | GlobalEvents
+  | BuyMeCoffeeEvents;
