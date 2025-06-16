@@ -26,6 +26,8 @@ import { TriggerTracks } from "./albums/trigger";
 import { Album16Tracks } from "./albums/1.6";
 import { HugoTracks } from "./albums/hugo";
 import { EvelynTracks } from "./albums/evelyn";
+import { Album17Tracks } from "./albums/1.7";
+import { VivianTracks } from "./albums/vivian";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -1020,4 +1022,6 @@ export const tracks: Track[] = [
   ...Album16Tracks,
   ...EvelynTracks,
   ...HugoTracks,
+  ...VivianTracks,
+  ...Album17Tracks,
 ];
