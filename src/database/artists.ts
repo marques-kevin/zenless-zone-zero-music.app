@@ -27,4 +27,20 @@ export const Artists = {
     artist: "1.7",
     artist_id: "1.7",
   },
+  ["2.0"]: {
+    artist: "2.0",
+    artist_id: "2.0",
+  },
+  ["2.1"]: {
+    artist: "2.1",
+    artist_id: "2.1",
+  },
+  ["2.2"]: {
+    artist: "2.2",
+    artist_id: "2.2",
+  },
+  ["2.3"]: {
+    artist: "2.3",
+    artist_id: "2.3",
+  },
 };

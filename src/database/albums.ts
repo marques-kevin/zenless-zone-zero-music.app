@@ -265,10 +265,40 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "1.7",
     playlist_type: "jukebox",
   },
+  "2.0": {
+    playlist_name: "Where Clouds Embrace the Dawn",
+    playlist_cover: "/covers/2.0.jpg",
+    playlist_id: "2.0",
+    playlist_type: "jukebox",
+  },
+  "2.1": {
+    playlist_name: "The Impending Crash of Waves",
+    playlist_cover: "/covers/2.1.jpeg",
+    playlist_id: "2.1",
+    playlist_type: "jukebox",
+  },
+  "2.2": {
+    playlist_name: "Do Not Go Gentle Into That Good Night",
+    playlist_cover: "/covers/2.2.jpg",
+    playlist_id: "2.2",
+    playlist_type: "jukebox",
+  },
+  "2.3": {
+    playlist_name: "Memories of Dreams Bygone",
+    playlist_cover: "/covers/2.3.jpeg",
+    playlist_id: "2.3",
+    playlist_type: "jukebox",
+  },
   hugo: {
     playlist_name: "Hugo",
     playlist_cover: "/characters/hugo.png",
     playlist_id: "hugo",
+    playlist_type: "character",
+  },
+  lucia: {
+    playlist_name: "Lucia",
+    playlist_cover: "/characters/lucia.webp",
+    playlist_id: "lucia",
     playlist_type: "character",
   },
 };

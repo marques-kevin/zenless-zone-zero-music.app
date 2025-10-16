@@ -54,6 +54,14 @@ export const AstraNomicalMomentsTracks: Track[] = [
     created_at: new Date("2025-02-08"),
     ...Artists["1.5"],
   },
+  {
+    title: "Starloop Tower Ambient Theme",
+    title_id: "starloop-tower-ambient-theme",
+    source: "/musics/1.5--starloop-tower-ambient-theme.mp3",
+    duration: 232,
+    created_at: new Date("2025-01-16"),
+    ...Artists["1.5"],
+  },
   EllenTracks.find(
     (track) => track.title_id === "astra-nomical--moments--ellen-battle-theme"
   ) as Track,

@@ -46,6 +46,9 @@ const DiscordIcon = () => (
 );
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
+  const profile_picture = characters.find(
+    (character) => character.name === props.profile_picture
+  )?.image;
   return (
     <div className="flex items-center justify-between px-2 md:px-6 py-4 md:py-2">
       <div className="flex items-center">
@@ -91,9 +94,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
               <img
                 className="h-8 w-8 rounded-full bg-zinc-700 object-cover"
                 src={
-                  props.profile_picture
-                    ? `/characters/${props.profile_picture}.png`
-                    : "/other/placeholder.png"
+                  profile_picture ? profile_picture : "/other/placeholder.png"
                 }
               />
             </div>
