@@ -41,4 +41,5 @@ export const characters = [
   { name: "dialyn", image: "/characters/dialyn.webp" },
   { name: "banyue", image: "/characters/banyue.webp" },
   { name: "alice", image: "/characters/alice_thymefield.webp" },
+  { name: "isolde", image: "/characters/isolde.png" },
 ];

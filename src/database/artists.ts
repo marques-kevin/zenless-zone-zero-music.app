@@ -1,4 +1,8 @@
 export const Artists = {
+  ["1.3"]: {
+    artist: "1.3",
+    artist_id: "1.3",
+  },
   bangblues: {
     artist: "Bangblues",
     artist_id: "bangblues",

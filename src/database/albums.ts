@@ -7,6 +7,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "astra-yao",
     playlist_type: "character",
   },
+  isolde: {
+    playlist_name: "Isolde",
+    playlist_cover: "/characters/isolde.png",
+    playlist_id: "isolde",
+    playlist_type: "character",
+  },
   "eous-anthems": {
     playlist_name: "Eous Anthems",
     playlist_cover: "/covers/eous-anthems.jpg",
