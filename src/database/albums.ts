@@ -265,6 +265,18 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "hugo",
     playlist_type: "character",
   },
+  seed: {
+    playlist_name: "Seed",
+    playlist_cover: "/characters/seed.webp",
+    playlist_id: "seed",
+    playlist_type: "character",
+  },
+  orphie: {
+    playlist_name: "Orphie",
+    playlist_cover: "/characters/orphie.webp",
+    playlist_id: "orphie",
+    playlist_type: "character",
+  },
   lucia: {
     playlist_name: "Lucia",
     playlist_cover: "/characters/lucia.webp",

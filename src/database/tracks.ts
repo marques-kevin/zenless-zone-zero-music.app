@@ -41,6 +41,8 @@ import { YixuanTracks } from "./albums/yixuan";
 import { JufufuTracks } from "./albums/jufufu";
 import { Album21Tracks } from "./albums/2.1";
 import { YuzuhaTracks } from "./albums/yuzuha";
+import { OrphieTracks } from "./albums/orphie";
+import { SeedTracks } from "./albums/seed";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -960,6 +962,8 @@ export const tracks: Track[] = [
   ...Album21Tracks,
   ...YuzuhaTracks,
   ...Album22Tracks,
+  ...OrphieTracks,
+  ...SeedTracks,
   ...LuciaTracks,
   ...Album23Tracks,
   ...Album24Tracks,
