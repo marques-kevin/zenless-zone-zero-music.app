@@ -5,10 +5,26 @@ import { Drawer } from "vaul";
 import { connector, ContainerProps } from "./container/modal-news.container";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 import { useModal } from "@/hooks/use-modal";
-import { FormattedMessage } from "../formatted-message/formatted-message";
 import { useIntl } from "react-intl";
+import ReactMarkdown from "react-markdown";
+import { GitBranchIcon } from "lucide-react";
 
-export const Wrapper: React.FC<ContainerProps> = (props) => {
+type NewsEntry = {
+  frontmatter: {
+    published_at: string;
+    title: string;
+    description: string;
+    language: string;
+    commit_id?: string;
+  };
+  rawMarkdownBody: string;
+};
+
+type Props = ContainerProps & {
+  news: NewsEntry[];
+};
+
+export const Wrapper: React.FC<Props> = (props) => {
   const { isOpen } = useModal(MODAL_KEYS["news"]);
   const intl = useIntl();
 
@@ -21,24 +37,46 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
             <div className="mx-auto mb-8 h-1.5 w-40 flex-shrink-0 rounded-full bg-zinc-700" />
             <div className="">
               <div className="mt-4">
-                <div className="text-2xl font-medium">
-                  <FormattedMessage id="modals/news/title" />
-                </div>
-                <div className="text-zinc-400 mt-4">
-                  <FormattedMessage
-                    id="modals/news/description"
-                    values={{
-                      linebreak: <br />,
-                    }}
-                  />
-                </div>
-                <div className="mt-8 text-sm text-zinc-500">
-                  {new Intl.DateTimeFormat(intl.locale, {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }).format(props.current_news_date)}
-                </div>
+                {props.news?.map((entry, index) => {
+                  const date = new Date(entry.frontmatter.published_at);
+
+                  return (
+                    <div
+                      key={`${entry.frontmatter.published_at}-${index}`}
+                      className={
+                        index === 0
+                          ? "mt-4"
+                          : "mt-10 border-t border-zinc-700 pt-6"
+                      }
+                    >
+                      <div className="flex items-center justify-between gap-4 text-sm text-zinc-500">
+                        <div>
+                          {new Intl.DateTimeFormat(intl.locale, {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          }).format(date)}
+                        </div>
+                        {entry.frontmatter.commit_id && (
+                          <a
+                            href={`https://github.com/marques-kevin/zenless-zone-zero-music.app/commit/${entry.frontmatter.commit_id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="shrink-0 rounded-full border border-zinc-600 px-3 py-1 text-xs font-medium text-zinc-300 hover:text-zinc-50 hover:border-zinc-400 transition-colors"
+                          >
+                            <GitBranchIcon className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
+                      <div className="mt-2 text-lg font-semibold">
+                        {entry.frontmatter.title}
+                      </div>
+                      <div className="prose max-w-none text-sm prose-zinc prose-invert">
+                        <ReactMarkdown>{entry.rawMarkdownBody}</ReactMarkdown>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

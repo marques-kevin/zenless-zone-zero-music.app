@@ -6,6 +6,10 @@ export default function HomeTemplate(props: {
   pageContext: {
     lang: string;
     otherLangs: Array<{ lang: string; url: string; isDefault: boolean }>;
+    news: any;
+    most_played_songs_of_the_month: any;
+    git_version: string;
+    messages: Record<string, string>;
   };
 }) {
   return <Home {...props.pageContext} />;

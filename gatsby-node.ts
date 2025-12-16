@@ -47,8 +47,48 @@ const getMostPlayedSongsOfTheMonth = async (): Promise<
   }));
 };
 
-export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
+type NewsNode = {
+  frontmatter: {
+    published_at: string;
+    title: string;
+    description: string;
+    language: string;
+    commit_id?: string;
+  };
+  rawMarkdownBody: string;
+};
+
+export const createPages: GatsbyNode["createPages"] = async ({
+  actions,
+  graphql,
+}) => {
   const { createPage } = actions;
+
+  const newsResult = await graphql<{
+    allMarkdownRemark: { nodes: NewsNode[] };
+  }>(`
+    query NewsPagesQuery {
+      allMarkdownRemark(sort: { frontmatter: { published_at: DESC } }) {
+        nodes {
+          frontmatter {
+            published_at
+            title
+            description
+            language
+            commit_id
+          }
+          rawMarkdownBody
+        }
+      }
+    }
+  `);
+
+  if (newsResult.errors) {
+    throw newsResult.errors[0];
+  }
+
+  const allNews = newsResult.data?.allMarkdownRemark.nodes ?? [];
+  const enNews = allNews.filter((news) => news.frontmatter.language === "en");
 
   const tracks_most_played_of_the_month_from_plausible =
     await getMostPlayedSongsOfTheMonth();
@@ -75,6 +115,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
           11
         ),
         git_version: git.short(),
+        news: enNews,
       },
     });
   });

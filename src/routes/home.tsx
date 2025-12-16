@@ -26,11 +26,23 @@ import { ModalChangePlaylistPicture } from "@/components/modal-change-playlist-p
 import { ModalChangePlaylistName } from "@/components/modal-change-playlist-name/modal-change-playlist-name";
 import { DownloadAppIosModal } from "@/components/download-app-ios-modal/download-app-ios-modal";
 
+type NewsEntry = {
+  frontmatter: {
+    published_at: string;
+    title: string;
+    description: string;
+    language: string;
+    commit_id?: string;
+  };
+  rawMarkdownBody: string;
+};
+
 export const Home: React.FC<{
   lang: string;
   otherLangs: Array<{ lang: string; url: string; isDefault: boolean }>;
   most_played_songs_of_the_month: Track[];
   git_version: string;
+  news: NewsEntry[];
 }> = (props) => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -79,7 +91,7 @@ export const Home: React.FC<{
       <PlayerMobileFullScreen />
       <ModalPlaylistCreate />
       <PlaylistDetailsPaneMobile />
-      <ModalNews />
+      <ModalNews news={props.news} />
     </>
   );
 };
