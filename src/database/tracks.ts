@@ -31,8 +31,11 @@ import { VivianTracks } from "./albums/vivian";
 import { Album23Tracks } from "./albums/2.3";
 import { Album22Tracks } from "./albums/2.2";
 import { LuciaTracks } from "./albums/lucia";
+import { BanyueTracks } from "./albums/banyue";
+import { DialynTracks } from "./albums/dialyn";
 import { Album13Tracks } from "./albums/1.3";
 import { IsoldeTracks } from "./albums/isolde";
+import { Album24Tracks } from "./albums/2.4";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -949,4 +952,7 @@ export const tracks: Track[] = [
   ...Album22Tracks,
   ...LuciaTracks,
   ...Album23Tracks,
+  ...Album24Tracks,
+  ...BanyueTracks,
+  ...DialynTracks,
 ];

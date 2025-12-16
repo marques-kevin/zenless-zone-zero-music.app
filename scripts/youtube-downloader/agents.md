@@ -17,3 +17,7 @@ For example, 2.4 musics are in the 2.4 albums. If a music belongs to a character
 The file @src/database/albums.ts list all albums available.
 
 The @src/database/artists.ts file like all artists. Before, real artists was listed but now, a ZZZ version is an artist.
+
+## How to get track duration ?
+
+You can run @scripts/get-music-durations.sh to get the track duration.

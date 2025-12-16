@@ -271,6 +271,18 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "lucia",
     playlist_type: "character",
   },
+  banyue: {
+    playlist_name: "Banyue",
+    playlist_cover: "/characters/banyue.webp",
+    playlist_id: "banyue",
+    playlist_type: "character",
+  },
+  dialyn: {
+    playlist_name: "Dialyn",
+    playlist_cover: "/characters/dialyn.webp",
+    playlist_id: "dialyn",
+    playlist_type: "character",
+  },
   "1.6": {
     playlist_name: "Among the Forgotten Ruins",
     playlist_cover: "/covers/1.6.jpg",
