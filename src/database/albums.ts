@@ -283,6 +283,18 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "dialyn",
     playlist_type: "character",
   },
+  yixuan: {
+    playlist_name: "Yixuan",
+    playlist_cover: "/characters/yixuan.webp",
+    playlist_id: "yixuan",
+    playlist_type: "character",
+  },
+  jufufu: {
+    playlist_name: "Ju Fufu",
+    playlist_cover: "/characters/ju_fufu.webp",
+    playlist_id: "jufufu",
+    playlist_type: "character",
+  },
   "1.6": {
     playlist_name: "Among the Forgotten Ruins",
     playlist_cover: "/covers/1.6.jpg",
