@@ -16,7 +16,8 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
-    "i18n": "tsx src/scripts/i18n.run.ts"
+    "i18n": "tsx src/scripts/i18n.run.ts",
+    "mp3": "tsx scripts/youtube-downloader/download.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",

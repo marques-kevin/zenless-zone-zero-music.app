@@ -259,6 +259,30 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "pulchra",
     playlist_type: "character",
   },
+  hugo: {
+    playlist_name: "Hugo",
+    playlist_cover: "/characters/hugo.png",
+    playlist_id: "hugo",
+    playlist_type: "character",
+  },
+  lucia: {
+    playlist_name: "Lucia",
+    playlist_cover: "/characters/lucia.webp",
+    playlist_id: "lucia",
+    playlist_type: "character",
+  },
+  banyue: {
+    playlist_name: "Banyue",
+    playlist_cover: "/characters/banyue.webp",
+    playlist_id: "banyue",
+    playlist_type: "character",
+  },
+  dialyn: {
+    playlist_name: "Dialyn",
+    playlist_cover: "/characters/dialyn.webp",
+    playlist_id: "dialyn",
+    playlist_type: "character",
+  },
   "1.6": {
     playlist_name: "Among the Forgotten Ruins",
     playlist_cover: "/covers/1.6.jpg",
@@ -295,16 +319,10 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "2.3",
     playlist_type: "jukebox",
   },
-  hugo: {
-    playlist_name: "Hugo",
-    playlist_cover: "/characters/hugo.png",
-    playlist_id: "hugo",
-    playlist_type: "character",
-  },
-  lucia: {
-    playlist_name: "Lucia",
-    playlist_cover: "/characters/lucia.webp",
-    playlist_id: "lucia",
-    playlist_type: "character",
+  "2.4": {
+    playlist_name: "On the Precipice of the Abyss",
+    playlist_cover: "/covers/2.4.jpeg",
+    playlist_id: "2.4",
+    playlist_type: "jukebox",
   },
 };
