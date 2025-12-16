@@ -47,6 +47,14 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-sitemap",
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "news",
+        path: `${__dirname}/cms/news`,
+      },
+    },
+    "gatsby-transformer-remark",
   ],
 };
 
