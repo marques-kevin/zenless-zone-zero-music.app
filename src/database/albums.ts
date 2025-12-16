@@ -295,6 +295,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "jufufu",
     playlist_type: "character",
   },
+  yuzuha: {
+    playlist_name: "Yuzuha",
+    playlist_cover: "/characters/ukinami_yuzuha.webp",
+    playlist_id: "yuzuha",
+    playlist_type: "character",
+  },
   "1.6": {
     playlist_name: "Among the Forgotten Ruins",
     playlist_cover: "/covers/1.6.jpg",
