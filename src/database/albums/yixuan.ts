@@ -39,7 +39,7 @@ export const YixuanTracks: Track[] = [
     title: "Yunkui Summit Yixuan Theme",
     title_id: "yunkui-summit-yixuan-theme",
     source: "/musics/1.7.yunkui-summit.mp3",
-    duration: 0,
+    duration: 131,
     created_at: new Date("2025-04-23T18:31:07Z"),
     ...Artists["1.7"],
   },

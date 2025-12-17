@@ -43,6 +43,7 @@ import { Album21Tracks } from "./albums/2.1";
 import { YuzuhaTracks } from "./albums/yuzuha";
 import { OrphieTracks } from "./albums/orphie";
 import { SeedTracks } from "./albums/seed";
+import { YidhariTracks } from "./albums/yidhari";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -965,6 +966,7 @@ export const tracks: Track[] = [
   ...OrphieTracks,
   ...SeedTracks,
   ...LuciaTracks,
+  ...YidhariTracks,
   ...Album23Tracks,
   ...Album24Tracks,
   ...BanyueTracks,
