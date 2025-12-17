@@ -2,8 +2,8 @@ import * as React from "react";
 import type { HeadFC } from "gatsby";
 import { Navbar } from "@/components/navbar/navbar";
 import { Seo } from "@/components/seo/seo";
-import { Card, CardContent } from "@/components/ui/card";
 import { characters } from "@/database/characters";
+import clsx from "clsx";
 
 type RankingEntry = {
   rank: number;
@@ -11,7 +11,6 @@ type RankingEntry = {
   displayName: string;
   points: number;
   top5Share: number;
-  barColor: string;
 };
 
 const toDisplayName = (rawName: string) =>
@@ -27,7 +26,6 @@ const RANKING: RankingEntry[] = [
     displayName: "Ellen Joe",
     points: 2540,
     top5Share: 78,
-    barColor: "from-amber-400 to-yellow-500",
   },
   {
     rank: 2,
@@ -35,7 +33,6 @@ const RANKING: RankingEntry[] = [
     displayName: "Zhu Yuan",
     points: 2130,
     top5Share: 64,
-    barColor: "from-violet-400 to-purple-500",
   },
   {
     rank: 3,
@@ -43,7 +40,6 @@ const RANKING: RankingEntry[] = [
     displayName: "Anby",
     points: 1890,
     top5Share: 58,
-    barColor: "from-orange-400 to-amber-500",
   },
   {
     rank: 4,
@@ -51,7 +47,6 @@ const RANKING: RankingEntry[] = [
     displayName: "Nicole",
     points: 1560,
     top5Share: 46,
-    barColor: "from-fuchsia-400 to-pink-500",
   },
   {
     rank: 5,
@@ -59,7 +54,6 @@ const RANKING: RankingEntry[] = [
     displayName: "Lycaon",
     points: 1220,
     top5Share: 37,
-    barColor: "from-emerald-400 to-green-500",
   },
 ];
 
@@ -80,7 +74,6 @@ const FULL_RANKING: RankingEntry[] = (() => {
         displayName: toDisplayName(character.name),
         points,
         top5Share: popularity,
-        barColor: "from-zinc-600 to-zinc-400",
       };
     });
 
@@ -89,19 +82,164 @@ const FULL_RANKING: RankingEntry[] = (() => {
 
 const TOTAL_VOTES = 8420;
 
-const podium = [
-  { label: "1st", share: 45 },
-  { label: "2nd", share: 30 },
-  { label: "3rd", share: 25 },
-];
+const get_bg_color_by_rank = (rank: number) => {
+  if (rank === 1) return "bg-amber-400";
+  if (rank === 2) return "bg-violet-400";
+  if (rank === 3) return "bg-orange-400";
+  if (rank === 4) return "bg-fuchsia-400";
+  if (rank === 5) return "bg-emerald-400";
+  return "";
+};
+
+const Item = ({
+  entry,
+  character,
+}: {
+  entry: RankingEntry;
+  character: (typeof characters)[number];
+}) => {
+  return (
+    <div
+      key={entry.rank}
+      className={clsx("rounded overflow-hidden border-zinc-800")}
+    >
+      <div className="flex h-full flex-col bg-zinc-900">
+        <div className="flex relative h-full flex-col bg-transparent">
+          <div className="flex absolute px-2 py-2 top-0 left-0 right-0 items-center justify-between text-xs font-semibold uppercase tracking-wide text-zinc-300">
+            <span
+              className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] ${
+                entry.rank === 1
+                  ? "bg-amber-400 text-zinc-950"
+                  : entry.rank === 2
+                  ? "bg-violet-400 text-zinc-950"
+                  : entry.rank === 3
+                  ? "bg-orange-400 text-zinc-950"
+                  : entry.rank === 4
+                  ? "bg-fuchsia-400 text-zinc-950"
+                  : "bg-emerald-400 text-zinc-950"
+              }`}
+            >
+              {entry.rank}
+            </span>
+
+            <span className="text-[11px] bg-zinc-800 px-2 py-1 rounded-full text-zinc-50">
+              {entry.points.toLocaleString()} pts
+            </span>
+          </div>
+
+          <div className="flex flex-1 flex-col items-center gap-3">
+            <div className="overflow-hidden">
+              <div
+                style={{
+                  backgroundImage: `url(/characters/characters-background.png)`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <img
+                  src={character?.image}
+                  alt={entry.displayName}
+                  className="w-full :t-"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <span className="text-sm font-semibold uppercase tracking-wide text-zinc-50">
+                {entry.displayName}
+              </span>
+            </div>
+
+            <div className="pb-4 flex w-full flex-col gap-1.5 px-4 text-[11px] text-zinc-400">
+              <div className="flex items-center justify-between">
+                <span>Popularity</span>
+                <span className="font-semibold text-zinc-100">
+                  {entry.top5Share}%
+                </span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
+                <div
+                  className={`h-full rounded-full bg-gradient-to-r ${get_bg_color_by_rank(
+                    entry.rank
+                  )}`}
+                  style={{ width: `${entry.top5Share}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SmallItem = (props: {
+  entry: RankingEntry;
+  character: (typeof characters)[number];
+}) => {
+  return (
+    <div className="flex items-center rounded h-14 overflow-hidden bg-zinc-900 text-[10px] hover:bg-zinc-900/70">
+      <div className="relative aspect-square h-full">
+        <div className=" overflow-hidden w-full h-full bg-zinc-900">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `url(/characters/characters-background.png)`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <img
+              src={props.character?.image}
+              alt={props.entry.displayName}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <span
+          className={clsx(
+            "inline-flex absolute bottom-0 left-0 px-1 ml-0.5 mb-0.5 bg-zinc-800 text-zinc-200 rounded text-[9px] font-semibold"
+          )}
+        >
+          {props.entry.rank}
+        </span>
+      </div>
+
+      <div className="flex flex-1 px-2 flex-col">
+        <div className="mt-0.5 flex items-center justify-between gap-1">
+          <span className="truncate text-[9px] uppercase tracking-wide text-zinc-50">
+            {props.entry.displayName}
+          </span>
+          <span className="text-[9px] text-zinc-50">
+            {props.entry.points.toLocaleString()}
+          </span>
+        </div>
+        <div className="mt-1 flex items-center gap-1">
+          <div className="h-1 w-full overflow-hidden rounded-full bg-zinc-800">
+            <div
+              className={clsx(
+                "h-full rounded-full bg-zinc-500",
+                get_bg_color_by_rank(props.entry.rank)
+              )}
+              style={{ width: `${props.entry.top5Share}%` }}
+            />
+          </div>
+          <span className="text-[9px] text-zinc-500">
+            {props.entry.top5Share}%
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const CharactersLadderPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-zinc-900 text-zinc-50">
+    <div className="text-zinc-50">
       {/* Fake git version is fine here, this page is static */}
       <Navbar git_version={"dev"} />
 
-      <main className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-12 pt-6 md:px-6 lg:pt-10">
+      <main className="mx-auto space-y-4 max-w-6xl">
         <header className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-400">
             Results
@@ -116,210 +254,32 @@ const CharactersLadderPage: React.FC = () => {
           </p>
         </header>
 
-        {/* Top 5 ladder */}
-        <section
-          aria-label="Top 5 characters ranking"
-          className="grid gap-4 md:grid-cols-5"
-        >
-          {RANKING.map((entry) => {
-            const character = characters.find((c) => c.name === entry.name);
+        <div className="space-y-4">
+          {/* Top 5 ladder */}
+          <section className="grid gap-4 grid-cols-2 md:grid-cols-5">
+            {RANKING.map((entry) => {
+              const character = characters.find((c) => c.name === entry.name);
 
-            return (
-              <div
-                key={entry.rank}
-                className="relative flex flex-col rounded-xl bg-gradient-to-b from-zinc-700/60 via-zinc-900 to-zinc-950 p-[2px] shadow-lg shadow-black/40"
-              >
-                <div
-                  className={`pointer-events-none absolute inset-0 -z-10 rounded-xl bg-gradient-to-br opacity-75 ${entry.barColor}`}
+              return (
+                <Item key={entry.rank} entry={entry} character={character!} />
+              );
+            })}
+          </section>
+
+          <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
+            {FULL_RANKING.slice(5).map((entry) => {
+              const character = characters.find((c) => c.name === entry.name);
+
+              return (
+                <SmallItem
+                  key={entry.rank}
+                  entry={entry}
+                  character={character!}
                 />
-
-                <Card className="flex h-full flex-col border-none bg-gradient-to-b from-zinc-900/95 via-zinc-950 to-black/90">
-                  <CardContent className="flex h-full flex-col p-4">
-                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-zinc-300">
-                      <span
-                        className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] ${
-                          entry.rank === 1
-                            ? "bg-amber-400 text-zinc-950"
-                            : entry.rank === 2
-                            ? "bg-violet-400 text-zinc-950"
-                            : entry.rank === 3
-                            ? "bg-orange-400 text-zinc-950"
-                            : entry.rank === 4
-                            ? "bg-fuchsia-400 text-zinc-950"
-                            : "bg-emerald-400 text-zinc-950"
-                        }`}
-                      >
-                        {entry.rank}
-                        <span className="ml-1 text-[10px]">
-                          {entry.rank === 1
-                            ? "st"
-                            : entry.rank === 2
-                            ? "nd"
-                            : entry.rank === 3
-                            ? "rd"
-                            : "th"}
-                        </span>
-                      </span>
-
-                      <span className="text-[11px] text-zinc-400">
-                        {entry.points.toLocaleString()} pts
-                      </span>
-                    </div>
-
-                    <div className="mt-4 flex flex-1 flex-col items-center gap-3">
-                      <div className="relative h-28 w-24 overflow-hidden rounded-lg border border-zinc-700/80 bg-zinc-900/70 shadow-md shadow-black/60">
-                        {character ? (
-                          <img
-                            src={character.image}
-                            alt={entry.displayName}
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center text-xs text-zinc-500">
-                            No image
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex flex-col items-center text-center">
-                        <span className="text-sm font-semibold uppercase tracking-wide text-zinc-50">
-                          {entry.displayName}
-                        </span>
-                        <span className="mt-1 text-[11px] text-zinc-400">
-                          {entry.top5Share}% of all Top 5 lists
-                        </span>
-                      </div>
-
-                      <div className="mt-2 flex w-full flex-col gap-1.5 text-[11px] text-zinc-400">
-                        <div className="flex items-center justify-between">
-                          <span>Popularity</span>
-                          <span className="font-semibold text-zinc-100">
-                            {entry.top5Share}%
-                          </span>
-                        </div>
-                        <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
-                          <div
-                            className={`h-full rounded-full bg-gradient-to-r ${entry.barColor}`}
-                            style={{ width: `${entry.top5Share}%` }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            );
-          })}
-        </section>
-
-        {/* Full ladder */}
-        <section className="space-y-3">
-          <Card className="border border-zinc-700/80 overflow-hidden bg-gradient-to-b from-zinc-950 via-zinc-950 to-zinc-900">
-            <CardContent className="p-0">
-              <div className="max-h-[480px] overflow-y-auto">
-                <table className="min-w-full text-xs md:text-sm">
-                  <thead className="sticky top-0 bg-zinc-950/95 backdrop-blur">
-                    <tr className="text-[11px] uppercase tracking-wide text-zinc-500">
-                      <th className="px-4 py-2 text-left font-medium">Rank</th>
-                      <th className="px-2 py-2 text-left font-medium">
-                        Character
-                      </th>
-                      <th className="px-2 py-2 text-right font-medium">
-                        Points
-                      </th>
-                      <th className="px-4 py-2 text-right font-medium">
-                        % Top 5
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {FULL_RANKING.slice(5).map((entry) => {
-                      const character = characters.find(
-                        (c) => c.name === entry.name
-                      );
-
-                      return (
-                        <tr
-                          key={entry.rank}
-                          className={`border-t border-zinc-800/80 text-xs md:text-sm ${
-                            entry.rank <= 5
-                              ? "bg-zinc-900/60"
-                              : "hover:bg-zinc-900/50"
-                          }`}
-                        >
-                          <td className="px-4 py-2 align-middle">
-                            <span
-                              className={`inline-flex items-center justify-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                                entry.rank === 1
-                                  ? "bg-amber-400 text-zinc-950"
-                                  : entry.rank === 2
-                                  ? "bg-violet-400 text-zinc-950"
-                                  : entry.rank === 3
-                                  ? "bg-orange-400 text-zinc-950"
-                                  : entry.rank === 4
-                                  ? "bg-fuchsia-400 text-zinc-950"
-                                  : entry.rank === 5
-                                  ? "bg-emerald-400 text-zinc-950"
-                                  : "bg-zinc-800 text-zinc-200"
-                              }`}
-                            >
-                              {entry.rank}
-                            </span>
-                          </td>
-                          <td className="px-2 py-2">
-                            <div className="flex items-center gap-2">
-                              <div className="h-8 w-8 overflow-hidden rounded-md border border-zinc-700 bg-zinc-900">
-                                {character ? (
-                                  <img
-                                    src={character.image}
-                                    alt={entry.displayName}
-                                    className="h-full w-full object-cover"
-                                  />
-                                ) : (
-                                  <div className="flex h-full w-full items-center justify-center text-[10px] text-zinc-500">
-                                    N/A
-                                  </div>
-                                )}
-                              </div>
-                              <div className="flex flex-col">
-                                <span className="text-xs font-semibold text-zinc-100">
-                                  {entry.displayName}
-                                </span>
-                                <span className="text-[10px] uppercase tracking-wide text-zinc-500">
-                                  {entry.name}
-                                </span>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-2 py-2 text-right text-xs text-zinc-200">
-                            {entry.points.toLocaleString()}
-                          </td>
-                          <td className="px-4 py-2 text-right">
-                            <div className="flex flex-col items-end gap-1">
-                              <span className="text-[11px] text-zinc-100">
-                                {entry.top5Share}%
-                              </span>
-                              <div className="h-1.5 w-24 overflow-hidden rounded-full bg-zinc-800">
-                                <div
-                                  className={`h-full rounded-full bg-gradient-to-r ${
-                                    entry.rank <= 5
-                                      ? entry.barColor
-                                      : "from-zinc-600 to-zinc-400"
-                                  }`}
-                                  style={{ width: `${entry.top5Share}%` }}
-                                />
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+              );
+            })}
+          </div>
+        </div>
 
         <footer className="mt-2 flex flex-col items-start justify-between gap-3 border-t border-zinc-800 pt-4 text-xs text-zinc-400 md:flex-row md:items-center">
           <div className="flex items-center gap-2 text-sm">
@@ -347,6 +307,6 @@ export const Head: HeadFC = () => (
     title="Top 5 Characters – Zenless Zone Zero"
     description="See the global ranking of your favorite Zenless Zone Zero characters. This page currently uses fake data while we build the voting system."
     lang="en"
-    langUrls={[{ lang: "en", url: "/characters-ladder/", isDefault: true }]}
+    langUrls={[{ lang: "en", url: "/ladder/", isDefault: true }]}
   />
 );
