@@ -1,4 +1,5 @@
 import { LikesRepositoryFirebase } from "@/repositories/likes.repository.firebase";
+import { LadderRepositoryFirebase } from "@/repositories/ladder.repository.firebase";
 import { IModule } from "../interfaces/IModule";
 import { AuthRepositoryFirebase } from "@/repositories/auth.repository.firebase";
 import { PlaylistsRepositoryFirebase } from "@/repositories/playlists.repository.firebase";
@@ -15,6 +16,7 @@ export class DevelopmentModule implements IModule {
     const AnalyticsService = new AnalyticsServicePlausible();
     const LocalstorageService = new LocalstorageServiceWindow();
     const LikesRepository = new LikesRepositoryFirebase(firebase);
+    const LadderRepository = new LadderRepositoryFirebase(firebase);
 
     return {
       LocalstorageService,
@@ -22,6 +24,7 @@ export class DevelopmentModule implements IModule {
       LikesRepository,
       PlaylistsRepository,
       AnalyticsService,
+      LadderRepository,
     };
   }
 }

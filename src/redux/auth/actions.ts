@@ -53,6 +53,7 @@ export const $init =
     if (response.authenticated) {
       dispatcher(authenticate({ user: response.user }));
       dispatcher(actions.playlists.$fetch());
+      dispatcher(actions.ladder.$ladder_fetch_selection());
       dispatcher(actions.auth.$fetch_profile_picture());
       dispatcher(actions.player.$player_fetch_all_tracks_that_user_liked());
     }

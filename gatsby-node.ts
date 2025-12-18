@@ -4,11 +4,15 @@ import * as fs from "fs";
 import dotenv from "dotenv";
 import { languagesAvailable } from "./src/constants/langs";
 import { tracks } from "./src/database/tracks";
+import characters from "./cms/ladders/characters.json";
 import * as git from "git-rev-sync";
 
 dotenv.config();
 
 const HomeTemplate = path.resolve(`src/templates/home.tsx`);
+const CharactersLadderTemplate = path.resolve(
+  `src/templates/ladders/characters.tsx`
+);
 
 const getMessages = (lang: string) => {
   const filePath = path.join(__dirname, `src/i18n/messages/${lang}.json`);
@@ -87,8 +91,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
     throw newsResult.errors[0];
   }
 
-  const allNews = newsResult.data?.allMarkdownRemark.nodes ?? [];
-  const enNews = allNews.filter((news) => news.frontmatter.language === "en");
+  const all_news = newsResult.data?.allMarkdownRemark.nodes ?? [];
+  const en_news = all_news.filter((news) => news.frontmatter.language === "en");
 
   const tracks_most_played_of_the_month_from_plausible =
     await getMostPlayedSongsOfTheMonth();
@@ -99,23 +103,38 @@ export const createPages: GatsbyNode["createPages"] = async ({
     );
 
   languagesAvailable.forEach((lang) => {
+    const common_context = {
+      lang: lang.id,
+      messages: getMessages(lang.id),
+      git_version: git.short(),
+      news: en_news,
+      otherLangs: languagesAvailable.map((lang) => ({
+        lang: lang.id,
+        url: lang.id === "en" ? "/" : `/${lang.id}/`,
+        isDefault: lang.id === "en",
+      })),
+    };
+
     createPage({
       path: lang.id === "en" ? "/" : `/${lang.id}/`,
       component: HomeTemplate,
       context: {
-        lang: lang.id,
-        messages: getMessages(lang.id),
-        otherLangs: languagesAvailable.map((lang) => ({
-          lang: lang.id,
-          url: lang.id === "en" ? "/" : `/${lang.id}/`,
-          isDefault: lang.id === "en",
-        })),
         most_played_songs_of_the_month: tracks_most_played_of_the_month.slice(
           1,
           11
         ),
-        git_version: git.short(),
-        news: enNews,
+        ...common_context,
+      },
+    });
+
+    createPage({
+      path: "/ladders/characters/",
+      component: CharactersLadderTemplate,
+      context: {
+        ladders: {
+          characters: characters,
+        },
+        ...common_context,
       },
     });
   });
