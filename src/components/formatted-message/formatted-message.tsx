@@ -1,9 +1,9 @@
 import React from "react";
 import { FormattedMessage as ReactFormattedMessage } from "react-intl";
-import { Translations } from "@/types/translations.type";
+import en from "@/i18n/messages/en.json";
 
 type FormattedMessageProps = {
-  id: Translations["keys"];
+  id: keyof typeof en;
   values?: Record<string, () => React.ReactNode> | Record<string, any>;
   children?: () => React.ReactElement;
   className?: string;

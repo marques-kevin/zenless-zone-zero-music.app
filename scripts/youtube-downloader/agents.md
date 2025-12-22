@@ -7,6 +7,39 @@ The filename should begin by the zenless zone zero version, for example, 2.4 fol
 For example:
 Where Winds Meet (Battle Theme).mp3 -> 2.4--where-winds-meet--battle-theme.mp3
 
+## Downloading Music from YouTube
+
+The project includes a Docker-based YouTube downloader for easy music acquisition.
+
+### Prerequisites
+
+- **Docker** must be installed and running on your system
+
+### Usage
+
+1. **Add YouTube URLs** to `files-to-download.txt`:
+
+   - One URL per line
+   - Lines starting with `#` or blank lines are ignored
+   - Example:
+     ```
+     https://www.youtube.com/watch?v=example1
+     https://www.youtube.com/watch?v=example2
+     ```
+
+2. **Run the downloader**:
+
+   ```bash
+   yarn mp3
+   ```
+
+3. **Process downloaded files**:
+   - Files are downloaded to `scripts/youtube-downloader/files/`
+   - Move them to `musics/` directory
+   - Rename them according to the naming convention (see above)
+
+**Note:** The script uses Docker to run yt-dlp in an isolated environment. The Docker image will be built automatically on first run.
+
 ## Where the application get the metadata from tracks ?
 
 The file src/database/tracks.ts list all tracks available in the app.

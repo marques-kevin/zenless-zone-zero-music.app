@@ -2,8 +2,9 @@ import { connect, ConnectedProps } from "react-redux";
 import { actions } from "@/redux/actions";
 import { RootState } from "@/redux/store";
 import { MODAL_KEYS } from "@/constants/modal-keys";
+import { NewsEntry } from "@/types/news.type";
 
-const mapState = (state: RootState, props: { git_version: string }) => ({
+const mapState = (state: RootState, props: { git_version: string; news?: NewsEntry[] }) => ({
   is_playing: state.player.is_playing,
   current_track: state.player.current_track,
   replay_mode: state.player.replay_mode,
@@ -12,6 +13,7 @@ const mapState = (state: RootState, props: { git_version: string }) => ({
   deployed_git_version: state.global.deployed_git_version,
   current_git_version: state.global.current_git_version,
   profile_picture: state.auth.profile_picture,
+  news: props.news || [],
 });
 
 const mapDispatch = (dispatch: any) => ({

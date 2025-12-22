@@ -9,6 +9,7 @@ import { modalsReducer } from "./modals/reducers";
 import { playlistsReducer } from "./playlists/reducers";
 import { newsReducer } from "./news/reducers";
 import { globalReducer } from "./global/reducers";
+import { ladderReducer } from "./ladder/reducers";
 
 const reducers = combineReducers({
   player: playerReducer,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   auth: authReducer,
   modals: modalsReducer,
   playlists: playlistsReducer,
+  ladder: ladderReducer,
 });
 
 export const init = (initialState = {}, di: DiInjectable) => {

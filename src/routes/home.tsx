@@ -15,7 +15,6 @@ import { ModalPlaylistCreate } from "@/components/modal-playlist-create/modal-pl
 import { ModalPlaylistAddTrack } from "@/components/modal-playlist-add-track/modal-playlist-add-track";
 import { MobilePlaylistsColumn } from "@/components/mobile-playlists-column/mobile-playlists-column";
 import { PlaylistDetailsPaneMobile } from "@/components/playlist-details-pane-mobile/playlist-details-pane-mobile";
-import { ModalNews } from "@/components/modal-news/modal-news";
 import { Track } from "@/types/track.type";
 import { ModalRequestLogin } from "@/components/modal-request-login/modal-request-login";
 import { AutoUpdateChecks } from "@/components/auto-update-checks/auto-update-checks";
@@ -25,17 +24,7 @@ import { ModalChangeProfilePicture } from "@/components/modal-change-profile-pic
 import { ModalChangePlaylistPicture } from "@/components/modal-change-playlist-picture/modal-change-playlist-picture";
 import { ModalChangePlaylistName } from "@/components/modal-change-playlist-name/modal-change-playlist-name";
 import { DownloadAppIosModal } from "@/components/download-app-ios-modal/download-app-ios-modal";
-
-type NewsEntry = {
-  frontmatter: {
-    published_at: string;
-    title: string;
-    description: string;
-    language: string;
-    commit_id?: string;
-  };
-  rawMarkdownBody: string;
-};
+import { NewsEntry } from "@/types/news.type";
 
 export const Home: React.FC<{
   lang: string;
@@ -56,7 +45,7 @@ export const Home: React.FC<{
           isMobile ? "" : "h-screen"
         )}
       >
-        <Navbar git_version={props.git_version} />
+        <Navbar git_version={props.git_version} news={props.news} />
 
         <div className="grid md:grid-cols-[auto,1fr,auto] gap-2 overflow-hidden md:px-4 md:pb-0 pb-[141px]">
           <PlaylistsColumn />
@@ -91,7 +80,6 @@ export const Home: React.FC<{
       <PlayerMobileFullScreen />
       <ModalPlaylistCreate />
       <PlaylistDetailsPaneMobile />
-      <ModalNews news={props.news} />
     </>
   );
 };

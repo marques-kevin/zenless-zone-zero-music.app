@@ -72,3 +72,57 @@ export const removeHash = (params: { path: string; currentHash?: string }) => {
 
   return "#" + remainingFragments.join("&");
 };
+
+/**
+ * Formats a date as a relative time string (e.g., "5 minutes ago", "2 hours ago", "3 days ago")
+ * Falls back to absolute date if the date is more than 7 days ago
+ */
+export const formatRelativeTime = (date: Date | null, locale: string = "en"): string => {
+  if (!date) return "";
+
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  // Use Intl.RelativeTimeFormat if available
+  if (typeof Intl !== "undefined" && Intl.RelativeTimeFormat) {
+    const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
+
+    if (diffDays > 7) {
+      // For dates older than 7 days, show absolute date
+      return new Intl.DateTimeFormat(locale, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }).format(date);
+    } else if (diffDays > 0) {
+      return rtf.format(-diffDays, "day");
+    } else if (diffHours > 0) {
+      return rtf.format(-diffHours, "hour");
+    } else if (diffMinutes > 0) {
+      return rtf.format(-diffMinutes, "minute");
+    } else {
+      return rtf.format(-diffSeconds, "second");
+    }
+  }
+
+  // Fallback for browsers without Intl.RelativeTimeFormat
+  if (diffDays > 7) {
+    return new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  } else if (diffDays > 0) {
+    return `${diffDays} ${diffDays === 1 ? "day" : "days"} ago`;
+  } else if (diffHours > 0) {
+    return `${diffHours} ${diffHours === 1 ? "hour" : "hours"} ago`;
+  } else if (diffMinutes > 0) {
+    return `${diffMinutes} ${diffMinutes === 1 ? "minute" : "minutes"} ago`;
+  } else {
+    return "just now";
+  }
+};

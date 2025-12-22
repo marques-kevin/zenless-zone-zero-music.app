@@ -124,3 +124,7 @@ html {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--muted-foreground)) transparent;
 }
+
+body {
+  @apply bg-zinc-950;
+}

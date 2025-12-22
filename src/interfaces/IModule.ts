@@ -3,6 +3,7 @@ import { IAnalyticsService } from "./IAnalyticsService";
 import { IAuthRepository } from "./IAuthRepository";
 import { IPlaylistsRepository } from "./IPlaylistsRepository";
 import { ILikesRepository } from "./ILikesRepository";
+import { ILadderRepository } from "./ILadderRepository";
 
 export type Modules = {
   AuthRepository: IAuthRepository;
@@ -10,6 +11,7 @@ export type Modules = {
   AnalyticsService: IAnalyticsService;
   LocalstorageService: LocalstorageServiceWindow;
   LikesRepository: ILikesRepository;
+  LadderRepository: ILadderRepository;
 };
 
 export interface IModule {

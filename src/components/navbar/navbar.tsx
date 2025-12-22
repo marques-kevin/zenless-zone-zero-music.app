@@ -9,17 +9,9 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { FormattedMessage } from "@/components/formatted-message/formatted-message";
-import { MODAL_KEYS } from "@/constants/modal-keys";
-import { navigate } from "@reach/router";
+import { useLocation } from "@reach/router";
 import { characters } from "@/database/characters";
-import {
-  BellIcon,
-  GithubIcon,
-  LinkIcon,
-  MessageCircle,
-  RefreshCcw,
-  RefreshCcwIcon,
-} from "lucide-react";
+import { GithubIcon, LinkIcon, RefreshCcwIcon } from "lucide-react";
 import { NewsButton } from "../news-button/news-button";
 import {
   Tooltip,
@@ -30,6 +22,10 @@ import {
 import { DownloadAppButton } from "../download-app-button/download-app-button";
 import { NavbarOtherTools } from "../navbar-other-tools/navbar-other-tools";
 import { BuyMeCoffeeButton } from "../buy-me-coffee-button/buy-me-coffee-button";
+import { LadderNavbarButton } from "../ladder-navbar-button/ladder-navbar-button";
+import { Link } from "@reach/router";
+import { ModalNews } from "../modal-news/modal-news";
+import { NewsEntry } from "@/types/news.type";
 
 const DISCORD_URL = "https://discord.gg/8eJMfkRD3E";
 
@@ -46,17 +42,21 @@ const DiscordIcon = () => (
 );
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
+  const location = useLocation();
+
   const profile_picture = characters.find(
     (character) => character.name === props.profile_picture
   )?.image;
   return (
     <div className="flex items-center justify-between px-2 md:px-6 py-4 md:py-2">
-      <div className="flex items-center">
-        <img src="/logo/logo.svg" alt="Spotify" className="h-10 w-10" />
-      </div>
+      <Link to="/" className="flex items-center">
+        <img src="/logo/logo.svg" alt="Home" className="h-10 w-10" />
+      </Link>
 
       <div className="flex-1 hidden md:flex items-center gap-2 max-w-xl mx-4">
-        <NavbarSearchInput />
+        {!location.pathname.includes("/ladders/characters") && (
+          <NavbarSearchInput />
+        )}
       </div>
 
       <div className="flex items-center gap-2">
@@ -82,11 +82,15 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
 
         <DownloadAppButton />
 
+        <LadderNavbarButton />
+
         <BuyMeCoffeeButton />
 
         <NavbarOtherTools />
 
         <NewsButton />
+
+        <ModalNews news={props.news} />
 
         <DropdownMenu>
           <DropdownMenuTrigger>
