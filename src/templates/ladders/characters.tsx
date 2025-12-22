@@ -12,6 +12,22 @@ import { ModalRequestLogin } from "@/components/modal-request-login/modal-reques
 import { Ladder } from "@/types/ladders.type";
 import { characters as ALL_CHARACTERS } from "@/database/characters";
 import { LaddersCharactersStatsModal } from "@/components/ladders-characters-stats-modal/ladders-characters-stats-modal";
+import { FormattedMessage } from "@/components/formatted-message/formatted-message";
+import { useIntl } from "react-intl";
+import { SelectLanguageModal } from "@/components/select-language-modal/select-language-modal";
+import { AudioGlobalHtmlComponent } from "@/components/audio-global-html-component/audio-global-html-component";
+import { PlayerBar } from "@/components/player-bar/player-bar";
+import { KeyboardEventsListener } from "@/components/keyboard-events-listener/keyboard-events-listener";
+import { AutoUpdateChecks } from "@/components/auto-update-checks/auto-update-checks";
+import { DownloadAppIosModal } from "@/components/download-app-ios-modal/download-app-ios-modal";
+import { ModalChangeProfilePicture } from "@/components/modal-change-profile-picture/modal-change-profile-picture";
+import { ModalChangePlaylistPicture } from "@/components/modal-change-playlist-picture/modal-change-playlist-picture";
+import { ModalChangePlaylistName } from "@/components/modal-change-playlist-name/modal-change-playlist-name";
+import { MobileNavbar } from "@/components/mobile-navbar/mobile-navbar";
+import { PlayerMobileFullScreen } from "@/components/player-mobile-full-screen/player-mobile-full-screen";
+import { TrophyIcon } from "lucide-react";
+import { NewsEntry } from "@/types/news.type";
+import { formatRelativeTime } from "@/lib/utils";
 
 const characters_map = ALL_CHARACTERS.reduce((acc, character) => {
   acc[character.name] = character;
@@ -75,7 +91,8 @@ const Item = ({
             </span>
 
             <span className="text-[11px] bg-zinc-800 px-2 py-1 rounded-full text-zinc-50">
-              {entry.points.toLocaleString()} pts
+              {entry.points.toLocaleString()}{" "}
+              <FormattedMessage id="ladder/characters/item/points-suffix" />
             </span>
           </div>
 
@@ -100,7 +117,9 @@ const Item = ({
 
             <div className="pb-4 flex w-full flex-col gap-1.5 px-4 text-[11px] text-zinc-400">
               <div className="flex items-center justify-between">
-                <span>Popularity</span>
+                <span>
+                  <FormattedMessage id="ladder/characters/item/popularity-label" />
+                </span>
                 <span className="font-semibold text-zinc-100">
                   {entry.popularity}%
                 </span>
@@ -194,6 +213,12 @@ type PageContext = {
   ladders: {
     characters: Ladder;
   };
+  lang: string;
+  messages: Record<string, string>;
+  git_version: string;
+  build_time: string;
+  otherLangs: Array<{ lang: string; url: string; isDefault: boolean }>;
+  news?: NewsEntry[];
 };
 
 type Props = PageProps<null, PageContext>;
@@ -202,6 +227,8 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
   const characters = props.pageContext.ladders.characters;
 
   const dispatch = useDispatch<any>();
+  const intl = useIntl();
+  const deployed_at = new Date(props.pageContext.build_time);
 
   const [character_details_selected, set_character_details_selected] =
     React.useState<string | null>(null);
@@ -231,8 +258,10 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
   return (
     <>
       <div className="text-zinc-50">
-        {/* Fake git version is fine here, this page is static */}
-        <Navbar git_version={"dev"} />
+        <Navbar
+          git_version={props.pageContext.git_version}
+          news={props.pageContext.news}
+        />
 
         {/* Floating action button to pick top 5 */}
         <button
@@ -242,30 +271,57 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
               actions.modals.$open({ key: MODAL_KEYS["ladder-selection"] })
             )
           }
-          className="fixed bottom-6 right-4 md:right-6 z-40 inline-flex items-center gap-2 rounded-full bg-indigo-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-950 shadow-lg hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
+          className="fixed bottom-6 right-4 md:right-6 z-40 inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 px-5 py-3.5 text-sm font-bold uppercase tracking-wide text-zinc-950 shadow-2xl hover:shadow-amber-500/50 hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-400/50 transition-all duration-300 hover:animate-none border-2 border-amber-400/30"
         >
-          <span className="hidden sm:inline">Pick my top 5</span>
-          <span className="sm:hidden">Top 5</span>
+          <TrophyIcon className="w-5 h-5 md:w-6 md:h-6 drop-shadow-lg" />
+          <span className="hidden sm:inline drop-shadow-sm">
+            <FormattedMessage id="ladder/characters/fab/label-full" />
+          </span>
+          <span className="sm:hidden drop-shadow-sm">
+            <FormattedMessage id="ladder/characters/fab/label-short" />
+          </span>
         </button>
 
-        <main className="mx-auto space-y-10 mt-8 max-w-6xl">
+        <main className="mx-auto space-y-10 mt-8 max-w-6xl px-4">
           <div className="space-y-4">
+            {/* Top 1 - Full width on mobile */}
+            {top1 && (
+              <div className="md:hidden">
+                <Item
+                  key={top1.rank}
+                  entry={{
+                    id: top1.id,
+                    rank: top1.rank,
+                    points: top1.points,
+                    popularity: top1.popularity,
+                  }}
+                  character={characters_map[top1.id]!}
+                  onClick={() => set_character_details_selected(top1.id)}
+                />
+              </div>
+            )}
+
+            {/* Top 2-5 - 2 columns on mobile, 5 columns on desktop */}
             <section className="grid gap-4 grid-cols-2 md:grid-cols-5">
               {characters.ladder.slice(0, 5).map((entry) => {
                 const character = characters_map[entry.id];
 
                 return (
-                  <Item
+                  <div
                     key={entry.rank}
-                    entry={{
-                      id: entry.id,
-                      rank: entry.rank,
-                      points: entry.points,
-                      popularity: entry.popularity,
-                    }}
-                    character={character!}
-                    onClick={() => set_character_details_selected(entry.id)}
-                  />
+                    className={entry.rank === 1 ? "hidden md:block" : ""}
+                  >
+                    <Item
+                      entry={{
+                        id: entry.id,
+                        rank: entry.rank,
+                        points: entry.points,
+                        popularity: entry.popularity,
+                      }}
+                      character={character!}
+                      onClick={() => set_character_details_selected(entry.id)}
+                    />
+                  </div>
                 );
               })}
             </section>
@@ -288,67 +344,88 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
 
           <header className="space-y-2 mt-8">
             <h1 className="text-2xl font-semibold uppercase tracking-wide text-zinc-50 md:text-3xl">
-              Most popular characters in Zenless Zone Zero
+              <FormattedMessage id="ladder/characters/title" />
             </h1>
 
             <p className="max-w-3xl text-sm text-zinc-400 md:text-base">
-              This ranking is built from players choosing their{" "}
-              <span className="font-semibold text-zinc-200">
-                top 5 characters
-              </span>
-              . Each first-place vote is worth 5 points (then 4, 3, 2, 1), so
-              you can see not only who appears most often, but{" "}
-              <span className="font-semibold text-zinc-200">
-                how strongly each character is liked
-              </span>{" "}
-              based on community preferences.
+              <FormattedMessage
+                id="ladder/characters/description/intro"
+                values={{
+                  top5_label: (
+                    <span className="font-semibold text-zinc-200">
+                      <FormattedMessage id="ladder/characters/description/top5-label" />
+                    </span>
+                  ),
+                  how_strongly_label: (
+                    <span className="font-semibold text-zinc-200">
+                      <FormattedMessage id="ladder/characters/description/how-strongly-label" />
+                    </span>
+                  ),
+                }}
+              />
               {has_full_top5 && (
                 <>
                   {" "}
-                  Right now, the community’s absolute favorite is{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {to_display_name(top1.id)}
-                  </span>
-                  , who appears in the top 5{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {top1_stats.total_votes.toLocaleString()}
-                  </span>{" "}
-                  times, with{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {top1_stats.total_votes_1.toLocaleString()}
-                  </span>{" "}
-                  players putting them in{" "}
-                  <span className="font-semibold text-zinc-100">
-                    first place
-                  </span>
-                  . Just behind,{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {to_display_name(top2.id)}
-                  </span>
-                  ,{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {to_display_name(top3.id)}
-                  </span>
-                  ,{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {to_display_name(top4.id)}
-                  </span>{" "}
-                  and{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {to_display_name(top5_entry.id)}
-                  </span>{" "}
-                  regularly appear in players’ shortlists, showing up a combined{" "}
-                  <span className="font-semibold text-zinc-100">
-                    {(
-                      top2_stats.total_votes +
-                      top3_stats.total_votes +
-                      top4_stats.total_votes +
-                      top5_stats.total_votes
-                    ).toLocaleString()}
-                  </span>{" "}
-                  times in top 5 lists. Together, these five agents give a clear
-                  picture of which characters Zenless Zone Zero players like the
-                  most and who tends to dominate the first-place slot.
+                  <FormattedMessage
+                    id="ladder/characters/description/top1"
+                    values={{
+                      top1_name: (
+                        <span className="font-semibold text-zinc-100">
+                          {to_display_name(top1.id)}
+                        </span>
+                      ),
+                      top1_total_votes: (
+                        <span className="font-semibold text-zinc-100">
+                          {top1_stats.total_votes.toLocaleString()}
+                        </span>
+                      ),
+                      top1_first_votes: (
+                        <span className="font-semibold text-zinc-100">
+                          {top1_stats.total_votes_1.toLocaleString()}
+                        </span>
+                      ),
+                      first_place_label: (
+                        <span className="font-semibold text-zinc-100">
+                          <FormattedMessage id="ladder/characters/description/first-place-label" />
+                        </span>
+                      ),
+                    }}
+                  />{" "}
+                  <FormattedMessage
+                    id="ladder/characters/description/top2-5"
+                    values={{
+                      top2_name: (
+                        <span className="font-semibold text-zinc-100">
+                          {to_display_name(top2.id)}
+                        </span>
+                      ),
+                      top3_name: (
+                        <span className="font-semibold text-zinc-100">
+                          {to_display_name(top3.id)}
+                        </span>
+                      ),
+                      top4_name: (
+                        <span className="font-semibold text-zinc-100">
+                          {to_display_name(top4.id)}
+                        </span>
+                      ),
+                      top5_name: (
+                        <span className="font-semibold text-zinc-100">
+                          {to_display_name(top5_entry.id)}
+                        </span>
+                      ),
+                      total_top5_votes: (
+                        <span className="font-semibold text-zinc-100">
+                          {(
+                            top2_stats.total_votes +
+                            top3_stats.total_votes +
+                            top4_stats.total_votes +
+                            top5_stats.total_votes
+                          ).toLocaleString()}
+                        </span>
+                      ),
+                    }}
+                  />
                 </>
               )}
             </p>
@@ -367,16 +444,30 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
           <footer className="mt-2 flex flex-col items-start justify-between gap-3 border-t border-zinc-800 pt-4 text-xs text-zinc-400 md:flex-row md:items-center">
             <div className="flex items-center gap-2 text-sm">
               <span className="inline-flex items-center rounded-full bg-orange-500/20 px-3 py-1 font-semibold text-orange-300">
-                Total votes:{" "}
-                <span className="ml-1 text-orange-100">
-                  {characters.total_votes.toLocaleString()}
-                </span>
+                <FormattedMessage
+                  id="ladder/characters/footer/total-votes"
+                  values={{
+                    count: (
+                      <span className="ml-1 text-orange-100">
+                        {characters.total_votes.toLocaleString()}
+                      </span>
+                    ),
+                  }}
+                />
               </span>
             </div>
 
             <p className="text-[11px] text-zinc-500">
-              Last updated: <span className="font-medium">5 minutes ago</span>{" "}
-              (placeholder).
+              <FormattedMessage
+                id="ladder/characters/footer/last-updated"
+                values={{
+                  timestamp: (
+                    <span className="font-medium">
+                      {formatRelativeTime(deployed_at, intl.locale)}
+                    </span>
+                  ),
+                }}
+              />
             </p>
           </footer>
         </main>
@@ -384,17 +475,26 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
 
       <LadderSelectionModal />
       <ModalRequestLogin />
+      <SelectLanguageModal />
+      <AutoUpdateChecks git_version={props.pageContext.git_version} />
+      <DownloadAppIosModal />
+      <ModalChangeProfilePicture />
+      <ModalChangePlaylistPicture />
+      <ModalChangePlaylistName />
     </>
   );
 };
 
 export default CharactersLadderPage;
 
-export const Head: HeadFC = () => (
-  <Seo
-    title="Top 5 Characters – Zenless Zone Zero"
-    description="See the global ranking of your favorite Zenless Zone Zero characters. This page currently uses fake data while we build the voting system."
-    lang="en"
-    langUrls={[{ lang: "en", url: "/ladder/", isDefault: true }]}
-  />
-);
+export const Head: HeadFC<null, PageContext> = (props) => {
+  const messages = props.pageContext.messages;
+  return (
+    <Seo
+      title={messages["ladder/characters/seo-title"]}
+      description={messages["ladder/characters/seo-description"]}
+      lang={props.pageContext.lang}
+      langUrls={props.pageContext.otherLangs}
+    />
+  );
+};

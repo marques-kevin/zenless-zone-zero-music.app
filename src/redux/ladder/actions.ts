@@ -40,6 +40,10 @@ export const $ladder_publish_selection =
             key: MODAL_KEYS["ladder-selection"],
           })
         );
+
+        alert(
+          "Selection published successfully, we will update the ladder soon!"
+        );
       })
     );
   };

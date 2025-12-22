@@ -8,17 +8,7 @@ import { useModal } from "@/hooks/use-modal";
 import { useIntl } from "react-intl";
 import ReactMarkdown from "react-markdown";
 import { GitBranchIcon } from "lucide-react";
-
-type NewsEntry = {
-  frontmatter: {
-    published_at: string;
-    title: string;
-    description: string;
-    language: string;
-    commit_id?: string;
-  };
-  rawMarkdownBody: string;
-};
+import { NewsEntry } from "@/types/news.type";
 
 type Props = ContainerProps & {
   news: NewsEntry[];

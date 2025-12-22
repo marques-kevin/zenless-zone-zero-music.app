@@ -24,6 +24,8 @@ import { NavbarOtherTools } from "../navbar-other-tools/navbar-other-tools";
 import { BuyMeCoffeeButton } from "../buy-me-coffee-button/buy-me-coffee-button";
 import { LadderNavbarButton } from "../ladder-navbar-button/ladder-navbar-button";
 import { Link } from "@reach/router";
+import { ModalNews } from "../modal-news/modal-news";
+import { NewsEntry } from "@/types/news.type";
 
 const DISCORD_URL = "https://discord.gg/8eJMfkRD3E";
 
@@ -52,7 +54,9 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
       </Link>
 
       <div className="flex-1 hidden md:flex items-center gap-2 max-w-xl mx-4">
-        {!location.pathname.includes("/ladder") && <NavbarSearchInput />}
+        {!location.pathname.includes("/ladders/characters") && (
+          <NavbarSearchInput />
+        )}
       </div>
 
       <div className="flex items-center gap-2">
@@ -85,6 +89,8 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
         <NavbarOtherTools />
 
         <NewsButton />
+
+        <ModalNews news={props.news} />
 
         <DropdownMenu>
           <DropdownMenuTrigger>

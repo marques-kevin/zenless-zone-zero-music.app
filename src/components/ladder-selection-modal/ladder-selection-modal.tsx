@@ -9,6 +9,7 @@ import { useModal } from "@/hooks/use-modal";
 import { Modal } from "@/components/ui/modal";
 import { characters as ALL_CHARACTERS } from "@/database/characters";
 import clsx from "clsx";
+import { FormattedMessage } from "@/components/formatted-message/formatted-message";
 
 const NUMBER_OF_SELECTED_CHARACTERS = 5;
 
@@ -52,14 +53,22 @@ const Wrapper: React.FC<ContainerProps> = (props) => {
   return (
     <Modal isOpen={isOpen} onClose={props.on_close}>
       <div className="mt-4">
-        <div className="text-2xl font-medium">Pick your top 5 agents</div>
+        <div className="text-2xl font-medium">
+          <FormattedMessage id="ladder/selection/title" />
+        </div>
         <div className="text-zinc-400 mt-3 text-sm">
-          Select up to five characters. The{" "}
-          <span className="font-semibold text-zinc-100">first</span> you select
-          is your{" "}
-          <span className="font-semibold text-zinc-100">#1 favorite</span>, then
-          #2, #3, #4 and #5. Clicking a selected agent will{" "}
-          <span className="font-semibold text-zinc-100">unselect</span> it.
+          <FormattedMessage
+            id="ladder/selection/description"
+            values={{
+              first: <span className="font-semibold text-zinc-100">first</span>,
+              favorite: (
+                <span className="font-semibold text-zinc-100">#1 favorite</span>
+              ),
+              unselect: (
+                <span className="font-semibold text-zinc-100">unselect</span>
+              ),
+            }}
+          />
         </div>
 
         <button
@@ -76,7 +85,7 @@ const Wrapper: React.FC<ContainerProps> = (props) => {
             props.on_save(selected_characters);
           }}
         >
-          Save
+          <FormattedMessage id="ladder/selection/save" />
         </button>
 
         <div className="mt-6 text-zinc-500 grid grid-cols-3 md:grid-cols-4 gap-4">

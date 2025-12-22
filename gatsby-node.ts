@@ -102,11 +102,14 @@ export const createPages: GatsbyNode["createPages"] = async ({
       tracks.find((result) => result.title_id === track.track_id)
     );
 
+  const build_time = new Date().toISOString();
+
   languagesAvailable.forEach((lang) => {
     const common_context = {
       lang: lang.id,
       messages: getMessages(lang.id),
       git_version: git.short(),
+      build_time: build_time,
       news: en_news,
       otherLangs: languagesAvailable.map((lang) => ({
         lang: lang.id,
@@ -128,7 +131,10 @@ export const createPages: GatsbyNode["createPages"] = async ({
     });
 
     createPage({
-      path: "/ladders/characters/",
+      path:
+        lang.id === "en"
+          ? "/ladders/characters/"
+          : `/${lang.id}/ladders/characters/`,
       component: CharactersLadderTemplate,
       context: {
         ladders: {

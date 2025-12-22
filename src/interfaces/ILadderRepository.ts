@@ -14,3 +14,4 @@ export interface ILadderRepository {
     selection: string[];
   }): Promise<IRepositoryResponse<LadderSelection>>;
 }
+

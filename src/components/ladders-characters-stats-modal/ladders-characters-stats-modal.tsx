@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "@/components/ui/modal";
 import { Ladder } from "@/types/ladders.type";
 import { characters } from "@/database/characters";
+import { FormattedMessage } from "@/components/formatted-message/formatted-message";
 
 const get_bg_color_by_rank = (rank: number) => {
   if (rank === 1) return "bg-amber-400 text-zinc-950";
@@ -36,12 +37,27 @@ export const LaddersCharactersStatsModal: React.FC<{
   const is_open = props.data !== null && props.character !== null;
 
   const positions = [
-    { label: "Top 1", value: data.total_votes_1 },
-    { label: "Top 2", value: data.total_votes_2 },
-    { label: "Top 3", value: data.total_votes_3 },
-    { label: "Top 4", value: data.total_votes_4 },
-    { label: "Top 5", value: data.total_votes_5 },
-  ];
+    {
+      labelId: "ladder/characters/stats/position-top1",
+      value: data.total_votes_1,
+    },
+    {
+      labelId: "ladder/characters/stats/position-top2",
+      value: data.total_votes_2,
+    },
+    {
+      labelId: "ladder/characters/stats/position-top3",
+      value: data.total_votes_3,
+    },
+    {
+      labelId: "ladder/characters/stats/position-top4",
+      value: data.total_votes_4,
+    },
+    {
+      labelId: "ladder/characters/stats/position-top5",
+      value: data.total_votes_5,
+    },
+  ] as const;
 
   return (
     <Modal isOpen={is_open} onClose={props.onClose}>
@@ -87,7 +103,7 @@ export const LaddersCharactersStatsModal: React.FC<{
         <div className="mt-4 grid grid-cols-3 gap-3 text-[11px] text-zinc-300">
           <div className="space-y-1">
             <p className="text-[10px] uppercase tracking-wide text-zinc-500">
-              Total votes
+              <FormattedMessage id="ladder/characters/stats/total-votes-label" />
             </p>
             <p className="text-base font-semibold text-zinc-50">
               {data.total_votes.toLocaleString()}
@@ -95,7 +111,7 @@ export const LaddersCharactersStatsModal: React.FC<{
           </div>
           <div className="space-y-1">
             <p className="text-[10px] uppercase tracking-wide text-zinc-500">
-              Popularity
+              <FormattedMessage id="ladder/characters/stats/popularity-label" />
             </p>
             <p className="text-base font-semibold text-zinc-50">
               {data.popularity}%
@@ -103,7 +119,7 @@ export const LaddersCharactersStatsModal: React.FC<{
           </div>
           <div className="space-y-1">
             <p className="text-[10px] uppercase tracking-wide text-zinc-500">
-              Points
+              <FormattedMessage id="ladder/characters/stats/points-label" />
             </p>
             <p className="text-base font-semibold text-zinc-50">
               {data.points.toLocaleString()}
@@ -113,7 +129,7 @@ export const LaddersCharactersStatsModal: React.FC<{
 
         <div className="mt-5 space-y-2">
           <p className="text-[10px] uppercase tracking-wide text-zinc-500">
-            Votes by position in top 5
+            <FormattedMessage id="ladder/characters/stats/positions-label" />
           </p>
           <div className="space-y-1.5">
             {positions.map((position) => {
@@ -124,10 +140,21 @@ export const LaddersCharactersStatsModal: React.FC<{
 
               return (
                 <div
-                  key={position.label}
+                  key={position.labelId}
                   className="flex items-center gap-2 text-[11px]"
                 >
-                  <span className="w-16 text-zinc-400">{position.label}</span>
+                  <span className="w-16 text-zinc-400">
+                    <FormattedMessage
+                      id={
+                        position.labelId as
+                          | "ladder/characters/stats/position-top1"
+                          | "ladder/characters/stats/position-top2"
+                          | "ladder/characters/stats/position-top3"
+                          | "ladder/characters/stats/position-top4"
+                          | "ladder/characters/stats/position-top5"
+                      }
+                    />
+                  </span>
                   <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-800">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-sky-400 to-cyan-300"
