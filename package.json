@@ -14,7 +14,6 @@
     "serve:musics": "npx serve -p 28474",
     "sync-music": "tsx scripts/sync-music.ts",
     "ladder:stats": "tsx scripts/generate-ladder-stats.ts",
-    "ladder:fake": "tsx scripts/generate-fake-ladders.ts",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
