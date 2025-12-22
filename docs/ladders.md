@@ -12,6 +12,7 @@ The ladder system uses a **build-time data fetching** approach to minimize Fireb
 4. **Result**: The app displays ladder data without making any runtime Firebase reads
 
 This architecture ensures that:
+
 - Firebase read costs are minimal (only during build-time, not on every page load)
 - The ladder page loads instantly (no API calls needed)
 - Data is always consistent for all users (snapshot at build time)
@@ -78,6 +79,7 @@ Users can submit their character rankings through the app:
 - Each document is keyed by `user_id` and contains a `characters` array
 
 **Example Firebase document:**
+
 ```json
 {
   "user_id": "abc123",
@@ -94,10 +96,12 @@ The `generate-ladder-stats.ts` script processes all ladder data:
 **What it does:**
 
 1. **Fetches all ladders** from Firebase Firestore
+
    - Uses Firebase Admin SDK (server-side)
    - Requires Firebase service account credentials
 
 2. **Computes statistics** for each character:
+
    - **Points**: Weighted scoring system
      - Position 1 = 5 points
      - Position 2 = 4 points
@@ -118,8 +122,8 @@ yarn ladder:stats
 ```
 
 **Prerequisites:**
+
 - Firebase service account credentials in environment variables:
-  - `FIREBASE_PROJECT_ID`
   - `FIREBASE_CLIENT_EMAIL`
   - `FIREBASE_PRIVATE_KEY`
 
@@ -128,11 +132,13 @@ yarn ladder:stats
 During the Gatsby build process (`gatsby-node.ts`):
 
 1. **Imports the JSON file**:
+
    ```typescript
    import characters from "./cms/ladders/characters.json";
    ```
 
 2. **Passes data as page context** to the ladder template:
+
    ```typescript
    createPage({
      path: "/ladders/characters/",
@@ -162,6 +168,7 @@ The ladder page (`src/templates/ladders/characters.tsx`) receives the data as pa
 ### Input (Firebase)
 
 Each ladder document in Firestore:
+
 ```typescript
 {
   characters: string[]; // Array of character names, max 5
@@ -176,23 +183,26 @@ The generated `cms/ladders/characters.json` file structure:
 {
   total_votes: number; // Total number of users who submitted ladders
   ladder: Array<{
-    id: string;           // Character name
-    rank: number;         // Overall rank (1-based)
-    points: number;       // Total weighted points
-    popularity: number;   // Percentage [0-100]
+    id: string; // Character name
+    rank: number; // Overall rank (1-based)
+    points: number; // Total weighted points
+    popularity: number; // Percentage [0-100]
   }>;
-  characters: Record<string, {
-    id: string;
-    total_votes: number;      // Times selected in any position
-    popularity: number;        // Percentage [0-100]
-    points: number;           // Total weighted points
-    rank: number;             // Overall rank
-    total_votes_1: number;    // Votes in position 1
-    total_votes_2: number;    // Votes in position 2
-    total_votes_3: number;    // Votes in position 3
-    total_votes_4: number;    // Votes in position 4
-    total_votes_5: number;    // Votes in position 5
-  }>;
+  characters: Record<
+    string,
+    {
+      id: string;
+      total_votes: number; // Times selected in any position
+      popularity: number; // Percentage [0-100]
+      points: number; // Total weighted points
+      rank: number; // Overall rank
+      total_votes_1: number; // Votes in position 1
+      total_votes_2: number; // Votes in position 2
+      total_votes_3: number; // Votes in position 3
+      total_votes_4: number; // Votes in position 4
+      total_votes_5: number; // Votes in position 5
+    }
+  >;
 }
 ```
 
@@ -201,17 +211,20 @@ The generated `cms/ladders/characters.json` file structure:
 ### Why This Approach?
 
 **Problem**: If ladder data were fetched at runtime:
+
 - Every page load would trigger Firebase reads
 - With thousands of users, this could result in thousands of reads per day
 - Firebase charges per read operation
 
 **Solution**: Build-time data fetching
+
 - Data is fetched **once** during the build process
 - All users see the same snapshot (consistent experience)
 - Zero runtime Firebase reads for ladder display
 - Cost scales with build frequency, not user traffic
 
 **Trade-offs:**
+
 - ✅ Minimal Firebase costs
 - ✅ Fast page loads (no API calls)
 - ✅ Consistent data for all users
@@ -223,11 +236,13 @@ The generated `cms/ladders/characters.json` file structure:
 To update the ladder statistics:
 
 1. **Run the generation script**:
+
    ```bash
    yarn ladder:stats
    ```
 
 2. **Commit the updated JSON file**:
+
    ```bash
    git add cms/ladders/characters.json
    git commit -m "Update ladder statistics"
@@ -270,4 +285,3 @@ All characters from the database are included in the output, even if they have z
 - **Build Config**: `gatsby-node.ts`
 - **Types**: `src/types/ladders.type.ts`
 - **Repository**: `src/repositories/ladder.repository.firebase.ts`
-

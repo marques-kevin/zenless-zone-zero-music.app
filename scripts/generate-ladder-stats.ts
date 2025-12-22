@@ -7,7 +7,7 @@ import { characters as all_characters } from "../src/database/characters";
 
 dotenv.config();
 
-const firebase_project_id = process.env.FIREBASE_PROJECT_ID;
+const firebase_project_id = process.env.GATSBY_FIREBASE_PROJECT_ID;
 const firebase_client_email = process.env.FIREBASE_CLIENT_EMAIL;
 const firebase_private_key_env = process.env.FIREBASE_PRIVATE_KEY;
 
@@ -17,7 +17,7 @@ if (
   !firebase_private_key_env
 ) {
   throw new Error(
-    "Missing FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL or FIREBASE_PRIVATE_KEY in firebase.env"
+    "Missing GATSBY_FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL or FIREBASE_PRIVATE_KEY in firebase.env"
   );
 }
 
