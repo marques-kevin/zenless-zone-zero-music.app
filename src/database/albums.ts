@@ -265,6 +265,24 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "hugo",
     playlist_type: "character",
   },
+  seed: {
+    playlist_name: "Seed",
+    playlist_cover: "/characters/seed.webp",
+    playlist_id: "seed",
+    playlist_type: "character",
+  },
+  yidhari: {
+    playlist_name: "Yidhari",
+    playlist_cover: "/characters/yidhari.webp",
+    playlist_id: "yidhari",
+    playlist_type: "character",
+  },
+  orphie: {
+    playlist_name: "Orphie",
+    playlist_cover: "/characters/orphie.webp",
+    playlist_id: "orphie",
+    playlist_type: "character",
+  },
   lucia: {
     playlist_name: "Lucia",
     playlist_cover: "/characters/lucia.webp",
@@ -281,6 +299,24 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_name: "Dialyn",
     playlist_cover: "/characters/dialyn.webp",
     playlist_id: "dialyn",
+    playlist_type: "character",
+  },
+  yixuan: {
+    playlist_name: "Yixuan",
+    playlist_cover: "/characters/yixuan.webp",
+    playlist_id: "yixuan",
+    playlist_type: "character",
+  },
+  jufufu: {
+    playlist_name: "Ju Fufu",
+    playlist_cover: "/characters/ju_fufu.webp",
+    playlist_id: "jufufu",
+    playlist_type: "character",
+  },
+  yuzuha: {
+    playlist_name: "Yuzuha",
+    playlist_cover: "/characters/ukinami_yuzuha.webp",
+    playlist_id: "yuzuha",
     playlist_type: "character",
   },
   "1.6": {
