@@ -25,7 +25,6 @@ const reducers = combineReducers({
 export const init = (initialState = {}, di: DiInjectable) => {
   const store = configureStore({
     reducer: reducers,
-    preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,

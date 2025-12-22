@@ -85,7 +85,7 @@
   "ladder/characters/fab/label-short": "Top 5",
 
   "ladder/characters/footer/total-votes": "Total votes: {count}",
-  "ladder/characters/footer/last-updated": "Last updated: {timestamp}",
+  "ladder/characters/footer/last-updated": "Last updated: {timestamp} • Updated daily",
 
   "ladder/characters/item/popularity-label": "Popularity",
   "ladder/characters/item/points-suffix": "pts",

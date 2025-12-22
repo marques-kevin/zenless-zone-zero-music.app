@@ -114,7 +114,7 @@ export const LaddersCharactersStatsModal: React.FC<{
               <FormattedMessage id="ladder/characters/stats/popularity-label" />
             </p>
             <p className="text-base font-semibold text-zinc-50">
-              {data.popularity}%
+              {data.popularity.toFixed(1)}%
             </p>
           </div>
           <div className="space-y-1">
@@ -133,9 +133,17 @@ export const LaddersCharactersStatsModal: React.FC<{
           </p>
           <div className="space-y-1.5">
             {positions.map((position) => {
+              // Calculate ratio relative to the maximum value among all positions
+              const maxPositionVotes = Math.max(
+                data.total_votes_1,
+                data.total_votes_2,
+                data.total_votes_3,
+                data.total_votes_4,
+                data.total_votes_5
+              );
               const ratio = Math.min(
                 1,
-                position.value / Math.max(1, data.total_votes_1)
+                position.value / Math.max(1, maxPositionVotes)
               );
 
               return (

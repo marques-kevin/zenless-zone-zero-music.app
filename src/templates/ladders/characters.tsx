@@ -97,15 +97,20 @@ const Item = ({
           </div>
 
           <div className="flex flex-1 flex-col items-center gap-3">
-            <div className="overflow-hidden">
+            <div className="w-full overflow-hidden aspect-square">
               <div
+                className="w-full h-full"
                 style={{
                   backgroundImage: `url(/characters/characters-background.png)`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
               >
-                <img src={character?.image} alt={entry.id} className="w-full" />
+                <img
+                  src={character?.image}
+                  alt={entry.id}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
@@ -121,7 +126,7 @@ const Item = ({
                   <FormattedMessage id="ladder/characters/item/popularity-label" />
                 </span>
                 <span className="font-semibold text-zinc-100">
-                  {entry.popularity}%
+                  {entry.popularity.toFixed(1)}%
                 </span>
               </div>
               <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
@@ -201,7 +206,7 @@ const SmallItem = (props: {
             />
           </div>
           <span className="text-[9px] text-zinc-500">
-            {props.entry.popularity}%
+            {props.entry.popularity.toFixed(1)}%
           </span>
         </div>
       </div>
@@ -283,7 +288,7 @@ const CharactersLadderPage: React.FC<Props> = (props) => {
         </button>
 
         <main className="mx-auto space-y-10 mt-8 max-w-6xl px-4">
-          <div className="space-y-4">
+          <div id="ladder-content" className="space-y-4">
             {/* Top 1 - Full width on mobile */}
             {top1 && (
               <div className="md:hidden">
