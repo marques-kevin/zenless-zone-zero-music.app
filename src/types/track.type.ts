@@ -8,8 +8,10 @@ export type Track = {
   playlist_cover: string;
   playlist_id: string;
   playlist_name: string;
-  playlist_type: "jukebox" | "character";
+  playlist_type: "jukebox" | "character" | "most_liked";
   created_at: Date;
+  number_of_likes?: number;
+  number_of_plays?: number;
 };
 
 export type TrackWithLikes = {

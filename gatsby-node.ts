@@ -1,13 +1,10 @@
+import "dotenv/config";
 import { GatsbyNode } from "gatsby";
 import * as path from "path";
 import * as fs from "fs";
-import dotenv from "dotenv";
 import { languagesAvailable } from "./src/constants/langs";
-import { tracks } from "./src/database/tracks";
 import characters from "./cms/ladders/characters.json";
 import * as git from "git-rev-sync";
-
-dotenv.config();
 
 const HomeTemplate = path.resolve(`src/templates/home.tsx`);
 const CharactersLadderTemplate = path.resolve(
@@ -18,37 +15,6 @@ const getMessages = (lang: string) => {
   const filePath = path.join(__dirname, `src/i18n/messages/${lang}.json`);
   const messages = JSON.parse(fs.readFileSync(filePath, "utf8"));
   return messages;
-};
-
-const getMostPlayedSongsOfTheMonth = async (): Promise<
-  { total: number; track_id: string }[]
-> => {
-  const response = await fetch("https://plausible.foudroyer.com/api/v2/query", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.PLAUSIBLE_API_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      site_id: process.env.PLAUSIBLE_SITE_ID,
-      metrics: ["visitors"],
-      date_range: "30d",
-      filters: [["is", "event:goal", ["Playing"]]],
-      dimensions: ["event:props:track_id"],
-    }),
-  });
-
-  if (!response.ok) {
-    console.error(`Plausible API error: ${response.statusText}`);
-    return [];
-  }
-
-  const data = await response.json();
-
-  return data.results.map((result: any) => ({
-    total: result.metrics[0] as number,
-    track_id: result.dimensions[0] as string,
-  }));
 };
 
 type NewsNode = {
@@ -94,14 +60,6 @@ export const createPages: GatsbyNode["createPages"] = async ({
   const all_news = newsResult.data?.allMarkdownRemark.nodes ?? [];
   const en_news = all_news.filter((news) => news.frontmatter.language === "en");
 
-  const tracks_most_played_of_the_month_from_plausible =
-    await getMostPlayedSongsOfTheMonth();
-
-  const tracks_most_played_of_the_month =
-    tracks_most_played_of_the_month_from_plausible.map((track) =>
-      tracks.find((result) => result.title_id === track.track_id)
-    );
-
   const build_time = new Date().toISOString();
 
   languagesAvailable.forEach((lang) => {
@@ -122,10 +80,6 @@ export const createPages: GatsbyNode["createPages"] = async ({
       path: lang.id === "en" ? "/" : `/${lang.id}/`,
       component: HomeTemplate,
       context: {
-        most_played_songs_of_the_month: tracks_most_played_of_the_month.slice(
-          1,
-          11
-        ),
         ...common_context,
       },
     });

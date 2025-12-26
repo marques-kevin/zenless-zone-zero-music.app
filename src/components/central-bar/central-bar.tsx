@@ -1,5 +1,9 @@
 import React from "react";
-import { official_playlists } from "@/database/playlists";
+import {
+  official_playlists,
+  top_100_playlists,
+  most_played_playlists,
+} from "@/database/playlists";
 import { connector, ContainerProps } from "./container/central-bar.container";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -125,6 +129,27 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
           <div className="px-4 mt-8">
             <div className="mb-4 pl-1">
               <h2 className="text-2xl">
+                <FormattedMessage id="central-bar/most-liked-songs" />
+              </h2>
+              <p className="text-zinc-400">
+                <FormattedMessage id="central-bar/most-liked-songs/description" />
+              </p>
+            </div>
+            <div className="grid pb-4">
+              <TracksList
+                tracks={top_100_playlists.tracks}
+                show_duration={false}
+                show_cover={true}
+                show_number_listened={false}
+                show_likes={true}
+                can_be_removed_from_playlist={false}
+              />
+            </div>
+          </div>
+
+          <div className="px-4 mt-8">
+            <div className="mb-4 pl-1">
+              <h2 className="text-2xl">
                 <FormattedMessage id="central-bar/most-played-songs-of-the-month" />
               </h2>
               <p className="text-zinc-400">
@@ -133,9 +158,10 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
             </div>
             <div className="grid pb-4">
               <TracksList
-                tracks={props.most_played_songs_of_the_month}
-                show_duration={true}
+                tracks={most_played_playlists.tracks}
+                show_duration={false}
                 show_cover={true}
+                show_number_listened={true}
                 can_be_removed_from_playlist={false}
               />
             </div>
