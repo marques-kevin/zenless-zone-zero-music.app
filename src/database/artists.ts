@@ -51,4 +51,8 @@ export const Artists = {
     artist: "2.4",
     artist_id: "2.4",
   },
+  ["2.5"]: {
+    artist: "2.5",
+    artist_id: "2.5",
+  },
 };

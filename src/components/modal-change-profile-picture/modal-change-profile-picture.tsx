@@ -43,7 +43,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
                 />
               </div>
               <div className="text-xs capitalize py-1 text-zinc-50 text-center ">
-                {character.name}
+                {character.name.replace("_", " ").replace("-", " ")}
               </div>
             </button>
           ))}

@@ -361,4 +361,16 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "2.4",
     playlist_type: "jukebox",
   },
+  "2.5": {
+    playlist_name: "To Be Fuel for the Night",
+    playlist_cover: "/covers/2.5.jpg",
+    playlist_id: "2.5",
+    playlist_type: "jukebox",
+  },
+  zhao: {
+    playlist_name: "Zhao",
+    playlist_cover: "/characters/zhao.webp",
+    playlist_id: "zhao",
+    playlist_type: "character",
+  },
 };
