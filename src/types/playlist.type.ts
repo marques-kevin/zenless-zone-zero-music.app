@@ -4,7 +4,7 @@ export type Playlist = {
   playlist_name: string;
   playlist_id: string;
   playlist_cover: string;
-  playlist_type: "jukebox" | "character";
+  playlist_type: "jukebox" | "character" | "most_liked" | "most_played";
   tracks: Track[];
 };
 

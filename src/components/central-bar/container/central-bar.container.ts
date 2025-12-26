@@ -4,13 +4,9 @@ import { RootState } from "@/redux/store";
 import { Playlist } from "@/types/playlist.type";
 import { Track } from "@/types/track.type";
 
-const mapState = (
-  state: RootState,
-  props: { most_played_songs_of_the_month: Track[] }
-) => ({
+const mapState = (state: RootState) => ({
   is_playing: state.player.is_playing,
   current_track: state.player.current_track,
-  most_played_songs_of_the_month: props.most_played_songs_of_the_month,
 });
 
 const mapDispatch = (dispatch: any) => ({

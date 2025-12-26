@@ -1,7 +1,8 @@
 import { tracks } from "./tracks";
-import { shuffle, uniqBy } from "lodash";
-import { characters } from "./characters";
+import { uniqBy } from "lodash";
 import { Playlist } from "@/types/playlist.type";
+import { songs as top_100_songs } from "@/database/top_100.json";
+import { songs as most_played_songs } from "@/database/most_played.json";
 
 export const official_playlists: Playlist[] = uniqBy(
   tracks,
@@ -18,12 +19,28 @@ export const official_playlists: Playlist[] = uniqBy(
   }))
   .reverse();
 
-export const character_playlists: Playlist[] = characters.map((character) => ({
-  playlist_name: character.name,
-  playlist_cover: character.image,
-  playlist_id: character.name,
-  tracks: shuffle(tracks).slice(0, 10),
-  playlist_type: "character",
-}));
+export const top_100_playlists: Playlist = {
+  playlist_name: "Top 10 Liked Songs",
+  playlist_cover: "/covers/top-100.jpg",
+  playlist_id: "top-100",
+  playlist_type: "most_liked",
+  tracks: top_100_songs.slice(0, 10).map((song) => ({
+    ...tracks.find((track) => track.title_id === song.title_id)!,
+    number_of_likes: song.number_of_likes,
+  })),
+};
+
+export const most_played_playlists: Playlist = {
+  playlist_name: "Most Played Songs of the Month",
+  playlist_cover: "/covers/top-100.jpg",
+  playlist_id: "most-played",
+  playlist_type: "most_played",
+  tracks: most_played_songs
+    .map((song) => ({
+      ...tracks.find((track) => track.title_id === song.track_id)!,
+      number_of_plays: song.number_of_plays,
+    }))
+    .slice(0, 10),
+};
 
 export const all_playlists = [...official_playlists];

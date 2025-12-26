@@ -15,7 +15,6 @@ import { ModalPlaylistCreate } from "@/components/modal-playlist-create/modal-pl
 import { ModalPlaylistAddTrack } from "@/components/modal-playlist-add-track/modal-playlist-add-track";
 import { MobilePlaylistsColumn } from "@/components/mobile-playlists-column/mobile-playlists-column";
 import { PlaylistDetailsPaneMobile } from "@/components/playlist-details-pane-mobile/playlist-details-pane-mobile";
-import { Track } from "@/types/track.type";
 import { ModalRequestLogin } from "@/components/modal-request-login/modal-request-login";
 import { AutoUpdateChecks } from "@/components/auto-update-checks/auto-update-checks";
 import { useMediaQuery } from "react-responsive";
@@ -29,7 +28,6 @@ import { NewsEntry } from "@/types/news.type";
 export const Home: React.FC<{
   lang: string;
   otherLangs: Array<{ lang: string; url: string; isDefault: boolean }>;
-  most_played_songs_of_the_month: Track[];
   git_version: string;
   news: NewsEntry[];
 }> = (props) => {
@@ -51,11 +49,7 @@ export const Home: React.FC<{
           <PlaylistsColumn />
           <div className="relative h-full rounded-md overflow-hidden">
             <div className="relative h-full overflow-auto">
-              <CentralBar
-                most_played_songs_of_the_month={
-                  props.most_played_songs_of_the_month
-                }
-              />
+              <CentralBar />
             </div>
             <SearchModal />
             <PlaylistDetailsPane />

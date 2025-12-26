@@ -36,6 +36,8 @@
   "central-bar/characters-playlists": "Characters playlists",
   "central-bar/characters-playlists-description": "You can find all official songs for each characters.",
   "central-bar/characters-playlists-tracks-count": "{c} tracks",
+  "central-bar/most-liked-songs": "Most liked songs",
+  "central-bar/most-liked-songs/description": "These are the top 10 most liked songs.",
   "central-bar/most-played-songs-of-the-month": "Most played songs of the month",
   "central-bar/most-played-songs-of-the-month-description": "These are the top 10 of most played songs of the month.",
   "modal-request-login/title": "You need to be logged in to do this action",

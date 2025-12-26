@@ -2,7 +2,7 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { connector, ContainerProps } from "./containers/tracks-list.container";
 import clsx from "clsx";
-import { EllipsisIcon, PauseIcon } from "lucide-react";
+import { EllipsisIcon, HeartIcon, PauseIcon, Headphones } from "lucide-react";
 import { FormattedMessage } from "../formatted-message/formatted-message";
 import {
   DropdownMenu,
@@ -86,12 +86,26 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
               </div>
 
               <div className="absolute group right-0 flex items-center text-zinc-400">
-                {props.show_duration && (
-                  <div className="group-hover:hidden md:block hidden md:absolute mr-2 md:mr-0 right-2">
-                    {Math.floor(_.duration / 60)}:
-                    {(_.duration % 60).toString().padStart(2, "0")}
-                  </div>
-                )}
+                <div className="group-hover:hidden items-center gap-2 md:flex hidden md:absolute mr-2 md:mr-0 right-2">
+                  {props.show_likes && (
+                    <div className="flex items-center gap-2">
+                      {_.number_of_likes}
+                      <HeartIcon className="h-4 w-4 text-red-400 fill-red-400" />
+                    </div>
+                  )}
+                  {props.show_number_listened && (
+                    <div className="flex items-center gap-2">
+                      {_.number_of_plays}
+                      <Headphones className="h-4 w-4 text-zinc-400" />
+                    </div>
+                  )}
+                  {props.show_duration && (
+                    <div>
+                      {Math.floor(_.duration / 60)}:
+                      {(_.duration % 60).toString().padStart(2, "0")}
+                    </div>
+                  )}
+                </div>
 
                 <DropdownMenu>
                   <DropdownMenuTrigger className="w-10 h-10 z-10 hover:text-zinc-50 hover:opacity-100 group-hover:opacity-100 data-[state=open]:bg-zinc-700 data-[state=open]:opacity-100 md:opacity-0 rounded-full hover:bg-zinc-700 flex items-center justify-center">

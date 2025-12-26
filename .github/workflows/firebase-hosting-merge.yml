@@ -44,6 +44,19 @@ jobs:
           FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
 
+      - name: Generate top liked songs
+        run: yarn top-100
+        env:
+          GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+
+      - name: Generate most played songs
+        run: yarn most-played
+        env:
+          PLAUSIBLE_API_TOKEN: ${{ secrets.PLAUSIBLE_API_TOKEN }}
+          PLAUSIBLE_SITE_ID: ${{ secrets.PLAUSIBLE_SITE_ID }}
+
       - name: Build
         run: yarn build
         env:

@@ -14,6 +14,8 @@ const mapState = (
     show_cover?: boolean;
     play_all_on_click?: boolean;
     custom_playlist_id?: string | null;
+    show_likes?: boolean;
+    show_number_listened?: boolean;
   }
 ) => {
   return {
@@ -24,6 +26,8 @@ const mapState = (
     playlist: props.playlist,
     show_duration: props.show_duration,
     show_cover: props.show_cover,
+    show_likes: props.show_likes,
+    show_number_listened: props.show_number_listened,
   };
 };
 
