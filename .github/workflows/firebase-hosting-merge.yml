@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # Run every day at midnight UTC
+    - cron: "0 0 * * *"
 
 jobs:
   build_and_deploy:
