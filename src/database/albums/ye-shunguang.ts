@@ -1,15 +1,8 @@
+import { Track } from "@/types/track.type";
 import { Albums } from "../albums";
 import { Artists } from "../artists";
 
-export const Album25Tracks = [
-  {
-    title: "Zhao EP - Tiny Giant",
-    title_id: "zhao-ep--tiny-giant",
-    source: "/musics/2.5--zhao-ep--tiny-giant.mp3",
-    duration: 182,
-    created_at: new Date("2025-12-26"),
-    ...Artists["2.5"],
-  },
+export const YeShunguangTracks: Track[] = [
   {
     title: "Ye Shunguang EP - A Thousand First Meetings",
     title_id: "ye-shunguang-ep--a-thousand-first-meetings",
@@ -20,5 +13,6 @@ export const Album25Tracks = [
   },
 ].map((track) => ({
   ...track,
-  ...Albums["2.5"],
+  ...Albums["ye-shunguang"],
 }));
+

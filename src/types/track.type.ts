@@ -8,7 +8,7 @@ export type Track = {
   playlist_cover: string;
   playlist_id: string;
   playlist_name: string;
-  playlist_type: "jukebox" | "character" | "most_liked";
+  playlist_type: "jukebox" | "character" | "most_liked" | "most_played";
   created_at: Date;
   number_of_likes?: number;
   number_of_plays?: number;
