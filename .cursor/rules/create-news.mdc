@@ -1,0 +1,199 @@
+---
+alwaysApply: true
+---
+
+# Creating News Articles
+
+When a user wants to create a news article, follow these steps to properly create and store it:
+
+## Step-by-Step Process
+
+### 1. Get the Last Commit Information
+
+**Important**: News articles are always based on the **last/most recent commit**. Extract the commit information to use as the basis for the news article.
+
+Get the last commit's title, description, and ID by running:
+
+```bash
+# Get commit ID (7-character short hash)
+git rev-parse --short HEAD
+
+# Get commit message (title and description)
+git log -1 --pretty=format:"%s%n%n%b"
+```
+
+Or get all information at once:
+
+```bash
+git log -1 --pretty=format:"%H%n%s%n%b"
+```
+
+This will give you:
+
+- **Commit ID**: The 7-character hash (use `git rev-parse --short HEAD` for just the ID)
+- **Commit Title**: The first line of the commit message
+- **Commit Description**: The rest of the commit message (if any)
+
+### 2. Transform Commit Information to News Format
+
+Convert the commit information into user-friendly news content:
+
+- **Title**: Transform the commit title into a clear, user-friendly news title
+
+  - Remove technical jargon
+  - Make it descriptive and engaging
+  - Example: `feat: add ye shunguang character album` → `"New Ye Shunguang character album added"`
+
+- **Description**: Create a brief summary (1-2 sentences) based on the commit message
+
+  - Explain what was added/changed in plain language
+  - Focus on what users will benefit from
+  - Example: `"Added Ye Shunguang character album with EP track 'A Thousand First Meetings'"`
+
+- **Published Date**: Use today's date in `YYYY-MM-DD` format
+
+- **Content**: Write the main body text in plain, everyday language based on the commit changes
+  - Explain what the change means for users
+  - Avoid technical details
+  - Use multiple paragraphs for readability
+
+### 3. Create the News File
+
+**Location**: `cms/news/`
+
+**Naming Convention**: `{language}-{date}-{commit_id}.md`
+
+- Example: `en-2025-12-26-d8a6391.md`
+- Format: `{lang}-{YYYY-MM-DD}-{7-char-commit-hash}.md`
+
+### 4. File Structure
+
+The news file should follow this structure:
+
+```markdown
+---
+published_at: 2025-12-26
+commit_id: d8a6391
+title: "Your News Title"
+description: "A brief description of what this news is about."
+language: en
+---
+
+Your news content goes here. Write in plain, everyday language.
+
+You can use multiple paragraphs to explain the changes or updates.
+
+Keep it simple and user-friendly, avoiding technical jargon when possible.
+```
+
+### 5. Frontmatter Fields
+
+**Required fields:**
+
+- `published_at`: Date in `YYYY-MM-DD` format
+- `commit_id`: 7-character git commit hash
+- `title`: News title (string, can include quotes)
+- `description`: Brief summary (1-2 sentences)
+- `language`: Language code (e.g., `en`, `fr`, `es`)
+
+**Example:**
+
+```yaml
+---
+published_at: 2025-12-26
+commit_id: d8a6391
+title: "Zhao EP and 2.5 soundtrack update"
+description: "Added the new Zhao EP album featuring 'Tiny Giant' track, along with the 2.5 soundtrack album and new character assets."
+language: en
+---
+```
+
+### 6. Content Guidelines
+
+- **Write in plain language**: Use everyday language, avoid technical jargon
+- **Be concise**: Keep paragraphs short and focused
+- **User-focused**: Explain what the change means for users, not just what was changed
+- **Use markdown**: You can use markdown formatting for emphasis, lists, etc.
+- **Multiple paragraphs**: Use multiple paragraphs for better readability
+
+**Example content:**
+
+```markdown
+We've added the Zhao EP to the music library, featuring the track "Tiny Giant" from the 2.5 update.
+
+The new Zhao EP album is now available, along with the 2.5 soundtrack album. We've also added character assets for Zhao and Ye Shunguang, expanding the character gallery with these new additions.
+
+You can now enjoy this latest addition to the Zenless Zone Zero music collection, bringing more of the game's soundtrack to your listening experience.
+```
+
+### 7. Verify
+
+- Check that the filename follows the convention: `{lang}-{date}-{commit_id}.md`
+- Ensure the date format is correct: `YYYY-MM-DD`
+- Verify commit_id is 7 characters
+- Confirm frontmatter is properly formatted with `---` delimiters
+- Check that title and description are clear and user-friendly
+
+## Important Notes
+
+- **File location**: All news files go in `cms/news/` directory
+- **Naming**: Must follow `{language}-{date}-{commit_id}.md` pattern exactly
+- **Date format**: Always use `YYYY-MM-DD` format
+- **Commit ID**: Always use the first 7 characters of the **most recent commit** hash (from `git rev-parse --short HEAD`)
+- **Commit-based**: News articles are always based on the last commit - extract title, description, and ID from the commit message
+- **User-friendly transformation**: Convert technical commit messages into plain, user-friendly language
+- **Language**: Currently only English (`en`) news files exist, but the system supports multiple languages
+- **Content style**: Write for end users, not developers - use plain language
+- **Frontmatter**: Must be valid YAML between `---` markers
+
+## Example: Complete Flow
+
+1. **Get the last commit information**:
+
+   ```bash
+   git rev-parse --short HEAD
+   # Returns: d8a6391
+
+   git log -1 --pretty=format:"%s"
+   # Returns: feat: add ye shunguang character album
+   ```
+
+2. **Transform to news format**:
+
+   - Commit ID: `d8a6391`
+   - Commit Title: `feat: add ye shunguang character album`
+   - News Title: `"New Ye Shunguang character album added"`
+   - News Description: `"Added Ye Shunguang character album with EP track 'A Thousand First Meetings'"`
+   - Date: `2025-12-26` (today's date)
+
+3. **Create file**: `cms/news/en-2025-12-26-d8a6391.md`
+
+4. **Add frontmatter**:
+
+```yaml
+---
+published_at: 2025-12-26
+commit_id: d8a6391
+title: "New character album added"
+description: "Added Ye Shunguang character album with EP track"
+language: en
+---
+```
+
+5. **Add content**:
+
+```markdown
+We've added a new character album for Ye Shunguang, featuring the EP track "A Thousand First Meetings".
+
+You can now find this track in both the Ye Shunguang character album and the 2.5 version album.
+```
+
+6. **Done!** The news will automatically appear in the app's news panel.
+
+## Common News Types
+
+- **New songs/tracks**: Announce new music additions
+- **New features**: Explain new functionality (e.g., ladders, news system)
+- **Updates**: Describe improvements or changes
+- **Character albums**: Announce new character-specific music collections
+- **Version albums**: Announce new version soundtracks

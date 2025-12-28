@@ -1,0 +1,145 @@
+---
+alwaysApply: true
+---
+
+# Storing YouTube-Downloaded Songs
+
+When a user downloads a song from YouTube using `yarn mp3`, follow these steps to properly store it in the database:
+
+## Step-by-Step Process
+
+### 1. Move and Rename the File
+
+- **Source**: Files are downloaded to `scripts/youtube-downloader/files/`
+- **Destination**: Move to `musics/` directory
+- **Naming Convention**: `{version}--{title-in-kebab-case}.mp3`
+  - Example: `Ye_Shunguang_EP_-_A_Thousand_First_Meetings_Zenless_Zone_Zero.mp3` → `2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3`
+  - Filename must start with the ZZZ version (e.g., `2.4`, `2.5`)
+  - Use double dashes (`--`) to separate version from title
+  - Convert title to kebab-case (lowercase, hyphens instead of spaces)
+
+### 2. Get Track Duration
+
+Run the duration script:
+
+```bash
+./scripts/get-music-durations.sh "filename.mp3"
+```
+
+or multiple files
+
+```bash
+./scripts/get-music-durations.sh "2.5-*.mp3"
+```
+
+The output will show the duration in seconds (e.g., `292.392000` → use `292`).
+
+### 3. Determine Album and Artist
+
+- **Version Albums**: Tracks belong to version albums (e.g., `2.4`, `2.5`) defined in `src/database/albums.ts`
+- **Character Albums**: If the track is character-specific (EP, theme), it may also belong to a character album
+- **Artists**: Use version numbers as artists (e.g., `Artists["2.5"]`)
+
+### 4. Add Track to Version Album
+
+Edit the version album file (e.g., `src/database/albums/2.5.ts`):
+
+```typescript
+{
+  title: "Ye Shunguang EP - A Thousand First Meetings",
+  title_id: "ye-shunguang-ep--a-thousand-first-meetings", // kebab-case, unique
+  source: "/musics/2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3",
+  duration: 292, // from step 2
+  created_at: new Date("2025-12-26"), // release date
+  ...Artists["2.5"], // spread artist
+}
+```
+
+Then map to add album properties:
+
+```typescript
+].map((track) => ({
+  ...track,
+  ...Albums["2.5"],
+}));
+```
+
+### 5. Add Character Album (if applicable)
+
+If the track is character-specific (EP, character theme):
+
+**5a. Add album definition** to `src/database/albums.ts`:
+
+```typescript
+"ye-shunguang": {
+  playlist_name: "Ye Shunguang",
+  playlist_cover: "/characters/ye_shunguang.webp",
+  playlist_id: "ye-shunguang",
+  playlist_type: "character",
+},
+```
+
+**5b. Create character album file** `src/database/albums/ye-shunguang.ts`:
+
+```typescript
+import { Track } from "@/types/track.type";
+import { Albums } from "../albums";
+import { Artists } from "../artists";
+
+export const YeShunguangTracks: Track[] = [
+  {
+    title: "Ye Shunguang EP - A Thousand First Meetings",
+    title_id: "ye-shunguang-ep--a-thousand-first-meetings",
+    source: "/musics/2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3",
+    duration: 292,
+    created_at: new Date("2025-12-26"),
+    ...Artists["2.5"],
+  },
+].map((track) => ({
+  ...track,
+  ...Albums["ye-shunguang"],
+}));
+```
+
+### 6. Update tracks.ts
+
+**6a. Add import** at the top:
+
+```typescript
+import { YeShunguangTracks } from "./albums/ye-shunguang";
+```
+
+**6b. Add to exports** in the `Tracks` array:
+
+```typescript
+export const Tracks: Track[] = [
+  // ... other tracks
+  ...YeShunguangTracks,
+];
+```
+
+### 7. Verify
+
+- Check that `title_id` is unique across all tracks
+- Ensure file path matches actual file location
+- Verify duration is accurate
+- Confirm album and artist exist in their respective files
+
+## Important Notes
+
+- **Same track, multiple albums**: If a track belongs to both a version album and character album, create separate entries with the same `title_id` but different album spreads
+- **File naming**: Always use double dashes (`--`) between version and title
+- **title_id**: Must be unique, kebab-case, and match the filename pattern (without version prefix)
+- **Character images**: Ensure character image exists in `static/characters/` or `public/characters/`
+- **Date format**: Use `new Date("YYYY-MM-DD")` for `created_at`
+
+## Example: Complete Flow
+
+1. File downloaded: `scripts/youtube-downloader/files/Ye_Shunguang_EP_-_A_Thousand_First_Meetings_Zenless_Zone_Zero.mp3`
+2. Move & rename: `musics/2.5--ye-shunguang-ep--a-thousand-first-meetings.mp3`
+3. Get duration: `292 seconds`
+4. Add to `2.5.ts` (version album)
+5. Create `ye-shunguang.ts` (character album) if needed
+6. Add album definition to `albums.ts` if new character
+7. Import and export in `tracks.ts`
+8. Done!
