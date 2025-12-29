@@ -66,7 +66,7 @@ const Wrapper: React.FC<ContainerProps> = (props) => {
   return (
     <button
       onClick={onInstall}
-      className="text-sm text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
+      className="relative text-sm text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
     >
       <FormattedMessage id="download-app-ios-button/title" />
     </button>

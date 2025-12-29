@@ -9,6 +9,7 @@ import { MODAL_KEYS } from "@/constants/modal-keys";
 import { actions } from "../actions";
 import { Track } from "@/types/track.type";
 import { getCdnUrl } from "@/utils/get-cdn-url";
+import { shuffle } from "lodash";
 
 export const player_set_playing = (
   payload: types.player_set_playing_action["payload"]
@@ -420,5 +421,22 @@ export const $player_fetch_track_with_likes = () => {
     dispatch(
       player_set_all_tracks_with_likes({ tracks: tracks_with_likes.data })
     );
+  };
+};
+
+export const $player_play_radio = () => {
+  return async (dispatch: any) => {
+    const shuffledTracks = shuffle([...tracks]);
+    const radioTracks = shuffledTracks.slice(0, 30);
+
+    if (radioTracks.length === 0) return;
+
+    dispatch(player_set_tracks({ tracks: radioTracks }));
+    dispatch(
+      player_set_playing_track({
+        track: radioTracks[0],
+      })
+    );
+    dispatch(player_set_playing({ is_playing: true }));
   };
 };

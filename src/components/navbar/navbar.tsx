@@ -23,9 +23,9 @@ import { DownloadAppButton } from "../download-app-button/download-app-button";
 import { NavbarOtherTools } from "../navbar-other-tools/navbar-other-tools";
 import { BuyMeCoffeeButton } from "../buy-me-coffee-button/buy-me-coffee-button";
 import { LadderNavbarButton } from "../ladder-navbar-button/ladder-navbar-button";
+import { RadioButton } from "../radio-button/radio-button";
 import { Link } from "@reach/router";
 import { ModalNews } from "../modal-news/modal-news";
-import { NewsEntry } from "@/types/news.type";
 
 const DISCORD_URL = "https://discord.gg/8eJMfkRD3E";
 
@@ -83,6 +83,8 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
         <DownloadAppButton />
 
         <LadderNavbarButton />
+
+        <RadioButton />
 
         <BuyMeCoffeeButton />
 

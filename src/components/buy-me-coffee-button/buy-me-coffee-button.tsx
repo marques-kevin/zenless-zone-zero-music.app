@@ -20,7 +20,7 @@ const Wrapper: React.FC<ContainerProps> = (props) => {
     <>
       <button
         onClick={props.onOpen}
-        className="text-sm text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
+        className="relative text-sm text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
       >
         <CoffeeIcon className="w-5 h-5" />
       </button>

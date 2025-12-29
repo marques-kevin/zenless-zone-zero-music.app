@@ -34,7 +34,7 @@ export const NavbarOtherTools: React.FC = (props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="relative outline-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-700">
+        <div className="relative outline-none w-8 h-8 flex items-center justify-center rounded hover:bg-zinc-700">
           <LayoutGridIcon className="h-5 w-5" />
         </div>
       </DropdownMenuTrigger>

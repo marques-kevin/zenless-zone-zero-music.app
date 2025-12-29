@@ -15,7 +15,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
   return (
     <button
       onClick={props.onClick}
-      className="relative outline-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-700"
+      className="relative outline-none w-8 h-8 flex items-center justify-center rounded hover:bg-zinc-700"
     >
       {should_show_new_news_icon && (
         <div className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500" />
