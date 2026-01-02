@@ -61,6 +61,22 @@ export const Album17Tracks: Track[] = [
     created_at: new Date("2025-06-16"),
     ...Artists["1.7"],
   },
+  {
+    title: "Light and Despair Theme",
+    title_id: "light-and-despair-theme",
+    source: "/musics/1.7--light-and-despair-theme.mp3",
+    duration: 143,
+    created_at: new Date("2025-12-26"),
+    ...Artists["1.7"],
+  },
+  {
+    title: "The People Exalt Tomorrow Theme",
+    title_id: "the-people-exalt-tomorrow-theme",
+    source: "/musics/1.7--the-people-exalt-tomorrow-theme.mp3",
+    duration: 144,
+    created_at: new Date("2025-12-26"),
+    ...Artists["1.7"],
+  },
   ...HugoTracks.filter((track) => track.artist_id === "1.7"),
   ...VivianTracks.filter((track) => track.artist_id === "1.7"),
 ].map((track) => ({

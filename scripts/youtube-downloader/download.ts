@@ -147,6 +147,7 @@ async function main() {
 
   let successCount = 0;
   let failCount = 0;
+  const failedUrls: string[] = [];
 
   for (const url of urls) {
     console.log(`Downloading: ${url}`);
@@ -178,6 +179,7 @@ async function main() {
       console.log("✓ Done");
     } else {
       failCount += 1;
+      failedUrls.push(url);
       console.error(`✗ Failed: ${url}`);
     }
 
@@ -185,6 +187,14 @@ async function main() {
   }
 
   console.log(`Completed. Success: ${successCount}, Failed: ${failCount}`);
+  
+  if (failedUrls.length > 0) {
+    console.log();
+    console.log("Failed URLs:");
+    failedUrls.forEach((url, index) => {
+      console.log(`  ${index + 1}. ${url}`);
+    });
+  }
 }
 
 main().catch((error) => {
