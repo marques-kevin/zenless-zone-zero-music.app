@@ -138,4 +138,13 @@ export const UnreleasedSongs: Track[] = [
     ...Artists["san-z"],
     ...Albums["unreleased-songs"],
   },
+  {
+    title: "Black Rabbit S'n-Z x HOYO-MiX Zenless OST BGM",
+    title_id: "black-rabbit-s-n-z-x-hoyo-mix-zenless-ost-bgm",
+    source: "/musics/2.5--black-rabbit-s-n-z-x-hoyo-mix-zenless-ost-bgm.mp3",
+    duration: 129,
+    created_at: new Date("2026-01-02"),
+    ...Artists["2.5"],
+    ...Albums["unreleased-songs"],
+  },
 ];

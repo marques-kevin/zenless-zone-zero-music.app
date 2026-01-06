@@ -379,4 +379,10 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "ye-shunguang",
     playlist_type: "character",
   },
+  rina: {
+    playlist_name: "Rina",
+    playlist_cover: "/characters/alexandrina.png",
+    playlist_id: "rina",
+    playlist_type: "character",
+  },
 };

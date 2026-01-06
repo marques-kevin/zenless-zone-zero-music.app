@@ -47,6 +47,7 @@ import { SeedTracks } from "./albums/seed";
 import { YidhariTracks } from "./albums/yidhari";
 import { ZhaoTracks } from "./albums/zhao";
 import { YeShunguangTracks } from "./albums/ye-shunguang";
+import { RinaTracks } from "./albums/rina";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -977,4 +978,5 @@ export const tracks: Track[] = [
   ...DialynTracks,
   ...ZhaoTracks,
   ...YeShunguangTracks,
+  ...RinaTracks,
 ];

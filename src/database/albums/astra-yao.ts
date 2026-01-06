@@ -19,6 +19,14 @@ export const AstraYaoTracks: Track[] = [
     created_at: new Date("2025-02-08"),
     ...Artists["1.5"],
   },
+  {
+    title: "Shining",
+    title_id: "shining",
+    source: "/musics/1.5--shining.mp3",
+    duration: 233,
+    created_at: new Date("2026-01-02"),
+    ...Artists["1.5"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["astra-yao"],

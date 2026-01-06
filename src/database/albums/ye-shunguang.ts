@@ -51,6 +51,14 @@ export const YeShunguangTracks: Track[] = [
     created_at: new Date("2025-12-26"),
     ...Artists["2.5"],
   },
+  {
+    title: "Ye Shunguang Relaxing Theme",
+    title_id: "ye-shunguang-relaxing-theme",
+    source: "/musics/2.5--ye-shunguang-relaxing-theme.mp3",
+    duration: 155,
+    created_at: new Date("2026-01-02"),
+    ...Artists["2.5"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["ye-shunguang"],
