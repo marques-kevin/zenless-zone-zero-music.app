@@ -1,5 +1,6 @@
 import { AnalyticsEntity } from "@/types/analytics.type";
 import { IAnalyticsService } from "@/interfaces/IAnalyticsService";
+import { AnalyticsServiceUmami } from "./analytics.service.umami";
 
 export class AnalyticsServicePlausible implements IAnalyticsService {
   send(analytics: AnalyticsEntity) {
@@ -11,5 +12,7 @@ export class AnalyticsServicePlausible implements IAnalyticsService {
         data ? { props: data } : {}
       );
     } catch (e) {}
+
+    new AnalyticsServiceUmami().send(analytics);
   }
 }
