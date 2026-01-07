@@ -41,6 +41,8 @@ export const onRenderBody = ({ setHeadComponents }) => {
       src="https://umami.foudroyer.com/analytics.js"
       data-website-id="c7a7c73a-632b-4a64-9a59-fdaa30dc68a4"
       data-domains="zenless-zone-zero-music.app"
+      data-exclude-hash="true"
+      data-exclude-search="true"
     />,
   ]);
 };
