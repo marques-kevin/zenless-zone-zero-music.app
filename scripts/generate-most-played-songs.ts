@@ -2,11 +2,23 @@ import "dotenv/config";
 
 import { writeFile } from "fs/promises";
 
-const PLAUSIBLE_API_TOKEN = process.env.PLAUSIBLE_API_TOKEN;
-const PLAUSIBLE_SITE_ID = process.env.PLAUSIBLE_SITE_ID;
+const UMAMI_WEBSITE_ID = process.env.UMAMI_WEBSITE_ID;
+const UMAMI_ENDPOINT = process.env.UMAMI_ENDPOINT;
+const UMAMI_USERNAME = process.env.UMAMI_USERNAME;
+const UMAMI_PASSWORD = process.env.UMAMI_PASSWORD;
 
-if (!PLAUSIBLE_API_TOKEN || !PLAUSIBLE_SITE_ID) {
-  throw new Error("Missing PLAUSIBLE_API_TOKEN or PLAUSIBLE_SITE_ID in .env");
+if (!UMAMI_WEBSITE_ID) {
+  throw new Error("Missing UMAMI_WEBSITE_ID in .env");
+}
+
+if (!UMAMI_ENDPOINT) {
+  throw new Error("Missing UMAMI_ENDPOINT in .env");
+}
+
+if (!UMAMI_USERNAME || !UMAMI_PASSWORD) {
+  throw new Error(
+    "Missing Umami credentials. Set UMAMI_USERNAME and UMAMI_PASSWORD in .env"
+  );
 }
 
 type MostPlayedSongEntry = {
@@ -20,34 +32,95 @@ type MostPlayedSongsOutput = {
   songs: MostPlayedSongEntry[];
 };
 
-async function fetch_most_played_songs(): Promise<
-  { total: number; track_id: string }[]
-> {
-  const response = await fetch("https://plausible.foudroyer.com/api/v2/query", {
+async function getUmamiToken(): Promise<string> {
+  const endpoint = UMAMI_ENDPOINT!;
+  const baseUrl = endpoint.endsWith("/") ? endpoint.slice(0, -1) : endpoint;
+  const loginUrl = `${baseUrl}/api/auth/login`;
+
+  console.log("UMAMI_USERNAME:", UMAMI_USERNAME);
+  console.log("UMAMI_PASSWORD:", UMAMI_PASSWORD);
+  console.log("Login URL:", loginUrl);
+
+  const response = await fetch(loginUrl, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${PLAUSIBLE_API_TOKEN}`,
       "Content-Type": "application/json",
+      Accept: "application/json",
     },
     body: JSON.stringify({
-      site_id: PLAUSIBLE_SITE_ID,
-      metrics: ["events"],
-      date_range: "30d",
-      filters: [["is", "event:goal", ["Playing"]]],
-      dimensions: ["event:props:track_id"],
+      username: UMAMI_USERNAME,
+      password: UMAMI_PASSWORD,
     }),
   });
 
   if (!response.ok) {
-    console.error(`Plausible API error: ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(
+      `Umami login failed: ${response.status} ${response.statusText}. ${errorText}`
+    );
+  }
+
+  const data = await response.json();
+  if (!data.token) {
+    throw new Error("Umami login response missing token");
+  }
+
+  return data.token;
+}
+
+async function fetch_most_played_songs(): Promise<
+  { total: number; track_id: string }[]
+> {
+  // Calculate date range: last 30 days
+  const endAt = Date.now();
+  const startAt = endAt - 30 * 24 * 60 * 60 * 1000; // 30 days ago in milliseconds
+
+  // Get the API endpoint base URL (guaranteed to be defined due to check above)
+  const endpoint = UMAMI_ENDPOINT!;
+  const baseUrl = endpoint.endsWith("/") ? endpoint.slice(0, -1) : endpoint;
+
+  // Build the URL for event data values endpoint
+  const url = new URL(
+    `${baseUrl}/api/websites/${UMAMI_WEBSITE_ID}/event-data/values`
+  );
+  url.searchParams.set("startAt", startAt.toString());
+  url.searchParams.set("endAt", endAt.toString());
+  url.searchParams.set("event", "tracks/playing");
+  url.searchParams.set("propertyName", "track_id");
+
+  // Get authentication token via login
+  const token = await getUmamiToken();
+
+  // Set up authentication headers
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const response = await fetch(url.toString(), {
+    method: "GET",
+    headers,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error(`Umami API error: ${response.status} ${response.statusText}`);
+    console.error(`Response: ${errorText}`);
     return [];
   }
 
   const data = await response.json();
 
-  return data.results.map((result: any) => ({
-    total: result.metrics[0] as number,
-    track_id: result.dimensions[0] as string,
+  // Umami returns: [{ value: "track_id", total: count }, ...]
+  if (!Array.isArray(data)) {
+    console.error("Unexpected Umami API response format:", data);
+    return [];
+  }
+
+  return data.map((item: { value: string; total: number }) => ({
+    total: item.total,
+    track_id: item.value,
   }));
 }
 
@@ -75,7 +148,7 @@ function compute_most_played_songs(
 
 async function main() {
   try {
-    console.log("Fetching most played songs from Plausible...");
+    console.log("Fetching most played songs from Umami...");
     const plays = await fetch_most_played_songs();
     console.log(`Found ${plays.length} tracks with plays`);
 

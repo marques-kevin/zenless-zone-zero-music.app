@@ -106,7 +106,7 @@ Data access layer implementing repository pattern:
 
 Business logic services:
 
-- `analytics.service.plausible.ts` - Analytics tracking
+- `analytics.service.umami.ts` - Analytics tracking
 - `firebase.service.ts` - Firebase initialization
 - `localstorage.service.window.ts` - LocalStorage wrapper
 
