@@ -58,6 +58,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@types/git-rev-sync": "^2.0.2",
     "@types/react-helmet": "^6.1.11",
+    "@umami/api-client": "^0.80.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

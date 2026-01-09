@@ -3,7 +3,7 @@ import {
   connector,
   ContainerProps,
 } from "./container/audio-global-html-component.container";
-import { AnalyticsServicePlausible } from "@/services/analytics.service.plausible";
+import { AnalyticsServiceUmami } from "@/services/analytics.service.umami";
 import { getCdnUrl } from "@/utils/get-cdn-url";
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
@@ -20,7 +20,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
   }, [props.is_playing, props.current_track]);
 
   useEffect(() => {
-    const service = new AnalyticsServicePlausible();
+    const service = new AnalyticsServiceUmami();
 
     service.send({
       category: "tracks",
