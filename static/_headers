@@ -1,0 +1,14 @@
+/*
+  cache-control: public, max-age=0, must-revalidate
+
+/static/*
+  cache-control: public, max-age=31536000, immutable
+
+/static/version.json
+  cache-control: public, max-age=0, must-revalidate
+
+/sw.js
+  cache-control: public, max-age=0, must-revalidate
+
+/page-data/*
+  cache-control: public, max-age=0, must-revalidate
