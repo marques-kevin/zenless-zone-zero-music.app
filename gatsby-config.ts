@@ -41,7 +41,7 @@ const config: GatsbyConfig = {
       options: {
         host: siteUrl,
         sitemap: `${siteUrl}/sitemap-index.xml`,
-        policy: [{ userAgent: "*", disallow: require("./src/robots") }],
+        policy: [{ userAgent: "*", disallow: require("./src/robots.json") }],
       },
     },
     {

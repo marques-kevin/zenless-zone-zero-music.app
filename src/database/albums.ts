@@ -373,6 +373,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "2.6",
     playlist_type: "jukebox",
   },
+  "2.7": {
+    playlist_name: "Champions Never Fall to the Past",
+    playlist_cover: "/covers/2.7.jpg",
+    playlist_id: "2.7",
+    playlist_type: "jukebox",
+  },
   zhao: {
     playlist_name: "Zhao",
     playlist_cover: "/characters/zhao.webp",
@@ -401,6 +407,18 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_name: "Rina",
     playlist_cover: "/characters/alexandrina.png",
     playlist_id: "rina",
+    playlist_type: "character",
+  },
+  "nangong-yu": {
+    playlist_name: "Nangong Yu",
+    playlist_cover: "/characters/nangong_yu.webp",
+    playlist_id: "nangong-yu",
+    playlist_type: "character",
+  },
+  cissia: {
+    playlist_name: "Cissia",
+    playlist_cover: "/characters/cissia.webp",
+    playlist_id: "cissia",
     playlist_type: "character",
   },
 };
