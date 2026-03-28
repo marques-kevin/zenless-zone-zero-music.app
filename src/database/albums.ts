@@ -367,6 +367,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "2.5",
     playlist_type: "jukebox",
   },
+  "2.6": {
+    playlist_name: "Encore for an Old Dream",
+    playlist_cover: "/covers/2.6.jpg",
+    playlist_id: "2.6",
+    playlist_type: "jukebox",
+  },
   zhao: {
     playlist_name: "Zhao",
     playlist_cover: "/characters/zhao.webp",
@@ -377,6 +383,18 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_name: "Ye Shunguang",
     playlist_cover: "/characters/ye_shunguang.webp",
     playlist_id: "ye-shunguang",
+    playlist_type: "character",
+  },
+  aria: {
+    playlist_name: "Aria",
+    playlist_cover: "/characters/aria.webp",
+    playlist_id: "aria",
+    playlist_type: "character",
+  },
+  sunna: {
+    playlist_name: "Sunna",
+    playlist_cover: "/characters/sunna.webp",
+    playlist_id: "sunna",
     playlist_type: "character",
   },
   rina: {
