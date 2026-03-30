@@ -3,9 +3,9 @@ import {
   connector,
   ContainerProps,
 } from "./container/buy-me-coffee-button.container";
-import { CoffeeIcon } from "lucide-react";
+import { ExternalLinkIcon, SparklesIcon } from "lucide-react";
+import { tinycardoUrl } from "@/constants/config";
 import { Modal, ModalDescription, ModalTitle } from "../ui/modal";
-import { FormattedMessage } from "../formatted-message/formatted-message";
 import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { MODAL_KEYS } from "@/constants/modal-keys";
@@ -22,7 +22,7 @@ const Wrapper: React.FC<ContainerProps> = (props) => {
         onClick={props.onOpen}
         className="relative text-sm text-zinc-200 hover:text-zinc-50 hover:bg-zinc-700 rounded px-2 py-1.5 cursor-pointer outline-none"
       >
-        <CoffeeIcon className="w-5 h-5" />
+        <SparklesIcon className="w-5 h-5" />
       </button>
 
       <Modal isOpen={isOpen} onClose={props.onClose}>
@@ -38,12 +38,13 @@ const Wrapper: React.FC<ContainerProps> = (props) => {
         </ModalDescription>
         <div className="mt-4">
           <a
-            href="https://www.buymeacoffee.com/kevinmarques"
+            href={tinycardoUrl}
             target="_blank"
+            rel="noopener noreferrer"
             onClick={props.onClickLink}
           >
             <Button>
-              <CoffeeIcon className="w-5 h-5" />{" "}
+              <ExternalLinkIcon className="w-5 h-5" />{" "}
               {formatMessage({ id: "buy-me-coffee-button/buy-me-a-coffee" })}
             </Button>
           </a>

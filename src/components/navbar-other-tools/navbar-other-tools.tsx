@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 import { FormattedMessage } from "../formatted-message/formatted-message";
+import { tinycardoUrl } from "@/constants/config";
 
 const Item = (props: {
   title: React.ReactNode;
@@ -71,6 +72,15 @@ export const NavbarOtherTools: React.FC = (props) => {
                 <FormattedMessage id="navbar-other-tools/chat-generator/description" />
               }
               href="https://zenless.tools/chat-generator?utm_source=zenless-zone-zero-music-app"
+            />
+            <Item
+              title={
+                <FormattedMessage id="navbar-other-tools/tinycardo/title" />
+              }
+              description={
+                <FormattedMessage id="navbar-other-tools/tinycardo/description" />
+              }
+              href={tinycardoUrl}
             />
           </div>
         </DropdownMenuContent>
