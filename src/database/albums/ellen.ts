@@ -38,4 +38,13 @@ export const EllenTracks: Track[] = UnreleasedSongs.filter((track) =>
       ...Artists["1.5"],
       ...Albums["ellen"],
     },
+    {
+      title: "Moechakka Fire (Ellen Joe CV Cover)",
+      title_id: "moechakka-fire--ellen-joe-cv-cover",
+      source: "/musics/ellen-joe--moechakka-fire-cv-cover.mp3",
+      duration: 156,
+      created_at: new Date("2026-03-31"),
+      ...Artists["san-z"],
+      ...Albums["ellen"],
+    },
   ]);

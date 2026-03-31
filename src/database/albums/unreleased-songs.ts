@@ -147,4 +147,13 @@ export const UnreleasedSongs: Track[] = [
     ...Artists["2.5"],
     ...Albums["unreleased-songs"],
   },
+  {
+    title: "ZZZ HoYoFair (feat.) MV",
+    title_id: "zzz-hoyofair-feat-mv",
+    source: "/musics/zzz-hoyofair-feat-mv.mp3",
+    duration: 240,
+    created_at: new Date("2026-03-31"),
+    ...Artists["san-z"],
+    ...Albums["unreleased-songs"],
+  },
 ];

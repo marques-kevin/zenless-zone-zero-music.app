@@ -21,4 +21,23 @@ export const TriggerTracks: Track[] = [
     ...Artists["1.6"],
     ...Albums["trigger"],
   },
+  {
+    title: "Trigger - Lyre Squad Harmonica Theme (Homecoming)",
+    title_id: "trigger--lyre-squad-harmonica-theme-homecoming",
+    source: "/musics/1.6--trigger-lyre-squad-harmonica-theme-homecoming.mp3",
+    duration: 161,
+    created_at: new Date("2026-03-31"),
+    ...Artists["1.6"],
+    ...Albums["trigger"],
+  },
+  {
+    title: "Piano Arrangement - Homecoming (Out of Sight OST)",
+    title_id: "piano-arrangement-homecoming-out-of-sight-ost",
+    source:
+      "/musics/trigger--piano-arrangement-homecoming-out-of-sight-ost.mp3",
+    duration: 128,
+    created_at: new Date("2026-03-31"),
+    ...Artists["1.6"],
+    ...Albums["trigger"],
+  },
 ];

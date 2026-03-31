@@ -259,6 +259,13 @@ const ComeAliveTracks: Track[] = [
     source: "/musics/come-alive.mp3",
     created_at: new Date("2025-01-07"),
   },
+  {
+    title: "Come Alive (Stripped)",
+    title_id: "come-alive--stripped",
+    duration: 215,
+    source: "/musics/come-alive--stripped.mp3",
+    created_at: new Date("2026-03-31"),
+  },
 ].map((track) => ({
   ...track,
   ...Artists["san-z"],
