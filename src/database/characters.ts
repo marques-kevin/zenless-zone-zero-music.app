@@ -53,4 +53,9 @@ export const characters = [
   { name: "cissia", image: "/characters/cissia.webp" },
   { name: "promeia", image: "/characters/promeia.webp" },
   { name: "starlight_billy", image: "/characters/starlight_billy.webp" },
+  { name: "pyrois", image: "/characters/pyrois.webp" },
+  { name: "velina", image: "/characters/velina.webp" },
+  { name: "norma", image: "/characters/norma.webp" },
+  { name: "remielle", image: "/characters/remielle.webp" },
+  { name: "sigrid", image: "/characters/sigrid.webp" },
 ];
