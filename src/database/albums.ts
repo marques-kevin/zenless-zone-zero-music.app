@@ -379,6 +379,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "2.7",
     playlist_type: "jukebox",
   },
+  "2.8": {
+    playlist_name: "New: Eridan Sunset",
+    playlist_cover: "/covers/2.8.jpg",
+    playlist_id: "2.8",
+    playlist_type: "jukebox",
+  },
   zhao: {
     playlist_name: "Zhao",
     playlist_cover: "/characters/zhao.webp",
@@ -419,6 +425,24 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_name: "Cissia",
     playlist_cover: "/characters/cissia.webp",
     playlist_id: "cissia",
+    playlist_type: "character",
+  },
+  promeia: {
+    playlist_name: "Promeia",
+    playlist_cover: "/characters/promeia.webp",
+    playlist_id: "promeia",
+    playlist_type: "character",
+  },
+  "starlight-billy": {
+    playlist_name: "Starlight Billy",
+    playlist_cover: "/characters/starlight_billy.webp",
+    playlist_id: "starlight-billy",
+    playlist_type: "character",
+  },
+  remielle: {
+    playlist_name: "Remielle",
+    playlist_cover: "/characters/remielle.webp",
+    playlist_id: "remielle",
     playlist_type: "character",
   },
 };

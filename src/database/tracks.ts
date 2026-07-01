@@ -39,6 +39,7 @@ import { Album24Tracks } from "./albums/2.4";
 import { Album25Tracks } from "./albums/2.5";
 import { Album26Tracks } from "./albums/2.6";
 import { Album27Tracks } from "./albums/2.7";
+import { Album28Tracks } from "./albums/2.8";
 import { Album20Tracks } from "./albums/2.0";
 import { YixuanTracks } from "./albums/yixuan";
 import { JufufuTracks } from "./albums/jufufu";
@@ -54,6 +55,9 @@ import { SunnaTracks } from "./albums/sunna";
 import { RinaTracks } from "./albums/rina";
 import { NangongYuTracks } from "./albums/nangong-yu";
 import { CissiaTracks } from "./albums/cissia";
+import { PromeiaTracks } from "./albums/promeia";
+import { StarlightBillyTracks } from "./albums/starlight-billy";
+import { RemielleTracks } from "./albums/remielle";
 
 const WhenSandwichesComeAKnockinTracks: Track[] = [
   {
@@ -989,8 +993,12 @@ export const tracks: Track[] = [
   ...Album25Tracks,
   ...Album26Tracks,
   ...Album27Tracks,
+  ...Album28Tracks,
   ...NangongYuTracks,
   ...CissiaTracks,
+  ...PromeiaTracks,
+  ...StarlightBillyTracks,
+  ...RemielleTracks,
   ...BanyueTracks,
   ...DialynTracks,
   ...ZhaoTracks,
