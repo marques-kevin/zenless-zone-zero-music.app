@@ -1,0 +1,54 @@
+---
+description: Check @FindingPurposes for new ZZZ OST playlists and import music
+alwaysApply: false
+---
+
+# Checking for New ZZZ Playlists on YouTube
+
+The check script monitors [@FindingPurposes](https://www.youtube.com/@FindingPurposes) for new **Zenless Zone Zero X.Y OST** playlists and compares them against version albums in `src/database/albums.ts`.
+
+## Quick Start
+
+```bash
+# Check for new playlists (writes pending-playlists.json if found)
+yarn check-zzz-playlists
+
+# Preview without writing the manifest
+yarn check-zzz-playlists --dry-run
+
+# Machine-readable output
+yarn check-zzz-playlists --json
+```
+
+Exit code **1** means new playlist(s) were detected — useful for scheduled automations.
+
+## How It Works
+
+1. **Fetch** all playlists from `@FindingPurposes` via yt-dlp (Docker)
+2. **Filter** titles matching `Zenless Zone Zero X.Y OST`
+3. **Compare** versions against the latest version album in `src/database/albums.ts` (currently `3.0`)
+4. **Write** `scripts/youtube-downloader/pending-playlists.json` when a newer version playlist is found
+
+The script never modifies albums or downloads music automatically.
+
+## Agent Workflow When New Playlist Is Found
+
+After `yarn check-zzz-playlists` reports new playlist(s):
+
+1. Read `scripts/youtube-downloader/pending-playlists.json`
+2. For each entry in `new_playlists`:
+   - Run `yarn playlist "<url>"` to populate `files-to-download.txt`
+   - Run `yarn mp3` to download tracks to `scripts/youtube-downloader/files/`
+   - Follow @store-new-songs to move/rename files, get durations, and add tracks to the version album
+   - Create the version album file (e.g. `src/database/albums/3.1.ts`) and add the album definition to `src/database/albums.ts`
+3. Clear or update `pending-playlists.json` once handled
+
+## Scheduled Cursor Automation
+
+Suggested weekly schedule:
+
+```bash
+yarn check-zzz-playlists
+```
+
+If `pending-playlists.json` has entries, the agent should download and import the new version soundtrack. Open a PR only when music was actually added.

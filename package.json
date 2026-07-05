@@ -21,6 +21,8 @@
     "test": "vitest",
     "i18n": "tsx src/scripts/i18n.run.ts",
     "mp3": "tsx scripts/youtube-downloader/download.ts",
+    "playlist": "tsx scripts/youtube-downloader/extract-playlist.ts",
+    "check-zzz-playlists": "tsx scripts/youtube-downloader/check-zzz-playlists.ts",
     "sync-characters": "tsx scripts/sync-characters/sync-characters.ts"
   },
   "dependencies": {
