@@ -156,4 +156,13 @@ export const UnreleasedSongs: Track[] = [
     ...Artists["san-z"],
     ...Albums["unreleased-songs"],
   },
+  {
+    title: "A Perilous Duty (TV Mode Theme)",
+    title_id: "a-perilous-duty--tv-mode-theme",
+    source: "/musics/a-perilous-duty--tv-mode-theme.mp3",
+    duration: 106,
+    created_at: new Date("2024-10-10"),
+    ...Artists["san-z"],
+    ...Albums["unreleased-songs"],
+  },
 ];

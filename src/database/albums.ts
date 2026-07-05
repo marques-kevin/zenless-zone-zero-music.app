@@ -385,6 +385,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "2.8",
     playlist_type: "jukebox",
   },
+  "3.0": {
+    playlist_name: "A Sleepwalker's Confession",
+    playlist_cover: "/covers/3.0.jpg",
+    playlist_id: "3.0",
+    playlist_type: "jukebox",
+  },
   zhao: {
     playlist_name: "Zhao",
     playlist_cover: "/characters/zhao.webp",
@@ -443,6 +449,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_name: "Remielle",
     playlist_cover: "/characters/remielle.webp",
     playlist_id: "remielle",
+    playlist_type: "character",
+  },
+  norma: {
+    playlist_name: "Norma",
+    playlist_cover: "/characters/norma.webp",
+    playlist_id: "norma",
     playlist_type: "character",
   },
 };
