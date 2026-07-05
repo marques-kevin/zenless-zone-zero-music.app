@@ -1,0 +1,99 @@
+---
+description: Sync character images from zenless.tools leveling calculator
+alwaysApply: false
+---
+
+# Syncing Characters from zenless.tools
+
+The sync script **only stages images** for characters not yet in the database. Adding characters to `src/database/characters.ts` is done manually by the agent after review.
+
+## Quick Start
+
+```bash
+# Preview what would be staged
+yarn sync-characters --dry-run
+
+# Download images for characters missing from the database
+yarn sync-characters
+
+# Re-download staged images even if they already exist
+yarn sync-characters --update
+```
+
+## How It Works
+
+1. **Crawl** [zenless.tools/leveling-calculator](https://zenless.tools/leveling-calculator) for `/images/characters/*.webp` preload links
+2. **Compare** against `src/database/characters.ts` using `scripts/sync-characters/character-zenless-map.ts`
+3. **Download** images for characters **not in the database** to `scripts/sync-characters/images/`
+4. **Write** `scripts/sync-characters/pending-characters.json` listing candidates for review
+
+The script never modifies `src/database/characters.ts` or `static/characters/`.
+
+## Agent Review Workflow
+
+After `yarn sync-characters` reports pending characters:
+
+1. Read `scripts/sync-characters/pending-characters.json`
+2. Inspect staged images in `scripts/sync-characters/images/`
+3. For each entry in `new_characters`:
+   - Confirm or set the `name` (use `suggested_name` when `mapped: true`)
+   - If `mapped: false`, add an entry to `scripts/sync-characters/character-zenless-map.ts` first
+   - Move the image to `static/characters/{basename}.webp`
+   - Add the entry to `src/database/characters.ts`
+4. For each entry in `image_updates`:
+   - Update the **existing** character's `image` path in `src/database/characters.ts`
+   - Move the staged image to `static/characters/{basename}.webp`
+   - Do not add a new character entry
+5. Delete staged images from `scripts/sync-characters/images/` after moving
+6. Run `yarn ladder:stats` if new characters were added (requires Firebase credentials)
+7. Clear or update `pending-characters.json` once all candidates are handled
+
+## Name Mapping
+
+zenless.tools uses full agent filenames (e.g. `hoshimi_miyabi.webp`, `pulchra_v2.webp`). The codebase uses short IDs (e.g. `miyabi`, `pulchra`). Mappings live in `scripts/sync-characters/character-zenless-map.ts`.
+
+### Aliases (same character, different filename)
+
+When zenless.tools uses a different filename for a character that **already exists** in the database, map the zenless basename to the **existing** `name` — do not create a new entry.
+
+Example: `soldier_0` on zenless.tools is Silver Soldier Anby → `sanby` in this app:
+
+```typescript
+soldier_0: "sanby",
+```
+
+The script will then stage it as an `image_update` (not a new character). Image updates are only staged when the zenless basename is a true alias (e.g. `sanby` → `soldier_0`), not for routine `_v2` or full-name variants like `anby` → `anby_demara`.
+
+The agent should move the image to `static/characters/` and update the existing entry:
+
+```typescript
+{ name: "sanby", image: "/characters/soldier_0.webp" },
+```
+
+### New characters on zenless.tools
+
+When a truly new unmapped character appears:
+
+1. Add an entry to `ZENLESS_TO_CHARACTER_NAME` in `character-zenless-map.ts`
+2. Re-run `yarn sync-characters` if needed
+3. Follow the agent review workflow above
+
+## Naming Conventions
+
+- Use existing patterns: `ye_shunguang`, `starlight_billy`, `zhu-yuan`, `"pan yinhu"` (spaces when needed)
+- Prefer `.webp` from zenless.tools
+- When zenless.tools ships `_v2` images, prefer those (the script picks `_v2` automatically)
+
+## Local-Only Characters
+
+Some characters exist only in this app (`isolde`). They are listed in `LOCAL_ONLY_CHARACTERS` in `character-zenless-map.ts` and are not affected by the sync script.
+
+## Weekly Automation
+
+For a scheduled Cursor Automation:
+
+```bash
+yarn sync-characters
+```
+
+If `pending-characters.json` has entries, the agent should review staged images and add approved characters to the database. Open a PR only when characters were actually added.

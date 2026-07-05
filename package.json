@@ -20,7 +20,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "i18n": "tsx src/scripts/i18n.run.ts",
-    "mp3": "tsx scripts/youtube-downloader/download.ts"
+    "mp3": "tsx scripts/youtube-downloader/download.ts",
+    "sync-characters": "tsx scripts/sync-characters/sync-characters.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",
