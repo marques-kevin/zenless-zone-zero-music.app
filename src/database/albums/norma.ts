@@ -44,6 +44,22 @@ export const NormaTracks: Track[] = [
     created_at: new Date("2026-06-17"),
     ...Artists["3.0"],
   },
+  {
+    title: "Norma Theme - chaos.exe (Instrumental Ver.)",
+    title_id: "norma-theme--chaos-exe-instrumental-ver",
+    source: "/musics/3.0--norma-theme--chaos-exe-instrumental-ver.mp3",
+    duration: 163,
+    created_at: new Date("2026-07-18"),
+    ...Artists["3.0"],
+  },
+  {
+    title: "Norma EP - chaos.exe (With Lyrics)",
+    title_id: "norma-ep--chaos-exe-with-lyrics",
+    source: "/musics/3.0--norma-ep--chaos-exe-with-lyrics.mp3",
+    duration: 163,
+    created_at: new Date("2026-07-18"),
+    ...Artists["3.0"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["norma"],
