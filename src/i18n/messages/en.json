@@ -44,6 +44,7 @@
   "modal-request-login/description": "You can login with your Google account. We do not store your informations, only your email to be able to authentify you.",
   "modal-request-login/login": "Login",
   "navbar/update-available": "Update available, click to refresh",
+  "navbar/ask-music/tooltip": "Request music",
   "navbar/dropdown/login": "Login",
   "navbar/dropdown/logout": "Logout",
   "navbar/dropdown/change-profile-picture": "Change profile picture",
@@ -108,5 +109,23 @@
   "ladder/selection/save": "Save",
 
   "ladder/characters/seo-title": "Top 5 Characters – Zenless Zone Zero",
-  "ladder/characters/seo-description": "See the global ranking of your favorite Zenless Zone Zero characters. This page currently uses fake data while we build the voting system."
+  "ladder/characters/seo-description": "See the global ranking of your favorite Zenless Zone Zero characters. This page currently uses fake data while we build the voting system.",
+
+  "central-bar/ask-music/title": "Missing a song?",
+  "central-bar/ask-music/description": "Share YouTube links to ZZZ music you would like to see added. You can track the status of your requests here.",
+  "central-bar/ask-music/button": "Request music",
+
+  "modals/ask-music/title": "Request music",
+  "modals/ask-music/description": "Paste one or more YouTube links, one per line. Each link will be saved as a separate request.",
+  "modals/ask-music/placeholder": "https://www.youtube.com/watch?v=...\nhttps://youtu.be/...",
+  "modals/ask-music/submit": "Submit requests",
+  "modals/ask-music/your-requests": "Your requests",
+  "modals/ask-music/no-requests": "You have not requested any music yet.",
+  "modals/ask-music/status/pending": "Pending review",
+  "modals/ask-music/status/added": "Added to the app",
+  "modals/ask-music/status/cancelled": "Not added",
+  "modals/ask-music/result/submitted": "{count, plural, one {# request submitted} other {# requests submitted}}",
+  "modals/ask-music/result/already-requested": "{count, plural, one {# link was already in your requests} other {# links were already in your requests}}",
+  "modals/ask-music/result/invalid": "{count, plural, one {# invalid link ignored} other {# invalid links ignored}}",
+  "modals/ask-music/result/no-valid-links": "No valid YouTube links were found."
 }
