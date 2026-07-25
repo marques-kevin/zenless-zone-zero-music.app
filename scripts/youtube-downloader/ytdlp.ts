@@ -1,4 +1,5 @@
 import { spawn } from "child_process";
+import { getYtdlpExtraArgs } from "./ytdlp-cookies";
 
 export const ytdlpBin = "yt-dlp";
 
@@ -66,6 +67,7 @@ export async function ytdlpPrint(
   printFormat: string
 ): Promise<string> {
   const { code, stdout, stderr } = await runCommandCapture(ytdlpBin, [
+    ...(await getYtdlpExtraArgs()),
     "--flat-playlist",
     "--print",
     printFormat,
