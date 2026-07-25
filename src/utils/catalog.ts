@@ -6,11 +6,11 @@ import {
 } from "@/types/catalog.type";
 import { Playlist } from "@/types/playlist.type";
 import { Track } from "@/types/track.type";
-import { getCdnUrl } from "./get-cdn-url";
+import { getR2CdnUrl } from "./get-cdn-url";
 
 export const CATALOG_PATH = "/catalog/tracks.json";
 
-export const getCatalogUrl = () => getCdnUrl(CATALOG_PATH);
+export const getCatalogUrl = () => getR2CdnUrl(CATALOG_PATH);
 
 export function deserializeTrack(track: SerializedTrack): Track {
   return {

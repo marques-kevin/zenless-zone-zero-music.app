@@ -8,7 +8,7 @@
     "gatsby"
   ],
   "scripts": {
-    "start": "concurrently \"yarn catalog:pull || yarn catalog:export && yarn clean && gatsby develop -H 0.0.0.0 -p 28473\" \"yarn serve:musics\"",
+    "start": "concurrently \"yarn clean && gatsby develop -H 0.0.0.0 -p 28473\" \"yarn serve:musics\"",
     "build": "NODE_ENV=production gatsby build",
     "serve": "gatsby serve",
     "serve:musics": "npx serve -p 28474",
