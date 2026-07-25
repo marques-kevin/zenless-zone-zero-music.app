@@ -28,6 +28,7 @@
     "deploy:firestore-rules": "tsx scripts/deploy-firestore-rules.ts",
     "ask-musics:list-pending": "tsx scripts/ask-musics/list-pending.ts",
     "ask-musics:update-status": "tsx scripts/ask-musics/update-status.ts",
+    "ask-musics:process-pending": "tsx scripts/ask-musics/process-pending.ts",
     "catalog:export": "tsx scripts/catalog/export-catalog.ts",
     "catalog:pull": "tsx scripts/catalog/pull-catalog.ts",
     "catalog:bootstrap": "tsx scripts/catalog/bootstrap-catalog.ts",

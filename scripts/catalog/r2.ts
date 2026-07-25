@@ -1,3 +1,4 @@
+import { createReadStream } from "fs";
 import {
   GetObjectCommand,
   ListObjectsV2Command,
@@ -68,6 +69,27 @@ export async function uploadCatalogToR2(content: string): Promise<void> {
       ContentType: "application/json",
     })
   );
+}
+
+export async function uploadMusicFileToR2(filePath: string): Promise<string> {
+  const filename = filePath.split("/").pop();
+  if (!filename) {
+    throw new Error(`Invalid music file path: ${filePath}`);
+  }
+
+  const key = `musics/${filename}`;
+  const fileStream = createReadStream(filePath);
+
+  await s3Client.send(
+    new PutObjectCommand({
+      Bucket: env.CLOUDFLARE_BUCKET_NAME,
+      Key: key,
+      Body: fileStream,
+      ContentType: "audio/mpeg",
+    })
+  );
+
+  return key;
 }
 
 export async function listR2Files(): Promise<string[]> {
