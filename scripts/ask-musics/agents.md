@@ -20,7 +20,7 @@ yarn ask-musics:process-pending --version 2.8
 
 Per request, the pipeline:
 
-1. Fetches YouTube metadata (title, duration)
+1. Fetches YouTube metadata (title, description, channel, duration)
 2. Infers version album from title (or uses `--version`)
 3. Downloads MP3 via yt-dlp
 4. Moves file to `musics/{version}--{title-id}.mp3` (local staging only)
@@ -91,9 +91,62 @@ Cookies expire — re-export every few weeks if downloads start failing again.
 - `yt-dlp` and `ffprobe` installed
 - YouTube cookies (see above) if downloads are blocked
 
+## ZZZ validation (required before downloading)
+
+Only accept tracks that belong to **Zenless Zone Zero**. Validate from the **video title and description** — that is enough; no need to dig further.
+
+**Always validate before downloading the MP3.** Do not call `process-pending` without `--dry-run` until ZZZ validation passes.
+
+### Step 1 — Read the YouTube page (before any download)
+
+From cloud/datacenter IPs, `yt-dlp` is often blocked ("Sign in to confirm you're not a bot"). **Do not rely on yt-dlp for the first validation step.**
+
+Read the public YouTube page for the URL (e.g. web fetch / browser) and extract:
+
+- Video **title**
+- Video **description** (if visible on the page)
+
+If `--dry-run` works (yt-dlp returns title + description), you may use it instead — but prefer reading the page when yt-dlp fails.
+
+**Do not say YouTube is "resolved" or "working" until a real `process-pending` run (without `--dry-run`) successfully downloads the MP3.**
+
+### Step 2 — Validate ZZZ, then act
+
+```bash
+# After reading title + description from the page:
+
+# 2a. If ZZZ → download and add
+yarn ask-musics:process-pending --url "<youtube-url>"
+
+# 2b. If not ZZZ → reject (no download)
+yarn ask-musics:update-status --url "<youtube-url>" --status cancelled --reason "Not ZZZ music"
+```
+
+Optional: `yarn ask-musics:process-pending --url "<youtube-url>" --dry-run` to double-check metadata via yt-dlp when cookies work. This is **not** a substitute for reading the page when yt-dlp is blocked.
+
+For a daily batch: list pending → read each page → validate → process or cancel → next request.
+
+### Accept when title or description mentions
+
+- `Zenless Zone Zero`, `ZZZ`, `ゼンレスゾーンゼロ`
+- Official publisher: `HoYoverse`, `miHoYo`, `COGNOSPHERE`
+- ZZZ soundtrack context: `OST`, `Agent Story`, `EP -`, `Battle Theme`, `Exploration Theme`
+- Known ZZZ character names (e.g. Nicole, Ellen, Yixuan, Yuzuha)
+- Official ZZZ channel or playlist references
+
+### Reject when
+
+- Clearly another game (`Genshin Impact`, `Honkai`, `Wuthering Waves`, etc.) with no ZZZ link
+- Fan cover / remix / unrelated music with no ZZZ mention in title **or** description
+- Title and description together give **no credible link** to Zenless Zone Zero
+
+When unsure, prefer **rejecting** with reason `"Not ZZZ music"` rather than adding unrelated tracks.
+
 ## Automation (Cursor daily)
 
 ```bash
+yarn ask-musics:list-pending
+# For each URL: read YouTube page → validate ZZZ → process or cancel (never download before validation)
 yarn ask-musics:process-pending
 yarn ask-musics:send-report
 ```

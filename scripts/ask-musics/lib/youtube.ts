@@ -18,8 +18,19 @@ function extractYtdlpError(stderr: string, fallback: string): string {
   return errorLine?.replace(/^ERROR:\s*/, "") || fallback;
 }
 
+type YtdlpVideoJson = {
+  id?: string;
+  title?: string;
+  description?: string;
+  channel?: string;
+  uploader?: string;
+  duration?: number;
+};
+
 export type YoutubeMetadata = {
   title: string;
+  description: string;
+  channel: string;
   duration: number;
   video_id: string;
 };
@@ -30,12 +41,7 @@ export async function fetchYoutubeMetadata(url: string): Promise<YoutubeMetadata
   const { code, stdout, stderr } = await runCommandCapture(ytdlpBin, [
     ...(await getYtdlpExtraArgs()),
     "--no-playlist",
-    "--print",
-    "%(id)s",
-    "--print",
-    "%(title)s",
-    "--print",
-    "%(duration)s",
+    "--dump-single-json",
     url,
   ]);
 
@@ -43,19 +49,18 @@ export async function fetchYoutubeMetadata(url: string): Promise<YoutubeMetadata
     throw new Error(extractYtdlpError(stderr, `Failed to fetch metadata for ${url}`));
   }
 
-  const [video_id, title, durationRaw] = stdout
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
+  const data = JSON.parse(stdout) as YtdlpVideoJson;
 
-  if (!video_id || !title) {
+  if (!data.id || !data.title) {
     throw new Error(`Incomplete metadata for ${url}`);
   }
 
   return {
-    video_id,
-    title,
-    duration: Math.round(Number(durationRaw) || 0),
+    video_id: data.id,
+    title: data.title,
+    description: data.description ?? "",
+    channel: data.channel ?? data.uploader ?? "",
+    duration: Math.round(Number(data.duration) || 0),
   };
 }
 

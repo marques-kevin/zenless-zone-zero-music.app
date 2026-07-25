@@ -46,7 +46,7 @@ function printUsage() {
       "  yarn ask-musics:process-pending --url <youtube-url> [--dry-run] [--version <x.y>]",
       "",
       "Pipeline per request:",
-      "  1. Fetch YouTube metadata",
+      "  1. Fetch YouTube metadata (title, description, channel)",
       "  2. Download MP3",
       "  3. Move to musics/ with version prefix",
       "  4. Upload MP3 to R2",
@@ -142,6 +142,10 @@ async function processRequest(
     }
 
     if (is_dry_run) {
+      console.log(`  title: ${metadata.title}`);
+      console.log(`  channel: ${metadata.channel}`);
+      console.log(`  description: ${metadata.description || "(empty)"}`);
+
       return {
         url,
         status: "added",
