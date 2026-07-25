@@ -10,27 +10,32 @@ The app loads its full track catalog from a remote JSON file at startup.
 ## Commands
 
 ```bash
+# Download remote catalog to local (safe)
+yarn catalog:pull
+
 # Export local TS database to catalog/tracks.json
 yarn catalog:export
+yarn catalog:export --merge-remote
 
-# Upload catalog/tracks.json to R2
+# Upload catalog/tracks.json to R2 (with safety checks)
 yarn catalog:sync
+yarn catalog:sync --force
 
-# Add track(s) from a JSON file
+# Add track(s) from a JSON file (preferred for automation)
 yarn catalog:add-track --track-file path/to/track.json --remote
 ```
 
-## Automation flow
+## Avoid overwriting the catalog
 
-1. `yarn ask-musics:list-pending --write-manifest`
-2. Download and move MP3 into `musics/`
-3. `yarn sync-music`
-4. Create a track JSON file and run `yarn catalog:add-track --track-file ... --remote`
-5. `yarn ask-musics:update-status --url "..." --status added`
+| Command | Risk |
+|---------|------|
+| `catalog:add-track --remote` | Safe — reads remote, appends, uploads |
+| `catalog:pull` | Safe — download only |
+| `catalog:export` | Drops R2-only tracks unless `--merge-remote` |
+| `catalog:sync` | Blocked if local is older/smaller than remote |
+| `catalog:sync --force` | Dangerous — overwrites remote |
 
-No Gatsby rebuild or PR is required for new tracks once the catalog is on R2.
-
-Important: the runtime catalog lives on R2. Do not run `yarn catalog:export && yarn catalog:sync` in CI after automation adds tracks, or you will overwrite remote additions. Use `catalog:add-track --remote` for async additions.
+Never run `catalog:export && catalog:sync` after automation additions.
 
 ## Typing & examples
 

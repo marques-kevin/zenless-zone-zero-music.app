@@ -8,7 +8,7 @@
     "gatsby"
   ],
   "scripts": {
-    "start": "concurrently \"yarn catalog:export && yarn clean && gatsby develop -H 0.0.0.0 -p 28473\" \"yarn serve:musics\"",
+    "start": "concurrently \"yarn catalog:pull || yarn catalog:export && yarn clean && gatsby develop -H 0.0.0.0 -p 28473\" \"yarn serve:musics\"",
     "build": "NODE_ENV=production gatsby build",
     "serve": "gatsby serve",
     "serve:musics": "npx serve -p 28474",
@@ -29,6 +29,7 @@
     "ask-musics:list-pending": "tsx scripts/ask-musics/list-pending.ts",
     "ask-musics:update-status": "tsx scripts/ask-musics/update-status.ts",
     "catalog:export": "tsx scripts/catalog/export-catalog.ts",
+    "catalog:pull": "tsx scripts/catalog/pull-catalog.ts",
     "catalog:sync": "tsx scripts/catalog/sync-catalog.ts",
     "catalog:add-track": "tsx scripts/catalog/add-track.ts"
   },

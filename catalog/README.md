@@ -51,4 +51,37 @@ Base track fields are defined in [`src/types/track.type.ts`](../src/types/track.
 
 ## Commands
 
+```bash
+# Download remote catalog to local (safe, preferred)
+yarn catalog:pull
+
+# Export local TS to catalog/tracks.json (legacy authoring)
+yarn catalog:export
+yarn catalog:export --merge-remote   # preserves R2-only tracks
+
+# Upload local catalog to R2 (protected against accidental overwrite)
+yarn catalog:sync
+yarn catalog:sync --force            # dangerous, overwrites remote
+
+# Add track(s) directly on R2 (preferred for automation)
+yarn catalog:add-track --track-file path/to/track.json --remote
+```
+
+## Avoid overwriting the catalog
+
+R2 is the runtime source of truth. These commands are safe:
+
+- `catalog:pull` — download remote → local
+- `catalog:add-track --remote` — append on R2
+
+These can be dangerous:
+
+- `catalog:export` without `--merge-remote` — regenerates from TS, drops R2-only tracks locally
+- `catalog:sync` — blocked if local is older/smaller than remote (use `--force` to override)
+
+`catalog:sync` refuses to upload when:
+
+- local `version` < remote `version`
+- local track count < remote track count
+
 See [`scripts/catalog/agents.md`](../scripts/catalog/agents.md).
