@@ -1,16 +1,10 @@
 import { CatalogJson } from "../../src/types/catalog.type";
 import { rebuildCatalogPlaylists } from "./build-catalog";
-import {
-  downloadCatalogFromR2,
-  uploadCatalogToR2,
-  writeLocalCatalog,
-} from "./r2";
+import { downloadCatalogFromR2, uploadCatalogToR2 } from "./r2";
 
 export class CatalogNotFoundError extends Error {
   constructor() {
-    super(
-      "No remote catalog found on R2. Run `yarn catalog:bootstrap` once to initialize it."
-    );
+    super("No remote catalog found on R2.");
     this.name = "CatalogNotFoundError";
   }
 }
@@ -28,7 +22,6 @@ export async function loadRemoteCatalog(): Promise<CatalogJson> {
 export async function saveRemoteCatalog(catalog: CatalogJson): Promise<void> {
   const content = JSON.stringify(catalog, null, 2);
   await uploadCatalogToR2(content);
-  await writeLocalCatalog(content);
 }
 
 export async function mutateRemoteCatalog(

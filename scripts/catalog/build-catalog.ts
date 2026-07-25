@@ -1,7 +1,4 @@
 import { uniqBy } from "lodash";
-import { tracks } from "../../src/database/tracks";
-import { songs as top_100_songs } from "../../src/database/top_100.json";
-import { songs as most_played_songs } from "../../src/database/most_played.json";
 import {
   CatalogJson,
   SerializedPlaylist,
@@ -37,65 +34,6 @@ export function buildOfficialPlaylists(
         .map(serializeTrack),
     }))
     .reverse();
-}
-
-export function buildCatalog(params?: {
-  version?: number;
-  updated_at?: string;
-  tracks?: Track[];
-}): CatalogJson {
-  const catalogTracks = params?.tracks ?? tracks;
-
-  const official = buildOfficialPlaylists(catalogTracks);
-
-  const top_100: SerializedPlaylist = {
-    playlist_name: "Top 10 Liked Songs",
-    playlist_cover: "/covers/top-100.jpg",
-    playlist_id: "top-100",
-    playlist_type: "most_liked",
-    tracks: top_100_songs.slice(0, 10).flatMap((song) => {
-      const track = catalogTracks.find((item) => item.title_id === song.title_id);
-      if (!track) return [];
-
-      return [
-        serializeTrack({
-          ...track,
-          number_of_likes: song.number_of_likes,
-        }),
-      ];
-    }),
-  };
-
-  const most_played: SerializedPlaylist = {
-    playlist_name: "Most Played Songs of the Month",
-    playlist_cover: "/covers/top-100.jpg",
-    playlist_id: "most-played",
-    playlist_type: "most_played",
-    tracks: most_played_songs
-      .flatMap((song) => {
-        const track = catalogTracks.find((item) => item.title_id === song.track_id);
-        if (!track) return [];
-
-        return [
-          serializeTrack({
-            ...track,
-            number_of_plays: song.number_of_plays,
-          }),
-        ];
-      })
-      .slice(0, 10),
-  };
-
-  return {
-    version: params?.version ?? 1,
-    updated_at: params?.updated_at ?? new Date().toISOString(),
-    tracks: catalogTracks.map(serializeTrack),
-    playlists: {
-      official,
-      top_100,
-      most_played,
-    },
-  };
 }
 
 export function rebuildCatalogPlaylists(catalog: CatalogJson): CatalogJson {

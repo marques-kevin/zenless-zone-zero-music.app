@@ -5,7 +5,7 @@ Never translate. We already have a script that do that yarn i18n.
 ## Cursor Cloud specific instructions
 
 - Product: single Gatsby 5 static site ("ZZZ Music", a Zenless Zone Zero soundtrack player). Package manager is `yarn`.
-- Run dev with `yarn start` (Gatsby on port 28473). Catalog and MP3s are streamed from Cloudflare R2 in all environments (`src/utils/get-cdn-url.ts`). `yarn serve:musics` is optional for local file testing only.
+- Run dev with `yarn start` (Gatsby on port 28473). Catalog and MP3s are streamed from Cloudflare R2 in all environments (`src/utils/get-cdn-url.ts`).
 - A `.env` is not committed (gitignored). The app boots without valid keys. Firebase env vars (`GATSBY_FIREBASE_*`) are optional for local dev: with them empty, the app shows a Firebase `auth/invalid-api-key` error on load, but core music playback works fine. Auth, playlists, likes, and ladder features require real Firebase keys.
 - Standard commands (in `package.json`): `yarn test` (Vitest), `yarn typecheck` (tsc), `yarn build` (production Gatsby build), `yarn serve` (serve built output). There is no lint script/ESLint config; `yarn typecheck` is the closest static-analysis gate.
 - Known pre-existing failures (not environment issues): `yarn test` has 1 failing `addHash` case, and `yarn typecheck` reports errors in `src/components/ui/resizable.tsx`, `src/components/ui/skeleton.tsx`, and `src/hooks/use-toast.ts`. `yarn build` still succeeds.

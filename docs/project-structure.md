@@ -225,7 +225,6 @@ Redux Toolkit with feature-based slices:
 
 1. **Development**: `yarn start`
    - Runs `gatsby develop` on port 28473
-   - Serves music files on port 28474
    - Hot reload enabled
 
 2. **Production**: `yarn build`

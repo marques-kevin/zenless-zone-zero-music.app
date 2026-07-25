@@ -1,7 +1,6 @@
 import { CatalogJson } from "../../src/types/catalog.type";
 import { Track } from "../../src/types/track.type";
 import {
-  buildCatalog,
   deserializeTrack,
   rebuildCatalogPlaylists,
   serializeTrack,
@@ -30,10 +29,6 @@ export function mergeTrackLists(
   }
 
   return [...merged.values()];
-}
-
-export function buildCatalogFromTypescript(): CatalogJson {
-  return buildCatalog();
 }
 
 export function getCatalogStats(catalog: CatalogJson) {

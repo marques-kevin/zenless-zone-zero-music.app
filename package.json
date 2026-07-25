@@ -11,7 +11,6 @@
     "start": "yarn clean && gatsby develop -H 0.0.0.0 -p 28473",
     "build": "NODE_ENV=production gatsby build",
     "serve": "gatsby serve",
-    "serve:musics": "npx serve -p 28474",
     "sync-music": "tsx scripts/sync-music.ts",
     "ladder:stats": "tsx scripts/generate-ladder-stats.ts",
     "top-100": "tsx scripts/generate-top-liked-songs.ts",
@@ -29,14 +28,10 @@
     "ask-musics:list-pending": "tsx scripts/ask-musics/list-pending.ts",
     "ask-musics:update-status": "tsx scripts/ask-musics/update-status.ts",
     "ask-musics:process-pending": "tsx scripts/ask-musics/process-pending.ts",
-    "catalog:export": "tsx scripts/catalog/export-catalog.ts",
-    "catalog:pull": "tsx scripts/catalog/pull-catalog.ts",
-    "catalog:bootstrap": "tsx scripts/catalog/bootstrap-catalog.ts",
     "catalog:add-track": "tsx scripts/catalog/add-track.ts",
     "catalog:update-track": "tsx scripts/catalog/update-track.ts",
     "catalog:remove-track": "tsx scripts/catalog/remove-track.ts",
-    "catalog:update-playlist": "tsx scripts/catalog/update-playlist.ts",
-    "catalog:configure-cors": "tsx scripts/catalog/configure-cors.ts"
+    "catalog:update-playlist": "tsx scripts/catalog/update-playlist.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",
