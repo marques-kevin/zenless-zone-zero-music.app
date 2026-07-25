@@ -1,48 +1,47 @@
 # Music Catalog
 
-The app loads its full track catalog from a remote JSON file at startup.
+The remote catalog on R2 is treated as a database. Once bootstrapped, only CRUD operations are allowed.
 
-## Source of truth
+## Typing
 
-- **Runtime**: `catalog/tracks.json` on Cloudflare R2
-- **Authoring (legacy)**: `src/database/albums/*.ts` used only by `yarn catalog:export`
+TypeScript types: [`src/types/catalog.type.ts`](../src/types/catalog.type.ts)
+
+Examples: [`track.example.json`](./track.example.json), [`catalog.example.json`](./catalog.example.json)
 
 ## Commands
 
+### Read-only
+
 ```bash
-# Download remote catalog to local (safe)
-yarn catalog:pull
-
-# Export local TS database to catalog/tracks.json
-yarn catalog:export
-yarn catalog:export --merge-remote
-
-# Upload catalog/tracks.json to R2 (with safety checks)
-yarn catalog:sync
-yarn catalog:sync --force
-
-# Add track(s) from a JSON file (preferred for automation)
-yarn catalog:add-track --track-file path/to/track.json --remote
+yarn catalog:pull      # download R2 → local (inspection / dev)
+yarn catalog:export    # export TS → local file (never uploads)
 ```
 
-## Avoid overwriting the catalog
+### One-time setup
 
-| Command | Risk |
-|---------|------|
-| `catalog:add-track --remote` | Safe — reads remote, appends, uploads |
-| `catalog:pull` | Safe — download only |
-| `catalog:export` | Drops R2-only tracks unless `--merge-remote` |
-| `catalog:sync` | Blocked if local is older/smaller than remote |
-| `catalog:sync --force` | Dangerous — overwrites remote |
+```bash
+yarn catalog:bootstrap   # initialize R2 from TS (only if R2 is empty)
+```
 
-Never run `catalog:export && catalog:sync` after automation additions.
+### CRUD (remote database)
 
-## Typing & examples
+```bash
+# Tracks
+yarn catalog:add-track --track-file track.json
+yarn catalog:update-track --title-id <id> --playlist-id <id> --track-file track.json
+yarn catalog:remove-track --title-id <id> --playlist-id <id>
 
-- Types: `src/types/catalog.type.ts` (`CatalogJson`, `SerializedTrack`)
-- Docs: `catalog/README.md`
-- Examples: `catalog/track.example.json`, `catalog/catalog.example.json`
+# Playlists (metadata on all tracks in the playlist)
+yarn catalog:update-playlist --playlist-id <id> --name "..." --cover "/covers/....jpg"
+```
 
-## Track JSON example
+There is **no** `catalog:sync` command. The full JSON cannot be overwritten.
 
-Use `catalog/track.example.json` as a template for `yarn catalog:add-track`.
+## Automation flow
+
+```bash
+yarn ask-musics:list-pending --write-manifest
+yarn sync-music
+yarn catalog:add-track --track-file track.json
+yarn ask-musics:update-status --url "..." --status added
+```

@@ -30,8 +30,11 @@
     "ask-musics:update-status": "tsx scripts/ask-musics/update-status.ts",
     "catalog:export": "tsx scripts/catalog/export-catalog.ts",
     "catalog:pull": "tsx scripts/catalog/pull-catalog.ts",
-    "catalog:sync": "tsx scripts/catalog/sync-catalog.ts",
-    "catalog:add-track": "tsx scripts/catalog/add-track.ts"
+    "catalog:bootstrap": "tsx scripts/catalog/bootstrap-catalog.ts",
+    "catalog:add-track": "tsx scripts/catalog/add-track.ts",
+    "catalog:update-track": "tsx scripts/catalog/update-track.ts",
+    "catalog:remove-track": "tsx scripts/catalog/remove-track.ts",
+    "catalog:update-playlist": "tsx scripts/catalog/update-playlist.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",
