@@ -61,14 +61,17 @@ yarn ask-musics:process-pending --url "https://www.youtube.com/watch?v=..." --dr
 1. Install a cookies exporter extension in Chrome (e.g. "Get cookies.txt LOCALLY")
 2. Go to [youtube.com](https://www.youtube.com) while logged in
 3. Export cookies as `cookies.txt` (Netscape format)
-4. Save the file **outside the repo** (e.g. `~/secrets/youtube-cookies.txt`)
-5. Add to Cursor environment secrets:
+4. Add the file content to Cursor environment secrets:
 
 ```bash
-YTDLP_COOKIES_FILE=/path/to/youtube-cookies.txt
+YTDLP_COOKIES_CONTENT=<paste full cookies.txt content here>
 ```
 
-Or in the project's `.env` (gitignored):
+Cursor secrets support multiline values. If newlines are escaped, the script normalizes `\n` automatically.
+
+### Option C — Local file path
+
+Save the exported file outside the repo (e.g. `~/secrets/youtube-cookies.txt`) or in the project:
 
 ```bash
 YTDLP_COOKIES_FILE=./secrets/youtube-cookies.txt
@@ -76,7 +79,7 @@ YTDLP_COOKIES_FILE=./secrets/youtube-cookies.txt
 
 Add `secrets/` to `.gitignore` if you store cookies locally.
 
-**Priority:** `YTDLP_COOKIES_FILE` overrides `YTDLP_COOKIES_BROWSER` if both are set.
+**Priority:** `YTDLP_COOKIES_FILE` > `YTDLP_COOKIES_CONTENT` > `YTDLP_COOKIES_BROWSER`
 
 Cookies expire — re-export every few weeks if downloads start failing again.
 
