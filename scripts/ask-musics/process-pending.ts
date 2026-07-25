@@ -1,3 +1,4 @@
+import { unlink } from "fs/promises";
 import { join } from "path";
 import { serializeTrack } from "../catalog/build-catalog";
 import { getTrackKey } from "../catalog/catalog-utils";
@@ -171,6 +172,7 @@ async function processRequest(
     await uploadMusicFileToR2(destination_path);
     await addTrackToCatalog(track);
     await updateRequestStatus({ url, status: "added" });
+    await unlink(destination_path).catch(() => undefined);
 
     return {
       url,

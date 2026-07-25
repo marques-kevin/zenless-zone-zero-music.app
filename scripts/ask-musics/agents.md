@@ -23,10 +23,11 @@ Per request, the pipeline:
 1. Fetches YouTube metadata (title, duration)
 2. Infers version album from title (or uses `--version`)
 3. Downloads MP3 via yt-dlp
-4. Moves file to `musics/{version}--{title-id}.mp3`
+4. Moves file to `musics/{version}--{title-id}.mp3` (local staging only)
 5. Uploads MP3 to R2
 6. Adds track to remote catalog (CRUD)
 7. Marks Firestore request as `added`
+8. Deletes the local MP3 (R2 is the source of truth; `musics/*.mp3` is gitignored)
 
 ## Individual commands
 
