@@ -62,7 +62,6 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
               }}
             >
               <textarea
-                autoFocus
                 required
                 name="youtube_links"
                 rows={6}
