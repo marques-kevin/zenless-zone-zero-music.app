@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { ensureDockerImage, requireCmd, ytdlpPrint } from "./ytdlp-docker";
+import { requireCmd, ytdlpBin, ytdlpPrint } from "./ytdlp";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,7 +12,7 @@ const filesList = path.join(scriptDir, "files-to-download.txt");
 function printUsage() {
   console.log(
     [
-      "Extract YouTube playlist URLs (Docker-based)",
+      "Extract YouTube playlist URLs (yt-dlp)",
       "",
       "Usage:",
       `  yarn playlist <playlist-url>`,
@@ -44,8 +44,7 @@ async function main() {
     process.exit(playlistUrl ? 0 : 1);
   }
 
-  await requireCmd("docker");
-  await ensureDockerImage();
+  await requireCmd(ytdlpBin);
 
   console.log(`Extracting URLs from: ${playlistUrl}`);
 
