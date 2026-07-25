@@ -95,18 +95,28 @@ Cookies expire — re-export every few weeks if downloads start failing again.
 
 ```bash
 yarn ask-musics:process-pending
+yarn ask-musics:send-report
 ```
+
+`process-pending` writes `scripts/ask-musics/last-run-report.json` and does **not** post to Discord.
+The agent sends one report at the end with `send-report`.
 
 Exit code `1` if any request failed. Exit code `0` if all processed or nothing pending.
 
-### Discord notifications
+### Discord report
 
-When `ASK_MUSIC_DISCORD_WEBHOOK_URL` is set, the pipeline posts to Discord:
+When `ASK_MUSIC_DISCORD_WEBHOOK_URL` is set, post a single summary after the run:
 
-1. **Start** — automation started with the list of pending URLs
-2. **Per-request error** — when a single request fails during processing
-3. **Finish** — summary with added / skipped / failed counts and per-URL results
-4. **Fatal error** — when the script crashes before finishing (e.g. Firestore unavailable)
+```bash
+yarn ask-musics:send-report
+```
+
+Optional:
+
+```bash
+yarn ask-musics:send-report --file scripts/ask-musics/last-run-report.json
+yarn ask-musics:send-report --error "Firestore unavailable"
+```
 
 Add the webhook URL to Cursor environment secrets or `.env`:
 
