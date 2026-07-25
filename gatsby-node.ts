@@ -10,6 +10,9 @@ const HomeTemplate = path.resolve(`src/templates/home.tsx`);
 const CharactersLadderTemplate = path.resolve(
   `src/templates/ladders/characters.tsx`
 );
+const BurningDesiresRhythmTemplate = path.resolve(
+  `src/templates/rhythm/burning-desires.tsx`
+);
 
 const getMessages = (lang: string) => {
   const filePath = path.join(__dirname, `src/i18n/messages/${lang}.json`);
@@ -94,6 +97,17 @@ export const createPages: GatsbyNode["createPages"] = async ({
         ladders: {
           characters: characters,
         },
+        ...common_context,
+      },
+    });
+
+    createPage({
+      path:
+        lang.id === "en"
+          ? "/rhythm/burning-desires/"
+          : `/${lang.id}/rhythm/burning-desires/`,
+      component: BurningDesiresRhythmTemplate,
+      context: {
         ...common_context,
       },
     });

@@ -119,5 +119,21 @@
   "modals/ask-music/result/submitted": "{count, plural, one {# request submitted} other {# requests submitted}}",
   "modals/ask-music/result/already-requested": "{count, plural, one {# link was already in your requests} other {# links were already in your requests}}",
   "modals/ask-music/result/invalid": "{count, plural, one {# invalid link ignored} other {# invalid links ignored}}",
-  "modals/ask-music/result/no-valid-links": "No valid YouTube links were found."
+  "modals/ask-music/result/no-valid-links": "No valid YouTube links were found.",
+  "rhythm/seo-title": "Rhythm Game – Burning Desires | Zenless Zone Zero",
+  "rhythm/seo-description": "Play the ZZZ-style rhythm game on Burning Desires. Create and edit custom note charts with the built-in editor.",
+  "rhythm/mode/play": "Play",
+  "rhythm/mode/edit": "Edit",
+  "rhythm/editor/play-audio": "Play audio",
+  "rhythm/editor/zoom-in": "Zoom in",
+  "rhythm/editor/zoom-out": "Zoom out",
+  "rhythm/editor/import": "Import JSON",
+  "rhythm/editor/export": "Export JSON",
+  "rhythm/editor/clear-draft": "Clear draft",
+  "rhythm/editor/hint": "Click on the lane to place notes (left → right → both → remove). Right-click to delete. Progress is auto-saved locally.",
+  "rhythm/play/start": "Start",
+  "rhythm/play/controls": "Press F for left notes, J for right notes. Hold both for green notes.",
+  "rhythm/play/finished": "Song complete!",
+  "rhythm/play/results": "Score: {score} · Max combo: {combo}",
+  "rhythm/play/retry": "Play again"
 }

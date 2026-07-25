@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "track_id": "burning-desires",
+  "bpm": 128,
+  "offset": 0,
+  "notes": [
+    { "beat": 4, "lane": "left" },
+    { "beat": 5, "lane": "right" },
+    { "beat": 6, "lane": "left" },
+    { "beat": 7, "lane": "right" },
+    { "beat": 8, "lane": "both", "duration": 2 },
+    { "beat": 11, "lane": "left" },
+    { "beat": 11.5, "lane": "right" },
+    { "beat": 12, "lane": "left" },
+    { "beat": 12.5, "lane": "right" },
+    { "beat": 13, "lane": "both", "duration": 1 },
+    { "beat": 16, "lane": "right" },
+    { "beat": 17, "lane": "left" },
+    { "beat": 18, "lane": "right" },
+    { "beat": 19, "lane": "left" },
+    { "beat": 20, "lane": "both", "duration": 2 }
+  ]
+}
