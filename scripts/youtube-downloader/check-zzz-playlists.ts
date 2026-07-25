@@ -1,7 +1,7 @@
 import { writeFile } from "fs/promises";
 import { join } from "path";
 import { Albums } from "../../src/database/albums";
-import { ensureDockerImage, requireCmd, ytdlpPrint } from "./ytdlp-docker";
+import { requireCmd, ytdlpBin, ytdlpPrint } from "./ytdlp";
 
 const CHANNEL_PLAYLISTS_URL =
   "https://www.youtube.com/@FindingPurposes/playlists";
@@ -127,8 +127,7 @@ async function main() {
     return;
   }
 
-  await requireCmd("docker");
-  await ensureDockerImage();
+  await requireCmd(ytdlpBin);
 
   const knownVersions = getKnownVersionAlbums();
   const latestVersionInApp =

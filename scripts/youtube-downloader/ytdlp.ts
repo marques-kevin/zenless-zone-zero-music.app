@@ -1,19 +1,6 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { spawn } from "child_process";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const repoRoot = path.resolve(__dirname, "..", "..");
-const dockerfilePath = path.join(
-  repoRoot,
-  "scripts/youtube-downloader",
-  "ytmp3.dockerfile"
-);
-
-export const imageName = "zzz-ytmp3";
+export const ytdlpBin = "yt-dlp";
 
 export async function runCommand(
   cmd: string,
@@ -74,48 +61,11 @@ export async function requireCmd(cmd: string) {
   }
 }
 
-export async function ensureDockerImage() {
-  const inspectCode = await runCommand(
-    "docker",
-    ["image", "inspect", imageName],
-    { silent: true }
-  );
-
-  if (inspectCode === 0) {
-    return;
-  }
-
-  try {
-    await fs.access(dockerfilePath);
-  } catch {
-    console.error(`Error: Dockerfile not found at ${dockerfilePath}`);
-    process.exit(1);
-  }
-
-  console.log(`Building Docker image '${imageName}'...`);
-  const buildCode = await runCommand("docker", [
-    "build",
-    "-t",
-    imageName,
-    "-f",
-    dockerfilePath,
-    repoRoot,
-  ]);
-
-  if (buildCode !== 0) {
-    console.error("Error: Failed to build Docker image.");
-    process.exit(1);
-  }
-}
-
 export async function ytdlpPrint(
   targetUrl: string,
   printFormat: string
 ): Promise<string> {
-  const { code, stdout, stderr } = await runCommandCapture("docker", [
-    "run",
-    "--rm",
-    imageName,
+  const { code, stdout, stderr } = await runCommandCapture(ytdlpBin, [
     "--flat-playlist",
     "--print",
     printFormat,
