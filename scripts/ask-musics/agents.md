@@ -91,24 +91,40 @@ Cookies expire — re-export every few weeks if downloads start failing again.
 - `yt-dlp` and `ffprobe` installed
 - YouTube cookies (see above) if downloads are blocked
 
-## ZZZ validation (required before adding)
+## ZZZ validation (required before downloading)
 
-Only accept tracks that belong to **Zenless Zone Zero**. Read the **video title and description** — that is enough; no need to dig further.
+Only accept tracks that belong to **Zenless Zone Zero**. Validate from the **video title and description** — that is enough; no need to dig further.
 
-### Workflow per pending request
+**Always validate before downloading the MP3.** Do not call `process-pending` without `--dry-run` until ZZZ validation passes.
+
+### Step 1 — Read the YouTube page (before any download)
+
+From cloud/datacenter IPs, `yt-dlp` is often blocked ("Sign in to confirm you're not a bot"). **Do not rely on yt-dlp for the first validation step.**
+
+Read the public YouTube page for the URL (e.g. web fetch / browser) and extract:
+
+- Video **title**
+- Video **description** (if visible on the page)
+
+If `--dry-run` works (yt-dlp returns title + description), you may use it instead — but prefer reading the page when yt-dlp fails.
+
+**Do not say YouTube is "resolved" or "working" until a real `process-pending` run (without `--dry-run`) successfully downloads the MP3.**
+
+### Step 2 — Validate ZZZ, then act
 
 ```bash
-# 1. Inspect metadata (no download, no writes)
-yarn ask-musics:process-pending --url "<youtube-url>" --dry-run
+# After reading title + description from the page:
 
-# 2a. If ZZZ → process for real
+# 2a. If ZZZ → download and add
 yarn ask-musics:process-pending --url "<youtube-url>"
 
-# 2b. If not ZZZ → reject with a clear reason
+# 2b. If not ZZZ → reject (no download)
 yarn ask-musics:update-status --url "<youtube-url>" --status cancelled --reason "Not ZZZ music"
 ```
 
-For a daily batch, run `--dry-run` on each pending URL first, validate, then process or cancel before moving to the next request.
+Optional: `yarn ask-musics:process-pending --url "<youtube-url>" --dry-run` to double-check metadata via yt-dlp when cookies work. This is **not** a substitute for reading the page when yt-dlp is blocked.
+
+For a daily batch: list pending → read each page → validate → process or cancel → next request.
 
 ### Accept when title or description mentions
 
@@ -130,7 +146,7 @@ When unsure, prefer **rejecting** with reason `"Not ZZZ music"` rather than addi
 
 ```bash
 yarn ask-musics:list-pending
-# For each URL: --dry-run → validate ZZZ → process or cancel
+# For each URL: read YouTube page → validate ZZZ → process or cancel (never download before validation)
 yarn ask-musics:process-pending
 yarn ask-musics:send-report
 ```
