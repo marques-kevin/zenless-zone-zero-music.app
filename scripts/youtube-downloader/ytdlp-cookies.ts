@@ -4,6 +4,37 @@ import { join } from "path";
 let resolvedCookiesFile: string | null | undefined;
 
 const NETSCAPE_COOKIE_HEADER = "# Netscape HTTP Cookie File";
+const COOKIE_LINE_SPLIT =
+  / (?=\.?[a-zA-Z0-9][^\t]*\t(?:TRUE|FALSE)\t)/;
+
+function stripCookieHeader(content: string): string {
+  if (!content.startsWith(NETSCAPE_COOKIE_HEADER)) {
+    return content;
+  }
+
+  return content.slice(NETSCAPE_COOKIE_HEADER.length).trimStart();
+}
+
+function stripInlineComments(body: string): string {
+  return body.replace(/# [^\t]+?(?=\s+\.)/g, "").trim();
+}
+
+function parseCookieLines(body: string): string[] {
+  const trimmed = stripInlineComments(body.trim());
+
+  if (!trimmed) {
+    return [];
+  }
+
+  const lines = trimmed.includes("\n")
+    ? trimmed.split("\n")
+    : trimmed.split(COOKIE_LINE_SPLIT);
+
+  return lines
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"))
+    .filter((line) => line.split("\t").length >= 7);
+}
 
 function normalizeCookieContent(content: string): string {
   const normalized = content.replace(/\\n/g, "\n").trimEnd();
@@ -12,11 +43,13 @@ function normalizeCookieContent(content: string): string {
     return "";
   }
 
-  if (normalized.startsWith(NETSCAPE_COOKIE_HEADER)) {
-    return `${normalized}\n`;
+  const cookie_lines = parseCookieLines(stripCookieHeader(normalized));
+
+  if (cookie_lines.length === 0) {
+    return `${NETSCAPE_COOKIE_HEADER}\n`;
   }
 
-  return `${NETSCAPE_COOKIE_HEADER}\n${normalized}\n`;
+  return `${NETSCAPE_COOKIE_HEADER}\n${cookie_lines.join("\n")}\n`;
 }
 
 export async function resolveYtdlpCookiesFile(): Promise<string | null> {
