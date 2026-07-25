@@ -116,6 +116,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
       <audio
         className="hidden"
         ref={audioRef}
+        crossOrigin="anonymous"
         onTimeUpdate={onTimeUpdate}
         onEnded={onEnd}
         onLoadStart={() => props.onLoading()}

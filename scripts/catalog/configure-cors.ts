@@ -9,7 +9,7 @@ function printUsage() {
       "  yarn catalog:configure-cors",
       "  yarn catalog:configure-cors --show",
       "",
-      "Allows GET/HEAD from any origin (required for fetch() from localhost and prod).",
+      "Allows GET/HEAD from any origin (catalog JSON + MP3 streaming/download).",
     ].join("\n")
   );
 }
