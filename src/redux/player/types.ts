@@ -16,6 +16,22 @@ export interface player_set_tracks_action {
   };
 }
 
+export const player_set_all_tracks = "player_set_all_tracks";
+export interface player_set_all_tracks_action {
+  type: typeof player_set_all_tracks;
+  payload: {
+    tracks: Track[];
+  };
+}
+
+export const player_init_from_catalog = "player_init_from_catalog";
+export interface player_init_from_catalog_action {
+  type: typeof player_init_from_catalog;
+  payload: {
+    tracks: Track[];
+  };
+}
+
 export const player_add_track_to_queue = "player_add_track_to_queue";
 export interface player_add_track_to_queue_action {
   type: typeof player_add_track_to_queue;
@@ -181,6 +197,8 @@ export interface player_set_loading_action {
 export type PlayerActionTypes =
   | player_set_playing_action
   | player_set_tracks_action
+  | player_set_all_tracks_action
+  | player_init_from_catalog_action
   | player_set_playing_track_action
   | player_next_action
   | player_set_track_time_action

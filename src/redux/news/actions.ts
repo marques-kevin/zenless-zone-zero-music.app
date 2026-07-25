@@ -1,10 +1,6 @@
-import { tracks } from "@/database/tracks";
 import * as types from "./types";
 import { RootState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
-import { navigate } from "@reach/router";
-import { all_playlists } from "@/database/playlists";
-import { addHash, removeHash } from "@/lib/utils";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 import { actions } from "../actions";
 

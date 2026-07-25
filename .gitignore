@@ -9,5 +9,6 @@ src/gatsby-types.d.ts
 !nginx.conf
 
 .env
+secrets/
 
 .DS_Store

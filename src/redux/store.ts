@@ -11,6 +11,7 @@ import { newsReducer } from "./news/reducers";
 import { globalReducer } from "./global/reducers";
 import { ladderReducer } from "./ladder/reducers";
 import { askMusicsReducer } from "./ask-musics/reducers";
+import { catalogReducer } from "./catalog/reducers";
 
 const reducers = combineReducers({
   player: playerReducer,
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   playlists: playlistsReducer,
   ladder: ladderReducer,
   ask_musics: askMusicsReducer,
+  catalog: catalogReducer,
 });
 
 export const init = (initialState = {}, di: DiInjectable) => {

@@ -1,9 +1,7 @@
-import { tracks } from "@/database/tracks";
 import * as types from "./types";
 import { RootState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
 import { navigate } from "@reach/router";
-import { all_playlists } from "@/database/playlists";
 import { addHash, removeHash } from "@/lib/utils";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 import { actions } from "../actions";
@@ -92,6 +90,26 @@ export const player_set_tracks = (
   type: types.player_set_tracks,
   payload,
 });
+
+export const player_set_all_tracks = (
+  payload: types.player_set_all_tracks_action["payload"]
+): types.PlayerActionTypes => ({
+  type: types.player_set_all_tracks,
+  payload,
+});
+
+export const player_init_from_catalog = (
+  payload: types.player_init_from_catalog_action["payload"]
+): types.PlayerActionTypes => ({
+  type: types.player_init_from_catalog,
+  payload,
+});
+
+export const $init_from_catalog = (payload: { tracks: Track[] }) => {
+  return async (dispatch: any) => {
+    dispatch(player_init_from_catalog(payload));
+  };
+};
 
 export const player_set_mobile_player_open = (
   payload: types.player_set_mobile_player_open_action["payload"]
@@ -198,9 +216,11 @@ export const $player_set_current_track_from_queue = (payload: {
     dispatch: ThunkDispatch<RootState, unknown, types.PlayerActionTypes>,
     getState: () => RootState
   ) => {
-    const { player } = getState();
+    const { player, catalog } = getState();
 
-    const track = tracks.find((track) => track.title_id === payload.title_id);
+    const track = player.all_tracks.find(
+      (item) => item.title_id === payload.title_id
+    );
 
     if (!track) return;
 
@@ -228,9 +248,11 @@ export const $player_play_album_with_tracks = (payload: {
   custom_playlist_id?: string | null;
 }) => {
   return async (dispatch: any, getState: () => RootState) => {
-    const { playlists } = getState();
+    const { playlists, player, catalog } = getState();
 
-    const track = tracks.find((track) => track.title_id === payload.title_id);
+    const track = player.all_tracks.find(
+      (item) => item.title_id === payload.title_id
+    );
     if (!track) return;
 
     let playlist_tracks;
@@ -247,13 +269,14 @@ export const $player_play_album_with_tracks = (payload: {
        * since custom playlists only store title_ids as references
        */
       playlist_tracks = custom_playlist.tracks.map(
-        (track) => tracks.find((t) => t.title_id === track.title_id) as Track
+        (track) =>
+          player.all_tracks.find((item) => item.title_id === track.title_id) as Track
       );
       selected_track_index = playlist_tracks.findIndex(
         (track) => track?.title_id === payload.title_id
       );
     } else {
-      const album_playlist = all_playlists.find(
+      const album_playlist = catalog.all_playlists.find(
         (playlist) => playlist.playlist_id === track.playlist_id
       );
       if (!album_playlist) return;
@@ -276,9 +299,11 @@ export const $player_play_album_with_tracks = (payload: {
 
 export const $player_download_track = (payload: { title_id: string }) => {
   return async (dispatch: any, getState: () => RootState) => {
-    const { di } = getState();
+    const { di, player } = getState();
 
-    const track = tracks.find((track) => track.title_id === payload.title_id);
+    const track = player.all_tracks.find(
+      (item) => item.title_id === payload.title_id
+    );
 
     if (!track) return;
     const url_link = getCdnUrl(track.source);
@@ -425,8 +450,9 @@ export const $player_fetch_track_with_likes = () => {
 };
 
 export const $player_play_radio = () => {
-  return async (dispatch: any) => {
-    const shuffledTracks = shuffle([...tracks]);
+  return async (dispatch: any, getState: () => RootState) => {
+    const { player } = getState();
+    const shuffledTracks = shuffle([...player.all_tracks]);
     const radioTracks = shuffledTracks.slice(0, 30);
 
     if (radioTracks.length === 0) return;

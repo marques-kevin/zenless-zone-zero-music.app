@@ -5,7 +5,6 @@ import { MODAL_KEYS } from "@/constants/modal-keys";
 import { actions } from "../actions";
 import { characters } from "@/database/characters";
 import { Track } from "@/types/track.type";
-import { all_playlists } from "@/database/playlists";
 
 export const playlists_store_playlists = (
   payload: types.playlists_store_playlists_action["payload"]
@@ -254,9 +253,9 @@ export const $playlists_add_track_on_playlist =
 export const $playlist_play_all =
   (payload: { playlist_id: string }): ThunkAction<any, RootState, any, any> =>
   async (dispatcher, getState) => {
-    const { playlists } = getState();
+    const { playlists, catalog } = getState();
 
-    const playlist = [...all_playlists, ...playlists.playlists].find(
+    const playlist = [...catalog.all_playlists, ...playlists.playlists].find(
       (playlist) => playlist.playlist_id === payload.playlist_id
     );
 

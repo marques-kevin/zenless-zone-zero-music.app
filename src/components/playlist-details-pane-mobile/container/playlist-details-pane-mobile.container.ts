@@ -1,15 +1,21 @@
 import { connect, ConnectedProps } from "react-redux";
 import { actions } from "@/redux/actions";
 import { RootState } from "@/redux/store";
-import { official_playlists } from "@/database/playlists";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 
 const mapState = (state: RootState) => {
+  const all_playlists = [
+    ...state.catalog.all_playlists,
+    ...state.playlists.playlists,
+  ];
+
   return {
     is_playing: state.player.is_playing,
-    playlist: [...official_playlists, ...state.playlists.playlists].find(
-      (p) => p.playlist_id === state.playlists.playlist_details_pane_playlist_id
+    playlist: all_playlists.find(
+      (playlist) =>
+        playlist.playlist_id === state.playlists.playlist_details_pane_playlist_id
     ),
+    official_playlists: state.catalog.official_playlists,
     current_track: state.player.current_track,
   };
 };

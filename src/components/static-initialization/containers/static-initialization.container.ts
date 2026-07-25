@@ -7,9 +7,7 @@ const mapState = (state: any, props: { children: React.ReactNode }) => ({
 
 const mapDispatch = (dispatch: any) => ({
   onMount: () => {
-    dispatch(actions.auth.$init());
-    dispatch(actions.global.$select_current_track_by_url());
-    dispatch(actions.player.$player_fetch_track_with_likes());
+    dispatch(actions.catalog.$fetch_catalog());
   },
 });
 

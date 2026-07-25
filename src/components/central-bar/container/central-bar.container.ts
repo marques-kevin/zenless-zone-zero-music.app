@@ -7,6 +7,11 @@ import { Track } from "@/types/track.type";
 const mapState = (state: RootState) => ({
   is_playing: state.player.is_playing,
   current_track: state.player.current_track,
+  is_catalog_loading: state.catalog.is_loading || !state.catalog.is_ready,
+  tracks: state.catalog.tracks,
+  official_playlists: state.catalog.official_playlists,
+  top_100_playlist: state.catalog.top_100_playlist,
+  most_played_playlist: state.catalog.most_played_playlist,
 });
 
 const mapDispatch = (dispatch: any) => ({
