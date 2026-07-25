@@ -32,6 +32,11 @@ import {
   msToBeat,
   snapBeat,
 } from "@/lib/rhythm/timing";
+import {
+  BeatSoundEngine,
+  loadBeatGuideEnabled,
+  saveBeatGuideEnabled,
+} from "@/lib/rhythm/beat-sound";
 import { cn } from "@/lib/utils";
 import {
   Download,
@@ -41,6 +46,7 @@ import {
   Upload,
   Pencil,
   Gamepad2,
+  Drum,
 } from "lucide-react";
 import { FormattedMessage } from "@/components/formatted-message/formatted-message";
 import {
@@ -73,6 +79,12 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const judgedRef = useRef<Set<string>>(new Set());
   const heldNotesRef = useRef<Set<string>>(new Set());
   const keysRef = useRef({ f: false, j: false });
+  const beatSoundRef = useRef<BeatSoundEngine | null>(null);
+  const lastBeatPlayedRef = useRef(-1);
+
+  if (!beatSoundRef.current) {
+    beatSoundRef.current = new BeatSoundEngine();
+  }
 
   const [mode, setMode] = useState<RhythmGameMode>("play");
   const [chart, setChart] = useState<RhythmChart>(() => {
@@ -91,6 +103,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const [editorViewBeat, setEditorViewBeat] = useState(0);
   const [isDraggingTimeline, setIsDraggingTimeline] = useState(false);
   const [hoverBeat, setHoverBeat] = useState<number | null>(null);
+  const [beatGuideEnabled, setBeatGuideEnabled] = useState(true);
   const dragStartRef = useRef({ x: 0, beat: 0 });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -111,6 +124,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const resetGameStats = useCallback(() => {
     judgedRef.current = new Set();
     heldNotesRef.current = new Set();
+    lastBeatPlayedRef.current = -1;
     setJudgedKeys(new Set());
     setCombo(0);
     setMaxCombo(0);
@@ -133,11 +147,13 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
     const audio = audioRef.current;
     if (!audio) return;
     resetGameStats();
+    beatSoundRef.current?.setEnabled(beatGuideEnabled);
+    void beatSoundRef.current?.resume();
     audio.currentTime = 0;
     setCurrentTime(0);
     audio.play().catch(() => {});
     setGameState("playing");
-  }, [resetGameStats]);
+  }, [resetGameStats, beatGuideEnabled]);
 
   const togglePause = useCallback(() => {
     const audio = audioRef.current;
@@ -254,6 +270,14 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
     const beat = msToBeat(time * 1000 + chart.offset, chart.bpm);
     processMisses(beat);
 
+    if (mode === "play" && gameState === "playing" && beatGuideEnabled) {
+      const integerBeat = Math.floor(beat);
+      if (integerBeat !== lastBeatPlayedRef.current && integerBeat >= 0) {
+        lastBeatPlayedRef.current = integerBeat;
+        beatSoundRef.current?.playForBeat(integerBeat);
+      }
+    }
+
     if (
       mode === "play" &&
       gameState === "playing" &&
@@ -265,7 +289,20 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
     }
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [chart.offset, chart.bpm, processMisses, mode, gameState, track.duration]);
+  }, [chart.offset, chart.bpm, processMisses, mode, gameState, track.duration, beatGuideEnabled]);
+
+  useEffect(() => {
+    setBeatGuideEnabled(loadBeatGuideEnabled());
+  }, []);
+
+  useEffect(() => {
+    beatSoundRef.current?.setEnabled(beatGuideEnabled);
+    saveBeatGuideEnabled(beatGuideEnabled);
+  }, [beatGuideEnabled]);
+
+  const toggleBeatGuide = () => {
+    setBeatGuideEnabled((enabled) => !enabled);
+  };
 
   useEffect(() => {
     if (gameState === "playing") {
@@ -546,6 +583,23 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
             <Play className="h-4 w-4" />
           )}
         </button>
+
+        {mode === "play" && (
+          <button
+            onClick={toggleBeatGuide}
+            title={
+              beatGuideEnabled ? "Beat guide on" : "Beat guide off"
+            }
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-full transition-colors",
+              beatGuideEnabled
+                ? "bg-pink-500 text-white hover:bg-pink-400"
+                : "bg-sky-900 text-sky-400 hover:bg-sky-800"
+            )}
+          >
+            <Drum className="h-4 w-4" />
+          </button>
+        )}
 
         <div className="text-sm font-mono text-sky-200">
           {formatRhythmTime(currentTime)}
@@ -870,6 +924,9 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
           </button>
           <p className="mt-2 text-sm text-sky-300/70">
             <FormattedMessage id="rhythm/play/controls" />
+          </p>
+          <p className="mt-1 text-xs text-sky-400/60">
+            <FormattedMessage id="rhythm/play/beat-guide-hint" />
           </p>
         </div>
       )}
