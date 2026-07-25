@@ -8,17 +8,23 @@ const DOWNLOAD_DIR = join(
 );
 
 function getYtdlpExtraArgs(): string[] {
+  const args: string[] = [];
+
+  const js_runtime = process.env.YTDLP_JS_RUNTIME?.trim() || "node";
+  args.push("--js-runtimes", js_runtime);
+
   const cookies_file = process.env.YTDLP_COOKIES_FILE?.trim();
   if (cookies_file) {
-    return ["--cookies", cookies_file];
+    args.push("--cookies", cookies_file);
+    return args;
   }
 
   const browser = process.env.YTDLP_COOKIES_BROWSER?.trim();
   if (browser) {
-    return ["--cookies-from-browser", browser];
+    args.push("--cookies-from-browser", browser);
   }
 
-  return [];
+  return args;
 }
 
 function extractYtdlpError(stderr: string, fallback: string): string {
