@@ -78,7 +78,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const rafRef = useRef<number>();
   const judgedRef = useRef<Set<string>>(new Set());
   const heldNotesRef = useRef<Set<string>>(new Set());
-  const keysRef = useRef({ f: false, j: false });
+  const keysRef = useRef({ left: false, right: false });
   const beatSoundRef = useRef<BeatSoundEngine | null>(null);
   const bothSoundPlayedRef = useRef(false);
 
@@ -234,7 +234,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
       if (mode !== "play" || gameState !== "playing") return;
 
       const keys = keysRef.current;
-      const bothPressed = keys.f && keys.j;
+      const bothPressed = keys.left && keys.right;
 
       sortedNotes.forEach((note) => {
         const key = getNoteKey(note.beat, note.lane);
@@ -286,9 +286,9 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const playHitSound = useCallback(() => {
     if (mode !== "play" || gameState !== "playing" || !beatGuideEnabled) return;
 
-    const { f, j } = keysRef.current;
+    const { left, right } = keysRef.current;
 
-    if (f && j) {
+    if (left && right) {
       if (!bothSoundPlayedRef.current) {
         bothSoundPlayedRef.current = true;
         beatSoundRef.current?.playHit("both");
@@ -296,8 +296,8 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
       return;
     }
 
-    if (f) beatSoundRef.current?.playHit("left");
-    if (j) beatSoundRef.current?.playHit("right");
+    if (left) beatSoundRef.current?.playHit("left");
+    if (right) beatSoundRef.current?.playHit("right");
   }, [mode, gameState, beatGuideEnabled]);
 
   useEffect(() => {
@@ -349,18 +349,19 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
         return;
       }
 
-      const key = e.key.toLowerCase();
-      if (key === "f") {
-        keysRef.current.f = true;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        keysRef.current.left = true;
         playHitSound();
         tryHit("left");
       }
-      if (key === "j") {
-        keysRef.current.j = true;
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        keysRef.current.right = true;
         playHitSound();
         tryHit("right");
       }
-      if (key === " ") {
+      if (e.key === " ") {
         e.preventDefault();
         if (mode === "play") togglePause();
         else toggleEditorPlayback();
@@ -368,10 +369,9 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
     };
 
     const onKeyUp = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
-      if (key === "f") keysRef.current.f = false;
-      if (key === "j") keysRef.current.j = false;
-      if (!keysRef.current.f || !keysRef.current.j) {
+      if (e.key === "ArrowLeft") keysRef.current.left = false;
+      if (e.key === "ArrowRight") keysRef.current.right = false;
+      if (!keysRef.current.left || !keysRef.current.right) {
         bothSoundPlayedRef.current = false;
       }
     };
@@ -777,9 +777,9 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
             })}
 
             {/* Key hints */}
-            <div className="absolute bottom-1 left-0 right-0 flex justify-center gap-16 text-[10px] font-bold text-white/50">
-              <span>F</span>
-              <span>J</span>
+            <div className="absolute bottom-1 left-0 right-0 flex justify-center gap-16 text-sm font-bold text-white/50">
+              <span>←</span>
+              <span>→</span>
             </div>
           </div>
 
