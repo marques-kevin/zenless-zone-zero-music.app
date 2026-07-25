@@ -130,7 +130,7 @@
   "rhythm/editor/import": "Import JSON",
   "rhythm/editor/export": "Export JSON",
   "rhythm/editor/clear-draft": "Clear draft",
-  "rhythm/editor/hint": "Click on the lane to place notes (left → right → both → remove). Right-click to delete. Scroll or drag the timeline with Shift+drag. Progress is auto-saved locally.",
+  "rhythm/editor/hint": "Pink lines = measure starts, white lines = beats. Yellow line = placement reference. Click to place notes. Scroll or Shift+drag to navigate.",
   "rhythm/editor/timeline-position": "Timeline:",
   "rhythm/editor/seek-to-view": "Seek audio here",
   "rhythm/play/start": "Start",

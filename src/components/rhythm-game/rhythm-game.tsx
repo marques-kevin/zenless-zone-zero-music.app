@@ -43,8 +43,11 @@ import {
   Gamepad2,
 } from "lucide-react";
 import { FormattedMessage } from "@/components/formatted-message/formatted-message";
+import {
+  HIT_ZONE_X,
+  RhythmEditorGrid,
+} from "./rhythm-editor-grid";
 
-const HIT_ZONE_X = 120;
 const PIXELS_PER_BEAT = 80;
 const LANE_HEIGHT = 100;
 const LOOKAHEAD_BEATS = 16;
@@ -87,6 +90,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const [pixelsPerBeat, setPixelsPerBeat] = useState(PIXELS_PER_BEAT);
   const [editorViewBeat, setEditorViewBeat] = useState(0);
   const [isDraggingTimeline, setIsDraggingTimeline] = useState(false);
+  const [hoverBeat, setHoverBeat] = useState<number | null>(null);
   const dragStartRef = useRef({ x: 0, beat: 0 });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -448,11 +452,23 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   };
 
   const handleTimelineMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (mode === "edit" && laneRef.current && !isDraggingTimeline) {
+      const rect = laneRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      setHoverBeat(
+        snapBeat(viewBeat + (x - HIT_ZONE_X) / pixelsPerBeat)
+      );
+    }
+
     if (!isDraggingTimeline || mode !== "edit") return;
     const deltaX = dragStartRef.current.x - e.clientX;
     setEditorViewBeat(
       clampViewBeat(dragStartRef.current.beat + deltaX / pixelsPerBeat)
     );
+  };
+
+  const handleTimelineMouseLeave = () => {
+    setHoverBeat(null);
   };
 
   const handleTimelineMouseUp = () => {
@@ -578,23 +594,13 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
           className="relative mb-2 overflow-hidden rounded-2xl border-2 border-sky-300/40 bg-gradient-to-br from-sky-200/10 to-sky-500/20"
           onWheel={handleTimelineWheel}
         >
-          {/* Grid lines */}
-          <div className="pointer-events-none absolute inset-0">
-            {Array.from({ length: LOOKAHEAD_BEATS * 4 + 8 }).map((_, i) => {
-              const beat = Math.floor(viewBeat) + i * GRID_SNAP - 2;
-              const x = HIT_ZONE_X + (beat - viewBeat) * pixelsPerBeat;
-              return (
-                <div
-                  key={i}
-                  className={cn(
-                    "absolute top-0 bottom-0 w-px",
-                    beat % 1 === 0 ? "bg-sky-400/30" : "bg-sky-400/10"
-                  )}
-                  style={{ left: x }}
-                />
-              );
-            })}
-          </div>
+          {/* Grid */}
+          <RhythmEditorGrid
+            viewBeat={viewBeat}
+            pixelsPerBeat={pixelsPerBeat}
+            lookaheadBeats={LOOKAHEAD_BEATS}
+            showLabels={mode === "edit"}
+          />
 
           <div
             ref={laneRef}
@@ -615,6 +621,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
             onMouseDown={handleTimelineMouseDown}
             onMouseMove={handleTimelineMouseMove}
             onMouseUp={handleTimelineMouseUp}
+            onMouseLeave={handleTimelineMouseLeave}
           >
             {/* Hit zone */}
             <div
@@ -630,6 +637,28 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
                 className="h-14 w-14 rounded-full border-2 border-pink-300 object-cover"
               />
             </div>
+
+            {/* Snap preview on hover (edit mode) */}
+            {mode === "edit" && hoverBeat !== null && hoverBeat >= 0 && (
+              <>
+                <div
+                  className="pointer-events-none absolute top-0 bottom-0 z-[15] w-px bg-white/70"
+                  style={{
+                    left:
+                      HIT_ZONE_X +
+                      (hoverBeat - viewBeat) * pixelsPerBeat,
+                  }}
+                />
+                <div
+                  className="pointer-events-none absolute top-1/2 z-[15] h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-lg border-2 border-dashed border-white/50 bg-white/10"
+                  style={{
+                    left:
+                      HIT_ZONE_X +
+                      (hoverBeat - viewBeat) * pixelsPerBeat,
+                  }}
+                />
+              </>
+            )}
 
             {/* Playhead in edit mode */}
             {mode === "edit" && (
