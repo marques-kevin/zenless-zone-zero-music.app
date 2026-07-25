@@ -74,9 +74,9 @@
   "navbar-other-tools/tinycardo/description": "Create and study flashcards with spaced repetition.",
   "tracks-dropdown/share": "Share",
   "player-bar/like/tooltip": "{number_of_likes} persons liked",
-  "buy-me-coffee-button/title": "Want to support me ? ",
-  "buy-me-coffee-button/description": "If you like **ZZZ Music App** and want to thank me, you can share **Tinycardo** with friends on social media. It's a flashcards app that I'm building.",
-  "buy-me-coffee-button/buy-me-a-coffee": "Open tinycardo.com",
+  "buy-me-coffee-button/title": "Want to support me?",
+  "buy-me-coffee-button/description": "Hi! 👋\n\n**I'm Kevin**, the creator of this app.\n\nI love this game and I'm a big fan of the music. \n\nThat's why I created a Spotify-like player with all the official songs of the game.\n\nI'm constantly working on this app and I'll try to find a way to add more songs easily.\n\nIf you like the app and want to contribute, you can buy me a coffee. I'll be very grateful! ☕",
+  "buy-me-coffee-button/buy-me-a-coffee": "Buy me a coffee",
   "ladder/characters/title": "Most popular characters in Zenless Zone Zero",
   "ladder/characters/description/intro": "This ranking is built from players choosing their {top5_label}. Each first-place vote is worth 5 points (then 4, 3, 2, 1), so you can see not only who appears most often, but {how_strongly_label} based on community preferences.",
   "ladder/characters/description/top5-label": "top 5 characters",
@@ -84,16 +84,12 @@
   "ladder/characters/description/first-place-label": "first place",
   "ladder/characters/description/top1": "Right now, the community's absolute favorite is {top1_name}, who appears in the top 5 {top1_total_votes} times, with {top1_first_votes} players putting them in {first_place_label}.",
   "ladder/characters/description/top2-5": "Just behind, {top2_name}, {top3_name}, {top4_name} and {top5_name} regularly appear in players’ shortlists, showing up a combined {total_top5_votes} times in top 5 lists. Together, these five agents give a clear picture of which characters Zenless Zone Zero players like the most and who tends to dominate the first-place slot.",
-
   "ladder/characters/fab/label-full": "Pick my top 5",
   "ladder/characters/fab/label-short": "Top 5",
-
   "ladder/characters/footer/total-votes": "Total votes: {count}",
   "ladder/characters/footer/last-updated": "Last updated: {timestamp} • Updated daily",
-
   "ladder/characters/item/popularity-label": "Popularity",
   "ladder/characters/item/points-suffix": "pts",
-
   "ladder/characters/stats/total-votes-label": "Total votes",
   "ladder/characters/stats/popularity-label": "Popularity",
   "ladder/characters/stats/points-label": "Points",
@@ -103,18 +99,14 @@
   "ladder/characters/stats/position-top3": "Top 3",
   "ladder/characters/stats/position-top4": "Top 4",
   "ladder/characters/stats/position-top5": "Top 5",
-
   "ladder/selection/title": "Pick your top 5 agents",
   "ladder/selection/description": "Select up to five characters. The {first} you select is your {favorite}, then #2, #3, #4 and #5. Clicking a selected agent will {unselect} it.",
   "ladder/selection/save": "Save",
-
   "ladder/characters/seo-title": "Top 5 Characters – Zenless Zone Zero",
   "ladder/characters/seo-description": "See the global ranking of your favorite Zenless Zone Zero characters. This page currently uses fake data while we build the voting system.",
-
   "central-bar/ask-music/title": "Missing a song?",
   "central-bar/ask-music/description": "Share YouTube links to ZZZ music you would like to see added. You can track the status of your requests here.",
   "central-bar/ask-music/button": "Request music",
-
   "modals/ask-music/title": "Request music",
   "modals/ask-music/description": "Paste one or more YouTube links, one per line. Each link will be saved as a separate request.",
   "modals/ask-music/placeholder": "https://www.youtube.com/watch?v=...\nhttps://youtu.be/...",
