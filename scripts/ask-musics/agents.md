@@ -20,7 +20,7 @@ yarn ask-musics:process-pending --version 2.8
 
 Per request, the pipeline:
 
-1. Fetches YouTube metadata (title, duration)
+1. Fetches YouTube metadata (title, description, channel, duration)
 2. Infers version album from title (or uses `--version`)
 3. Downloads MP3 via yt-dlp
 4. Moves file to `musics/{version}--{title-id}.mp3` (local staging only)
@@ -91,9 +91,46 @@ Cookies expire — re-export every few weeks if downloads start failing again.
 - `yt-dlp` and `ffprobe` installed
 - YouTube cookies (see above) if downloads are blocked
 
+## ZZZ validation (required before adding)
+
+Only accept tracks that belong to **Zenless Zone Zero**. Read the **video title and description** — that is enough; no need to dig further.
+
+### Workflow per pending request
+
+```bash
+# 1. Inspect metadata (no download, no writes)
+yarn ask-musics:process-pending --url "<youtube-url>" --dry-run
+
+# 2a. If ZZZ → process for real
+yarn ask-musics:process-pending --url "<youtube-url>"
+
+# 2b. If not ZZZ → reject with a clear reason
+yarn ask-musics:update-status --url "<youtube-url>" --status cancelled --reason "Not ZZZ music"
+```
+
+For a daily batch, run `--dry-run` on each pending URL first, validate, then process or cancel before moving to the next request.
+
+### Accept when title or description mentions
+
+- `Zenless Zone Zero`, `ZZZ`, `ゼンレスゾーンゼロ`
+- Official publisher: `HoYoverse`, `miHoYo`, `COGNOSPHERE`
+- ZZZ soundtrack context: `OST`, `Agent Story`, `EP -`, `Battle Theme`, `Exploration Theme`
+- Known ZZZ character names (e.g. Nicole, Ellen, Yixuan, Yuzuha)
+- Official ZZZ channel or playlist references
+
+### Reject when
+
+- Clearly another game (`Genshin Impact`, `Honkai`, `Wuthering Waves`, etc.) with no ZZZ link
+- Fan cover / remix / unrelated music with no ZZZ mention in title **or** description
+- Title and description together give **no credible link** to Zenless Zone Zero
+
+When unsure, prefer **rejecting** with reason `"Not ZZZ music"` rather than adding unrelated tracks.
+
 ## Automation (Cursor daily)
 
 ```bash
+yarn ask-musics:list-pending
+# For each URL: --dry-run → validate ZZZ → process or cancel
 yarn ask-musics:process-pending
 yarn ask-musics:send-report
 ```
