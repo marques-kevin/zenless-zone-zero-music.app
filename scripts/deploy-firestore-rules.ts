@@ -1,43 +1,63 @@
 import dotenv from "dotenv";
-import { execSync } from "child_process";
-import { unlinkSync, writeFileSync } from "fs";
-import { tmpdir } from "os";
+import { readFileSync } from "fs";
 import { join } from "path";
+import { GoogleAuth } from "google-auth-library";
 
 dotenv.config();
 
-const project_id = process.env.GATSBY_FIREBASE_PROJECT_ID;
-const client_email = process.env.FIREBASE_CLIENT_EMAIL;
-const private_key_env = process.env.FIREBASE_PRIVATE_KEY;
+async function main() {
+  const project_id = process.env.GATSBY_FIREBASE_PROJECT_ID;
+  const client_email = process.env.FIREBASE_CLIENT_EMAIL;
+  const private_key_env = process.env.FIREBASE_PRIVATE_KEY;
 
-if (!project_id || !client_email || !private_key_env) {
-  throw new Error(
-    "Missing GATSBY_FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL or FIREBASE_PRIVATE_KEY"
-  );
-}
+  if (!project_id || !client_email || !private_key_env) {
+    throw new Error(
+      "Missing GATSBY_FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL or FIREBASE_PRIVATE_KEY"
+    );
+  }
 
-const private_key = private_key_env.replace(/\\n/g, "\n");
-const credentials_path = join(tmpdir(), `firebase-sa-${Date.now()}.json`);
+  const private_key = private_key_env.replace(/\\n/g, "\n");
+  const rules_path = join(process.cwd(), "firestore.rules");
+  const rules_content = readFileSync(rules_path, "utf8");
 
-writeFileSync(
-  credentials_path,
-  JSON.stringify({
-    type: "service_account",
-    project_id,
-    private_key,
-    client_email,
-    token_uri: "https://oauth2.googleapis.com/token",
-  })
-);
+  const auth = new GoogleAuth({
+    credentials: {
+      client_email,
+      private_key,
+    },
+    scopes: ["https://www.googleapis.com/auth/cloud-platform"],
+  });
 
-try {
-  execSync(`npx firebase-tools deploy --only firestore:rules --project ${project_id}`, {
-    stdio: "inherit",
-    env: {
-      ...process.env,
-      GOOGLE_APPLICATION_CREDENTIALS: credentials_path,
+  const client = await auth.getClient();
+
+  const create_ruleset_response = await client.request<{ name: string }>({
+    url: `https://firebaserules.googleapis.com/v1/projects/${project_id}/rulesets`,
+    method: "POST",
+    data: {
+      source: {
+        files: [{ name: "firestore.rules", content: rules_content }],
+      },
     },
   });
-} finally {
-  unlinkSync(credentials_path);
+
+  const ruleset_name = create_ruleset_response.data.name;
+
+  await client.request({
+    url: `https://firebaserules.googleapis.com/v1/projects/${project_id}/releases/cloud.firestore?updateMask=rulesetName`,
+    method: "PATCH",
+    data: {
+      release: {
+        name: `projects/${project_id}/releases/cloud.firestore`,
+        rulesetName: ruleset_name,
+      },
+    },
+  });
+
+  console.log(`Firestore rules deployed to ${project_id}`);
+  console.log(`Ruleset: ${ruleset_name}`);
 }
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
