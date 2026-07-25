@@ -44,6 +44,7 @@
   "modal-request-login/description": "You can login with your Google account. We do not store your informations, only your email to be able to authentify you.",
   "modal-request-login/login": "Login",
   "navbar/update-available": "Update available, click to refresh",
+  "navbar/ask-music/tooltip": "Request music",
   "navbar/dropdown/login": "Login",
   "navbar/dropdown/logout": "Logout",
   "navbar/dropdown/change-profile-picture": "Change profile picture",

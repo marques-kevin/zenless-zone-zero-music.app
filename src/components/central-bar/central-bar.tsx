@@ -181,24 +181,6 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
               />
             </div>
           </div>
-
-          <div className="px-4 pb-8">
-            <div className="rounded-2xl bg-zinc-800 p-6">
-              <h2 className="text-xl font-medium">
-                <FormattedMessage id="central-bar/ask-music/title" />
-              </h2>
-              <p className="mt-2 text-sm text-zinc-400">
-                <FormattedMessage id="central-bar/ask-music/description" />
-              </p>
-              <button
-                type="button"
-                onClick={() => props.onOpenAskMusicModal()}
-                className="mt-4 rounded-full bg-zinc-900 px-6 py-3 text-sm hover:bg-zinc-950"
-              >
-                <FormattedMessage id="central-bar/ask-music/button" />
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </>

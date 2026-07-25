@@ -26,6 +26,7 @@ import { LadderNavbarButton } from "../ladder-navbar-button/ladder-navbar-button
 import { RadioButton } from "../radio-button/radio-button";
 import { Link } from "@reach/router";
 import { ModalNews } from "../modal-news/modal-news";
+import { AskMusicNavbarButton } from "../ask-music-navbar-button/ask-music-navbar-button";
 
 const DISCORD_URL = "https://discord.gg/8eJMfkRD3E";
 
@@ -85,6 +86,8 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
         <LadderNavbarButton />
 
         <RadioButton />
+
+        <AskMusicNavbarButton />
 
         <BuyMeCoffeeButton />
 
