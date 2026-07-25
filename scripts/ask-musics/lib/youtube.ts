@@ -7,6 +7,30 @@ const DOWNLOAD_DIR = join(
   "scripts/youtube-downloader/files"
 );
 
+function getYtdlpExtraArgs(): string[] {
+  const cookies_file = process.env.YTDLP_COOKIES_FILE?.trim();
+  if (cookies_file) {
+    return ["--cookies", cookies_file];
+  }
+
+  const browser = process.env.YTDLP_COOKIES_BROWSER?.trim();
+  if (browser) {
+    return ["--cookies-from-browser", browser];
+  }
+
+  return [];
+}
+
+function extractYtdlpError(stderr: string, fallback: string): string {
+  const errorLine = stderr
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("ERROR:"))
+    .pop();
+
+  return errorLine?.replace(/^ERROR:\s*/, "") || fallback;
+}
+
 export type YoutubeMetadata = {
   title: string;
   duration: number;
@@ -17,6 +41,7 @@ export async function fetchYoutubeMetadata(url: string): Promise<YoutubeMetadata
   await requireCmd(ytdlpBin);
 
   const { code, stdout, stderr } = await runCommandCapture(ytdlpBin, [
+    ...getYtdlpExtraArgs(),
     "--no-playlist",
     "--print",
     "%(id)s",
@@ -28,7 +53,7 @@ export async function fetchYoutubeMetadata(url: string): Promise<YoutubeMetadata
   ]);
 
   if (code !== 0) {
-    throw new Error(stderr.trim() || `Failed to fetch metadata for ${url}`);
+    throw new Error(extractYtdlpError(stderr, `Failed to fetch metadata for ${url}`));
   }
 
   const [video_id, title, durationRaw] = stdout
@@ -54,6 +79,7 @@ export async function downloadYoutubeMp3(url: string): Promise<string> {
   const before = new Set(await readdir(DOWNLOAD_DIR));
 
   const code = await runCommand(ytdlpBin, [
+    ...getYtdlpExtraArgs(),
     "--no-progress",
     "--no-playlist",
     "--restrict-filenames",
