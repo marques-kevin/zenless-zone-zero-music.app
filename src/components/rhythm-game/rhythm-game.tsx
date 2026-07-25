@@ -25,6 +25,7 @@ import {
   isMissed,
 } from "@/lib/rhythm/hit-detection";
 import {
+  beatToMs,
   formatRhythmTime,
   getNoteKey,
   GRID_SNAP,
@@ -84,12 +85,22 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const [lastJudgment, setLastJudgment] = useState<HitJudgment | null>(null);
   const [judgedKeys, setJudgedKeys] = useState<Set<string>>(new Set());
   const [pixelsPerBeat, setPixelsPerBeat] = useState(PIXELS_PER_BEAT);
+  const [editorViewBeat, setEditorViewBeat] = useState(0);
+  const [isDraggingTimeline, setIsDraggingTimeline] = useState(false);
+  const dragStartRef = useRef({ x: 0, beat: 0 });
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const maxBeat = useMemo(
+    () => msToBeat(track.duration * 1000, chart.bpm),
+    [track.duration, chart.bpm]
+  );
 
   const currentBeat = useMemo(
     () => msToBeat(currentTime * 1000 + chart.offset, chart.bpm),
     [currentTime, chart.offset, chart.bpm]
   );
+
+  const viewBeat = mode === "play" ? currentBeat : editorViewBeat;
 
   const sortedNotes = useMemo(() => sortNotes(chart.notes), [chart.notes]);
 
@@ -272,6 +283,14 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   }, [chart, mode]);
 
   useEffect(() => {
+    if (!isDraggingTimeline) return;
+
+    const onMouseUp = () => setIsDraggingTimeline(false);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => window.removeEventListener("mouseup", onMouseUp);
+  }, [isDraggingTimeline]);
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (
         e.target instanceof HTMLInputElement ||
@@ -311,12 +330,13 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   }, [tryHit, togglePause, toggleEditorPlayback, mode]);
 
   const handleLaneClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (mode !== "edit" || !laneRef.current) return;
+    if (mode !== "edit" || !laneRef.current || isDraggingTimeline || e.shiftKey)
+      return;
 
     const rect = laneRef.current.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const clickBeat = snapBeat(
-      currentBeat + (clickX - HIT_ZONE_X) / pixelsPerBeat
+      viewBeat + (clickX - HIT_ZONE_X) / pixelsPerBeat
     );
 
     if (clickBeat < 0) return;
@@ -393,13 +413,67 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
 
   const switchMode = (nextMode: RhythmGameMode) => {
     resetPlayback();
+    if (nextMode === "edit") {
+      setEditorViewBeat(currentBeat);
+    }
     setMode(nextMode);
+  };
+
+  const clampViewBeat = useCallback(
+    (beat: number) => Math.max(0, Math.min(maxBeat, beat)),
+    [maxBeat]
+  );
+
+  const scrollTimeline = useCallback(
+    (beatDelta: number) => {
+      setEditorViewBeat((prev) => clampViewBeat(prev + beatDelta));
+    },
+    [clampViewBeat]
+  );
+
+  const handleTimelineWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (mode !== "edit") return;
+    e.preventDefault();
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    scrollTimeline(delta / pixelsPerBeat);
+  };
+
+  const handleTimelineMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (mode !== "edit") return;
+    if (e.button === 1 || (e.button === 0 && e.shiftKey)) {
+      e.preventDefault();
+      setIsDraggingTimeline(true);
+      dragStartRef.current = { x: e.clientX, beat: editorViewBeat };
+    }
+  };
+
+  const handleTimelineMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDraggingTimeline || mode !== "edit") return;
+    const deltaX = dragStartRef.current.x - e.clientX;
+    setEditorViewBeat(
+      clampViewBeat(dragStartRef.current.beat + deltaX / pixelsPerBeat)
+    );
+  };
+
+  const handleTimelineMouseUp = () => {
+    setIsDraggingTimeline(false);
+  };
+
+  const seekToViewBeat = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const time = Math.max(
+      0,
+      (beatToMs(editorViewBeat, chart.bpm) - chart.offset) / 1000
+    );
+    audio.currentTime = time;
+    setCurrentTime(time);
   };
 
   const visibleNotes = sortedNotes.filter(
     (n) =>
-      n.beat >= currentBeat - 2 &&
-      n.beat <= currentBeat + LOOKAHEAD_BEATS
+      n.beat >= viewBeat - 2 &&
+      n.beat <= viewBeat + LOOKAHEAD_BEATS
   );
 
   const gradeProgress = Math.min(100, (score / 50000) * 100);
@@ -500,12 +574,15 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
       {/* Console frame */}
       <div className="rounded-3xl border-4 border-sky-400/60 bg-gradient-to-b from-sky-300/20 to-sky-600/30 p-3 shadow-xl shadow-sky-900/50">
         {/* Top screen - gameplay lane */}
-        <div className="relative mb-2 overflow-hidden rounded-2xl border-2 border-sky-300/40 bg-gradient-to-br from-sky-200/10 to-sky-500/20">
+        <div
+          className="relative mb-2 overflow-hidden rounded-2xl border-2 border-sky-300/40 bg-gradient-to-br from-sky-200/10 to-sky-500/20"
+          onWheel={handleTimelineWheel}
+        >
           {/* Grid lines */}
           <div className="pointer-events-none absolute inset-0">
             {Array.from({ length: LOOKAHEAD_BEATS * 4 + 8 }).map((_, i) => {
-              const beat = Math.floor(currentBeat) + i * GRID_SNAP - 2;
-              const x = HIT_ZONE_X + (beat - currentBeat) * pixelsPerBeat;
+              const beat = Math.floor(viewBeat) + i * GRID_SNAP - 2;
+              const x = HIT_ZONE_X + (beat - viewBeat) * pixelsPerBeat;
               return (
                 <div
                   key={i}
@@ -521,13 +598,23 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
 
           <div
             ref={laneRef}
-            className="relative cursor-crosshair"
+            className={cn(
+              "relative",
+              mode === "edit"
+                ? isDraggingTimeline
+                  ? "cursor-grabbing"
+                  : "cursor-crosshair"
+                : ""
+            )}
             style={{ height: LANE_HEIGHT }}
             onClick={handleLaneClick}
             onContextMenu={(e) => {
               e.preventDefault();
               handleLaneClick(e);
             }}
+            onMouseDown={handleTimelineMouseDown}
+            onMouseMove={handleTimelineMouseMove}
+            onMouseUp={handleTimelineMouseUp}
           >
             {/* Hit zone */}
             <div
@@ -544,10 +631,22 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
               />
             </div>
 
+            {/* Playhead in edit mode */}
+            {mode === "edit" && (
+              <div
+                className="pointer-events-none absolute top-0 bottom-0 z-20 w-0.5 bg-yellow-300 shadow-[0_0_8px_rgba(253,224,71,0.8)]"
+                style={{
+                  left:
+                    HIT_ZONE_X +
+                    (currentBeat - viewBeat) * pixelsPerBeat,
+                }}
+              />
+            )}
+
             {/* Notes */}
             {visibleNotes.map((note) => {
               const x =
-                HIT_ZONE_X + (note.beat - currentBeat) * pixelsPerBeat - 20;
+                HIT_ZONE_X + (note.beat - viewBeat) * pixelsPerBeat - 20;
               const key = getNoteKey(note.beat, note.lane);
               const judged = judgedKeys.has(key);
               const width =
@@ -601,6 +700,39 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
             </div>
           )}
         </div>
+
+        {mode === "edit" && (
+          <div className="mb-2 rounded-xl border border-sky-700/40 bg-sky-950/60 px-3 py-2">
+            <div className="mb-1 flex items-center justify-between text-[11px] text-sky-300">
+              <span>
+                <FormattedMessage id="rhythm/editor/timeline-position" />{" "}
+                {formatRhythmTime(
+                  Math.max(
+                    0,
+                    (beatToMs(editorViewBeat, chart.bpm) - chart.offset) / 1000
+                  )
+                )}
+              </span>
+              <button
+                onClick={seekToViewBeat}
+                className="rounded px-2 py-0.5 text-sky-200 hover:bg-sky-800/60"
+              >
+                <FormattedMessage id="rhythm/editor/seek-to-view" />
+              </button>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={maxBeat}
+              step={GRID_SNAP}
+              value={editorViewBeat}
+              onChange={(e) =>
+                setEditorViewBeat(clampViewBeat(Number(e.target.value)))
+              }
+              className="w-full accent-sky-400"
+            />
+          </div>
+        )}
 
         {/* Bottom screen - decorative */}
         <div className="relative overflow-hidden rounded-2xl border-2 border-sky-300/40 bg-gradient-to-b from-sky-400/30 to-sky-600/40"
