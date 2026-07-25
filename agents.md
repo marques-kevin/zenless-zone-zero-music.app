@@ -16,5 +16,6 @@ Never translate. We already have a script that do that yarn i18n.
 - `./scripts/get-music-durations.sh` uses `ffprobe`.
 - `yarn mp3` (`scripts/youtube-downloader/download.ts`), `yarn playlist`, and `yarn check-zzz-playlists` use `yt-dlp` via the shared helper `scripts/youtube-downloader/ytdlp.ts`. `yt-dlp` must be on `PATH` (the update script installs it to `/usr/local/bin`).
 - YouTube cookies for cloud agents: set `YTDLP_COOKIES_CONTENT` in Cursor environment secrets with the full `cookies.txt` content (see `scripts/ask-musics/agents.md`).
+- Ask-music Discord logs: set `ASK_MUSIC_DISCORD_WEBHOOK_URL` in Cursor environment secrets (see `scripts/ask-musics/agents.md`).
 - `yarn mp3` reads URLs from `scripts/youtube-downloader/files-to-download.txt` and writes MP3s to `scripts/youtube-downloader/files/`.
 - From a cloud/datacenter IP, YouTube often returns "Sign in to confirm you're not a bot"; downloads then need cookies (`--cookies`/`--cookies-from-browser`), and recent `yt-dlp` may also warn about needing a JS runtime (e.g. deno). These are YouTube/yt-dlp limitations, not environment problems — non-YouTube direct media URLs download fine.

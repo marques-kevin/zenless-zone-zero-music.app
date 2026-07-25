@@ -19,19 +19,19 @@ import {
   fetchYoutubeMetadata,
   moveDownloadedFile,
 } from "./lib/youtube";
+import {
+  notifyAskMusicError,
+  notifyAskMusicFinished,
+  notifyAskMusicRequestFailed,
+  notifyAskMusicStarted,
+} from "./lib/discord";
+import { ProcessResult } from "./lib/process-result";
 import { AskMusicRequest } from "./types";
 
 type ParsedArgs = {
   url?: string;
   version?: string;
   limit?: number;
-};
-
-type ProcessResult = {
-  url: string;
-  status: "added" | "skipped" | "failed";
-  message: string;
-  title_id?: string;
 };
 
 const args = new Set(process.argv.slice(2));
@@ -223,6 +223,8 @@ async function main() {
       return;
     }
 
+    await notifyAskMusicStarted({ requests, is_dry_run });
+
     console.log(`Processing ${requests.length} request(s)...`);
 
     const results: ProcessResult[] = [];
@@ -232,6 +234,13 @@ async function main() {
       const result = await processRequest(request, parsed.version);
       results.push(result);
       console.log(`  ${result.status}: ${result.message}`);
+
+      if (result.status === "failed") {
+        await notifyAskMusicRequestFailed({
+          url: result.url,
+          message: result.message,
+        });
+      }
     }
 
     const added = results.filter((result) => result.status === "added").length;
@@ -243,11 +252,17 @@ async function main() {
     console.log(`  skipped: ${skipped}`);
     console.log(`  failed: ${failed}`);
 
+    await notifyAskMusicFinished({ results, is_dry_run });
+
     if (failed > 0) {
       process.exit(1);
     }
   } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Unknown error processing pending requests";
+
     console.error("Error processing pending requests:", error);
+    await notifyAskMusicError(message);
     process.exit(1);
   }
 }

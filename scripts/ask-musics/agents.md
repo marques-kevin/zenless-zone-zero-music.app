@@ -97,3 +97,18 @@ yarn ask-musics:process-pending
 ```
 
 Exit code `1` if any request failed. Exit code `0` if all processed or nothing pending.
+
+### Discord notifications
+
+When `ASK_MUSIC_DISCORD_WEBHOOK_URL` is set, the pipeline posts to Discord:
+
+1. **Start** — automation started with the list of pending URLs
+2. **Per-request error** — when a single request fails during processing
+3. **Finish** — summary with added / skipped / failed counts and per-URL results
+4. **Fatal error** — when the script crashes before finishing (e.g. Firestore unavailable)
+
+Add the webhook URL to Cursor environment secrets or `.env`:
+
+```bash
+ASK_MUSIC_DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
+```
