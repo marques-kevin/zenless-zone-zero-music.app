@@ -26,6 +26,7 @@ There is **no** full-catalog sync or overwrite command.
 
 ```bash
 yarn ask-musics:process-pending
+yarn ask-musics:send-report
 ```
 
-This downloads the track, uploads the MP3 to R2, adds it to the catalog, and marks the Firestore request as `added`.
+This downloads the track, uploads the MP3 to R2, adds it to the catalog, and marks the Firestore request as `added`. Discord gets one summary via `send-report`.
