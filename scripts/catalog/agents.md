@@ -32,22 +32,12 @@ No Gatsby rebuild or PR is required for new tracks once the catalog is on R2.
 
 Important: the runtime catalog lives on R2. Do not run `yarn catalog:export && yarn catalog:sync` in CI after automation adds tracks, or you will overwrite remote additions. Use `catalog:add-track --remote` for async additions.
 
+## Typing & examples
+
+- Types: `src/types/catalog.type.ts` (`CatalogJson`, `SerializedTrack`)
+- Docs: `catalog/README.md`
+- Examples: `catalog/track.example.json`, `catalog/catalog.example.json`
+
 ## Track JSON example
 
-```json
-[
-  {
-    "title": "My Track",
-    "title_id": "my-track",
-    "artist": "2.6",
-    "artist_id": "2.6",
-    "source": "/musics/2.6--my-track.mp3",
-    "duration": 180,
-    "playlist_cover": "/covers/2.6.jpg",
-    "playlist_id": "2.6",
-    "playlist_name": "2.6",
-    "playlist_type": "jukebox",
-    "created_at": "2026-07-25"
-  }
-]
-```
+Use `catalog/track.example.json` as a template for `yarn catalog:add-track`.
