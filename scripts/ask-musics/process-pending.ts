@@ -1,3 +1,4 @@
+import { unlink } from "fs/promises";
 import { join } from "path";
 import { serializeTrack } from "../catalog/build-catalog";
 import { getTrackKey } from "../catalog/catalog-utils";
@@ -20,11 +21,9 @@ import {
   moveDownloadedFile,
 } from "./lib/youtube";
 import {
-  notifyAskMusicError,
-  notifyAskMusicFinished,
-  notifyAskMusicRequestFailed,
-  notifyAskMusicStarted,
-} from "./lib/discord";
+  resolveAutomationStatus,
+  writeAutomationReport,
+} from "./lib/automation-report";
 import { ProcessResult } from "./lib/process-result";
 import { AskMusicRequest } from "./types";
 
@@ -171,6 +170,7 @@ async function processRequest(
     await uploadMusicFileToR2(destination_path);
     await addTrackToCatalog(track);
     await updateRequestStatus({ url, status: "added" });
+    await unlink(destination_path).catch(() => undefined);
 
     return {
       url,
@@ -219,11 +219,18 @@ async function main() {
     }
 
     if (requests.length === 0) {
+      const report_path = await writeAutomationReport({
+        ran_at: new Date().toISOString(),
+        is_dry_run,
+        status: "empty",
+        requests: [],
+        results: [],
+      });
+
       console.log("No pending music requests to process.");
+      console.log(`Report written to ${report_path}`);
       return;
     }
-
-    await notifyAskMusicStarted({ requests, is_dry_run });
 
     console.log(`Processing ${requests.length} request(s)...`);
 
@@ -234,14 +241,15 @@ async function main() {
       const result = await processRequest(request, parsed.version);
       results.push(result);
       console.log(`  ${result.status}: ${result.message}`);
-
-      if (result.status === "failed") {
-        await notifyAskMusicRequestFailed({
-          url: result.url,
-          message: result.message,
-        });
-      }
     }
+
+    const report_path = await writeAutomationReport({
+      ran_at: new Date().toISOString(),
+      is_dry_run,
+      status: resolveAutomationStatus(results),
+      requests,
+      results,
+    });
 
     const added = results.filter((result) => result.status === "added").length;
     const skipped = results.filter((result) => result.status === "skipped").length;
@@ -251,8 +259,7 @@ async function main() {
     console.log(`  added: ${added}`);
     console.log(`  skipped: ${skipped}`);
     console.log(`  failed: ${failed}`);
-
-    await notifyAskMusicFinished({ results, is_dry_run });
+    console.log(`Report written to ${report_path}`);
 
     if (failed > 0) {
       process.exit(1);
@@ -262,7 +269,17 @@ async function main() {
       error instanceof Error ? error.message : "Unknown error processing pending requests";
 
     console.error("Error processing pending requests:", error);
-    await notifyAskMusicError(message);
+
+    const report_path = await writeAutomationReport({
+      ran_at: new Date().toISOString(),
+      is_dry_run,
+      status: "error",
+      requests: [],
+      results: [],
+      error: message,
+    });
+
+    console.log(`Report written to ${report_path}`);
     process.exit(1);
   }
 }
