@@ -30,22 +30,26 @@ export const addHash = (params: {
   value?: any;
 }) => {
   const { path, currentHash, value } = params;
-  const current_hash = removeHash({ path: path, currentHash });
-
-  if (!current_hash) {
-    return path.startsWith("#")
-      ? path
-      : `#${path}` + (value ? `=${value}` : "");
-  }
-
   const newPath = path.startsWith("#")
     ? path.slice(1)
     : path + (value ? `=${value}` : "");
-  const fragments = current_hash.slice(1).split("&");
 
-  // Check if path already exists in fragments
+  if (!currentHash) {
+    return path.startsWith("#")
+      ? path
+      : `#${newPath}`;
+  }
+
+  const fragments = currentHash.slice(1).split("&").filter(Boolean);
+
   if (fragments.includes(newPath)) {
-    return current_hash;
+    return currentHash;
+  }
+
+  const current_hash = removeHash({ path: path, currentHash });
+
+  if (!current_hash) {
+    return `#${newPath}`;
   }
 
   return `${current_hash}&${newPath}`;

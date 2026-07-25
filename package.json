@@ -19,6 +19,7 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
+    "test:ci": "vitest run",
     "i18n": "tsx src/scripts/i18n.run.ts",
     "mp3": "tsx scripts/youtube-downloader/download.ts",
     "playlist": "tsx scripts/youtube-downloader/extract-playlist.ts",
