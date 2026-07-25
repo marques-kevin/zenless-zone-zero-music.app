@@ -71,6 +71,13 @@ jobs:
           GATSBY_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.GATSBY_FIREBASE_MESSAGING_SENDER_ID }}
           GATSBY_FIREBASE_APP_ID: ${{ secrets.GATSBY_FIREBASE_APP_ID }}
 
+      - name: Deploy Firestore rules
+        run: yarn deploy:firestore-rules
+        env:
+          GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+
       - name: Deploy to Cloudflare Pages
         run: npx wrangler pages deploy public --project-name "zenless-zone-zero-music-app"
         env:

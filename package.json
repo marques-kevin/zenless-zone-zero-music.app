@@ -23,7 +23,8 @@
     "mp3": "tsx scripts/youtube-downloader/download.ts",
     "playlist": "tsx scripts/youtube-downloader/extract-playlist.ts",
     "check-zzz-playlists": "tsx scripts/youtube-downloader/check-zzz-playlists.ts",
-    "sync-characters": "tsx scripts/sync-characters/sync-characters.ts"
+    "sync-characters": "tsx scripts/sync-characters/sync-characters.ts",
+    "deploy:firestore-rules": "tsx scripts/deploy-firestore-rules.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",
