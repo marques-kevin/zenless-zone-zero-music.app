@@ -35,7 +35,8 @@
     "catalog:add-track": "tsx scripts/catalog/add-track.ts",
     "catalog:update-track": "tsx scripts/catalog/update-track.ts",
     "catalog:remove-track": "tsx scripts/catalog/remove-track.ts",
-    "catalog:update-playlist": "tsx scripts/catalog/update-playlist.ts"
+    "catalog:update-playlist": "tsx scripts/catalog/update-playlist.ts",
+    "catalog:configure-cors": "tsx scripts/catalog/configure-cors.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",

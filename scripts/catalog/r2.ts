@@ -1,7 +1,9 @@
 import { createReadStream } from "fs";
 import {
+  GetBucketCorsCommand,
   GetObjectCommand,
   ListObjectsV2Command,
+  PutBucketCorsCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
@@ -67,6 +69,33 @@ export async function uploadCatalogToR2(content: string): Promise<void> {
       Key: CATALOG_R2_KEY,
       Body: content,
       ContentType: "application/json",
+    })
+  );
+}
+
+export async function configureR2Cors(): Promise<void> {
+  await s3Client.send(
+    new PutBucketCorsCommand({
+      Bucket: env.CLOUDFLARE_BUCKET_NAME,
+      CORSConfiguration: {
+        CORSRules: [
+          {
+            AllowedHeaders: ["*"],
+            AllowedMethods: ["GET", "HEAD"],
+            AllowedOrigins: ["*"],
+            ExposeHeaders: ["ETag", "Content-Length", "Content-Type"],
+            MaxAgeSeconds: 3600,
+          },
+        ],
+      },
+    })
+  );
+}
+
+export async function getR2Cors() {
+  return s3Client.send(
+    new GetBucketCorsCommand({
+      Bucket: env.CLOUDFLARE_BUCKET_NAME,
     })
   );
 }

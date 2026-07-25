@@ -37,6 +37,16 @@ yarn catalog:update-playlist --playlist-id <id> --name "..." --cover "/covers/..
 
 There is **no** `catalog:sync` command. The full JSON cannot be overwritten.
 
+## R2 CORS (required for browser fetch)
+
+Run once (or after creating a new bucket):
+
+```bash
+yarn catalog:configure-cors
+```
+
+Without this, `fetch()` to the R2 public URL fails from `localhost` and the production domain.
+
 ## Automation flow
 
 ```bash
