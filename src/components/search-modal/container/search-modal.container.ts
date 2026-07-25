@@ -4,6 +4,7 @@ import { RootState } from "@/redux/store";
 
 const mapState = (state: RootState) => ({
   query: state.player.search_query,
+  tracks: state.catalog.tracks,
 });
 
 const mapDispatch = (dispatch: any) => ({

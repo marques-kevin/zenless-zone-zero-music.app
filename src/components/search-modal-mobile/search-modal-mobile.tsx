@@ -1,7 +1,6 @@
 import { Drawer } from "vaul";
 import { useLocation } from "@reach/router";
 import React from "react";
-import { tracks } from "../../database/tracks";
 import { TrackInQueueItem } from "../track-in-queue-item/track-in-queue-item";
 import {
   connector,
@@ -46,7 +45,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
             </div>
             <div className="gap-2 mx-auto max-w-md flex-col mt-4">
               {uniqBy(
-                tracks.filter((track) =>
+                props.tracks.filter((track) =>
                   track.title.toLowerCase().includes(props.query.toLowerCase())
                 ),
                 "title_id"

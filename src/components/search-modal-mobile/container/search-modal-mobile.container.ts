@@ -7,6 +7,7 @@ const mapState = (state: RootState) => ({
   current_track: state.player.current_track,
   tracks_currently_playing: state.player.tracks_currently_playing,
   query: state.player.search_query,
+  tracks: state.catalog.tracks,
 });
 
 const mapDispatch = (dispatch: any) => ({

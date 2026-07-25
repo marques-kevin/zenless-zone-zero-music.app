@@ -1,25 +1,19 @@
 import React from "react";
-import {
-  official_playlists,
-  top_100_playlists,
-  most_played_playlists,
-} from "@/database/playlists";
 import { connector, ContainerProps } from "./container/central-bar.container";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { uniqBy } from "lodash";
 import { useModal } from "@/hooks/use-modal";
 import { FormattedMessage } from "../formatted-message/formatted-message";
-import { tracks } from "@/database/tracks";
 import { TracksList } from "../tracks-list/tracks-list";
-
-const tracks_recently_added = tracks
-  .sort((a, b) => b.created_at.getTime() - a.created_at.getTime())
-  .slice(0, 20);
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
   const { isOpen: isPlaylistDetailsPaneOpen } = useModal("playlist-details");
   const { isOpen: isSearchPaneOpen } = useModal("search");
+
+  const tracks_recently_added = [...props.tracks]
+    .sort((a, b) => b.created_at.getTime() - a.created_at.getTime())
+    .slice(0, 20);
 
   return (
     <>
@@ -37,7 +31,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
               <FormattedMessage id="central-bar/zenless-zone-zero-soundtrack" />
             </h1>
             <div className="grid grid-cols-2 xl:grid-cols-5 md:grid-cols-1 lg:grid-cols-2 gap-0">
-              {official_playlists
+              {props.official_playlists
                 .filter((playlist) => playlist.playlist_type === "jukebox")
                 .map((_, i) => (
                   <div
@@ -89,7 +83,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
               </p>
             </div>
             <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-1 lg:grid-cols-2 gap-0">
-              {official_playlists
+              {props.official_playlists
                 .filter((playlist) => playlist.playlist_type === "character")
                 .map((_, i) => (
                   <div
@@ -137,7 +131,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
             </div>
             <div className="grid pb-4">
               <TracksList
-                tracks={top_100_playlists.tracks}
+                tracks={props.top_100_playlist?.tracks || []}
                 show_duration={false}
                 show_cover={true}
                 show_number_listened={false}
@@ -158,7 +152,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
             </div>
             <div className="grid pb-4">
               <TracksList
-                tracks={most_played_playlists.tracks}
+                tracks={props.most_played_playlist?.tracks || []}
                 show_duration={false}
                 show_cover={true}
                 show_number_listened={true}

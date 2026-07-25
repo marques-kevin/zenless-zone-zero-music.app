@@ -1,13 +1,13 @@
 import { connect, ConnectedProps } from "react-redux";
 import { actions } from "@/redux/actions";
 import { RootState } from "@/redux/store";
-import { official_playlists } from "@/database/playlists";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 
 const mapState = (state: RootState) => {
   return {
     is_playing: state.player.is_playing,
-    playlists: [...official_playlists, ...state.playlists.playlists],
+    playlists: [...state.catalog.all_playlists, ...state.playlists.playlists],
+    official_playlists: state.catalog.official_playlists,
     current_track: state.player.current_track,
   };
 };

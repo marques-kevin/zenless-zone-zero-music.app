@@ -40,6 +40,10 @@ Statuses:
 ## Suggested automation flow
 
 1. `yarn ask-musics:list-pending --json --write-manifest`
-2. For each URL: download with `yarn mp3`, move/rename into `musics/`, update database
-3. `yarn ask-musics:update-status --url "<url>" --status added`
-4. If a request cannot be fulfilled: mark it `cancelled` with a reason
+2. For each URL: download with `yarn mp3`, move/rename into `musics/`
+3. `yarn sync-music`
+4. `yarn catalog:add-track --track-file <track.json> --remote`
+5. `yarn ask-musics:update-status --url "<url>" --status added`
+6. If a request cannot be fulfilled: mark it `cancelled` with a reason
+
+See `scripts/catalog/agents.md` for the remote catalog format.

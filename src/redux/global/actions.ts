@@ -5,7 +5,6 @@ import { AnalyticsEntity } from "@/types/analytics.type";
 import { extract_hash_value } from "@/hooks/use-modal";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 import { actions } from "../actions";
-import { tracks } from "@/database/tracks";
 
 export const set_current_git_version = (
   payload: types.global_set_current_git_version_action["payload"]
@@ -80,7 +79,7 @@ export const $select_current_track_by_url = () => {
     dispatch: ThunkDispatch<RootState, unknown, any>,
     getState: () => RootState
   ) => {
-    const { di } = getState();
+    const { di, player } = getState();
 
     const value = extract_hash_value({
       hash: window.location.hash,
@@ -89,7 +88,7 @@ export const $select_current_track_by_url = () => {
 
     if (!value) return;
 
-    const track = tracks.find((track) => track.title_id === value);
+    const track = player.all_tracks.find((item) => item.title_id === value);
 
     if (!track) return;
 
