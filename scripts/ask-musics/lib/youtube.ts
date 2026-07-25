@@ -1,31 +1,12 @@
 import { mkdir, readdir, rename, unlink } from "fs/promises";
 import { dirname, join } from "path";
+import { getYtdlpExtraArgs } from "../../youtube-downloader/ytdlp-cookies";
 import { requireCmd, runCommand, runCommandCapture, ytdlpBin } from "../../youtube-downloader/ytdlp";
 
 const DOWNLOAD_DIR = join(
   process.cwd(),
   "scripts/youtube-downloader/files"
 );
-
-function getYtdlpExtraArgs(): string[] {
-  const args: string[] = [];
-
-  const js_runtime = process.env.YTDLP_JS_RUNTIME?.trim() || "node";
-  args.push("--js-runtimes", js_runtime);
-
-  const cookies_file = process.env.YTDLP_COOKIES_FILE?.trim();
-  if (cookies_file) {
-    args.push("--cookies", cookies_file);
-    return args;
-  }
-
-  const browser = process.env.YTDLP_COOKIES_BROWSER?.trim();
-  if (browser) {
-    args.push("--cookies-from-browser", browser);
-  }
-
-  return args;
-}
 
 function extractYtdlpError(stderr: string, fallback: string): string {
   const errorLine = stderr
@@ -47,7 +28,7 @@ export async function fetchYoutubeMetadata(url: string): Promise<YoutubeMetadata
   await requireCmd(ytdlpBin);
 
   const { code, stdout, stderr } = await runCommandCapture(ytdlpBin, [
-    ...getYtdlpExtraArgs(),
+    ...(await getYtdlpExtraArgs()),
     "--no-playlist",
     "--print",
     "%(id)s",
@@ -85,7 +66,7 @@ export async function downloadYoutubeMp3(url: string): Promise<string> {
   const before = new Set(await readdir(DOWNLOAD_DIR));
 
   const code = await runCommand(ytdlpBin, [
-    ...getYtdlpExtraArgs(),
+    ...(await getYtdlpExtraArgs()),
     "--no-progress",
     "--no-playlist",
     "--restrict-filenames",
