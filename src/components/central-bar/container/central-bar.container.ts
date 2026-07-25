@@ -39,6 +39,9 @@ const mapDispatch = (dispatch: any) => ({
       })
     );
   },
+  onOpenAskMusicModal: () => {
+    dispatch(actions.ask_musics.$ask_musics_open_modal());
+  },
 });
 
 export const connector = connect(mapState, mapDispatch);

@@ -12,6 +12,7 @@ import { SearchModal } from "@/components/search-modal/search-modal";
 import { KeyboardEventsListener } from "@/components/keyboard-events-listener/keyboard-events-listener";
 import { SelectLanguageModal } from "@/components/select-language-modal/select-language-modal";
 import { ModalPlaylistCreate } from "@/components/modal-playlist-create/modal-playlist-create";
+import { ModalAskMusic } from "@/components/modal-ask-music/modal-ask-music";
 import { ModalPlaylistAddTrack } from "@/components/modal-playlist-add-track/modal-playlist-add-track";
 import { MobilePlaylistsColumn } from "@/components/mobile-playlists-column/mobile-playlists-column";
 import { PlaylistDetailsPaneMobile } from "@/components/playlist-details-pane-mobile/playlist-details-pane-mobile";
@@ -73,6 +74,7 @@ export const Home: React.FC<{
       <KeyboardEventsListener />
       <PlayerMobileFullScreen />
       <ModalPlaylistCreate />
+      <ModalAskMusic />
       <PlaylistDetailsPaneMobile />
     </>
   );

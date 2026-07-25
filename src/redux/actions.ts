@@ -6,6 +6,7 @@ import * as modals from "./modals/actions";
 import * as news from "./news/actions";
 import * as global from "./global/actions";
 import * as ladder from "./ladder/actions";
+import * as ask_musics from "./ask-musics/actions";
 
 export const actions = {
   player,
@@ -16,4 +17,5 @@ export const actions = {
   news,
   global,
   ladder,
+  ask_musics,
 };

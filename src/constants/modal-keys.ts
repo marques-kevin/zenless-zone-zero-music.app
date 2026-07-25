@@ -15,4 +15,5 @@ export enum MODAL_KEYS {
   "change-playlist-name" = "change-playlist-name",
   "download-app-ios" = "download-app-ios",
   "ladder-selection" = "ladder-selection",
+  "ask-music" = "ask-music",
 }
