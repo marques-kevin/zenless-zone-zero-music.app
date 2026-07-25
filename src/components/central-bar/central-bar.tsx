@@ -6,6 +6,7 @@ import { uniqBy } from "lodash";
 import { useModal } from "@/hooks/use-modal";
 import { FormattedMessage } from "../formatted-message/formatted-message";
 import { TracksList } from "../tracks-list/tracks-list";
+import { Loader2Icon } from "lucide-react";
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
   const { isOpen: isPlaylistDetailsPaneOpen } = useModal("playlist-details");
@@ -14,6 +15,14 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
   const tracks_recently_added = [...props.tracks]
     .sort((a, b) => b.created_at.getTime() - a.created_at.getTime())
     .slice(0, 20);
+
+  if (props.is_catalog_loading) {
+    return (
+      <div className="flex h-full min-h-[50vh] items-center justify-center bg-zinc-900 rounded-md">
+        <Loader2Icon className="h-8 w-8 animate-spin text-zinc-400" />
+      </div>
+    );
+  }
 
   return (
     <>
