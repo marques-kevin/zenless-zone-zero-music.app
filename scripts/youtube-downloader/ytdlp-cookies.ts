@@ -3,8 +3,20 @@ import { join } from "path";
 
 let resolvedCookiesFile: string | null | undefined;
 
+const NETSCAPE_COOKIE_HEADER = "# Netscape HTTP Cookie File";
+
 function normalizeCookieContent(content: string): string {
-  return content.replace(/\\n/g, "\n").trimEnd() + "\n";
+  const normalized = content.replace(/\\n/g, "\n").trimEnd();
+
+  if (!normalized) {
+    return "";
+  }
+
+  if (normalized.startsWith(NETSCAPE_COOKIE_HEADER)) {
+    return `${normalized}\n`;
+  }
+
+  return `${NETSCAPE_COOKIE_HEADER}\n${normalized}\n`;
 }
 
 export async function resolveYtdlpCookiesFile(): Promise<string | null> {
