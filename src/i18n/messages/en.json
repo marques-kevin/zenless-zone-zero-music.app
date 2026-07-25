@@ -135,7 +135,7 @@
   "rhythm/editor/seek-to-view": "Seek audio here",
   "rhythm/play/start": "Start",
   "rhythm/play/controls": "Press F for left notes, J for right notes. Hold both for green notes.",
-  "rhythm/play/beat-guide-hint": "A kick drum plays on each downbeat and a snare on other beats to help you stay in rhythm. Toggle with the drum icon.",
+  "rhythm/play/beat-guide-hint": "A different drum sound plays when you press F (left), J (right), or both together. Toggle with the drum icon.",
   "rhythm/play/finished": "Song complete!",
   "rhythm/play/results": "Score: {score} · Max combo: {combo}",
   "rhythm/play/retry": "Play again"

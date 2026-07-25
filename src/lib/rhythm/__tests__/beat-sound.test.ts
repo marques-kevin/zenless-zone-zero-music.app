@@ -2,20 +2,22 @@ import { describe, expect, it } from "vitest";
 import { BeatSoundEngine } from "../beat-sound";
 
 describe("BeatSoundEngine", () => {
-  it("plays kick on measure downbeats", () => {
+  it("plays left hit sound", () => {
     const engine = new BeatSoundEngine();
     engine.setEnabled(false);
-    expect(() => engine.playForBeat(0)).not.toThrow();
-    expect(() => engine.playForBeat(4)).not.toThrow();
-    expect(() => engine.playForBeat(8)).not.toThrow();
+    expect(() => engine.playHit("left")).not.toThrow();
   });
 
-  it("plays snare on off-beats within measure", () => {
+  it("plays right hit sound", () => {
     const engine = new BeatSoundEngine();
     engine.setEnabled(false);
-    expect(() => engine.playForBeat(1)).not.toThrow();
-    expect(() => engine.playForBeat(2)).not.toThrow();
-    expect(() => engine.playForBeat(3)).not.toThrow();
+    expect(() => engine.playHit("right")).not.toThrow();
+  });
+
+  it("plays both hit sound", () => {
+    const engine = new BeatSoundEngine();
+    engine.setEnabled(false);
+    expect(() => engine.playHit("both")).not.toThrow();
   });
 
   it("respects enabled flag", () => {

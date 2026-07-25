@@ -80,7 +80,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const heldNotesRef = useRef<Set<string>>(new Set());
   const keysRef = useRef({ f: false, j: false });
   const beatSoundRef = useRef<BeatSoundEngine | null>(null);
-  const lastBeatPlayedRef = useRef(-1);
+  const bothSoundPlayedRef = useRef(false);
 
   if (!beatSoundRef.current) {
     beatSoundRef.current = new BeatSoundEngine();
@@ -124,7 +124,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
   const resetGameStats = useCallback(() => {
     judgedRef.current = new Set();
     heldNotesRef.current = new Set();
-    lastBeatPlayedRef.current = -1;
+    bothSoundPlayedRef.current = false;
     setJudgedKeys(new Set());
     setCombo(0);
     setMaxCombo(0);
@@ -270,14 +270,6 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
     const beat = msToBeat(time * 1000 + chart.offset, chart.bpm);
     processMisses(beat);
 
-    if (mode === "play" && gameState === "playing" && beatGuideEnabled) {
-      const integerBeat = Math.floor(beat);
-      if (integerBeat !== lastBeatPlayedRef.current && integerBeat >= 0) {
-        lastBeatPlayedRef.current = integerBeat;
-        beatSoundRef.current?.playForBeat(integerBeat);
-      }
-    }
-
     if (
       mode === "play" &&
       gameState === "playing" &&
@@ -289,7 +281,24 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
     }
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [chart.offset, chart.bpm, processMisses, mode, gameState, track.duration, beatGuideEnabled]);
+  }, [chart.offset, chart.bpm, processMisses, mode, gameState, track.duration]);
+
+  const playHitSound = useCallback(() => {
+    if (mode !== "play" || gameState !== "playing" || !beatGuideEnabled) return;
+
+    const { f, j } = keysRef.current;
+
+    if (f && j) {
+      if (!bothSoundPlayedRef.current) {
+        bothSoundPlayedRef.current = true;
+        beatSoundRef.current?.playHit("both");
+      }
+      return;
+    }
+
+    if (f) beatSoundRef.current?.playHit("left");
+    if (j) beatSoundRef.current?.playHit("right");
+  }, [mode, gameState, beatGuideEnabled]);
 
   useEffect(() => {
     setBeatGuideEnabled(loadBeatGuideEnabled());
@@ -343,10 +352,12 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
       const key = e.key.toLowerCase();
       if (key === "f") {
         keysRef.current.f = true;
+        playHitSound();
         tryHit("left");
       }
       if (key === "j") {
         keysRef.current.j = true;
+        playHitSound();
         tryHit("right");
       }
       if (key === " ") {
@@ -360,6 +371,9 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
       const key = e.key.toLowerCase();
       if (key === "f") keysRef.current.f = false;
       if (key === "j") keysRef.current.j = false;
+      if (!keysRef.current.f || !keysRef.current.j) {
+        bothSoundPlayedRef.current = false;
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -368,7 +382,7 @@ export const RhythmGame: React.FC<Props> = ({ track, initialChart }) => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
     };
-  }, [tryHit, togglePause, toggleEditorPlayback, mode]);
+  }, [tryHit, togglePause, toggleEditorPlayback, mode, playHitSound]);
 
   const handleLaneClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (mode !== "edit" || !laneRef.current || isDraggingTimeline || e.shiftKey)
