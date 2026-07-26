@@ -457,4 +457,10 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "norma",
     playlist_type: "character",
   },
+  "dreamland-fest": {
+    playlist_name: "Dreamland Fest",
+    playlist_cover: "/covers/dreamland-fest.jpg",
+    playlist_id: "dreamland-fest",
+    playlist_type: "jukebox",
+  },
 };

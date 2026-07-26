@@ -41,6 +41,7 @@ import { Album26Tracks } from "./albums/2.6";
 import { Album27Tracks } from "./albums/2.7";
 import { Album28Tracks } from "./albums/2.8";
 import { Album30Tracks } from "./albums/3.0";
+import { DreamlandFestTracks } from "./albums/dreamland-fest";
 import { Album20Tracks } from "./albums/2.0";
 import { YixuanTracks } from "./albums/yixuan";
 import { JufufuTracks } from "./albums/jufufu";
@@ -1012,4 +1013,5 @@ export const tracks: Track[] = [
   ...AriaTracks,
   ...SunnaTracks,
   ...RinaTracks,
+  ...DreamlandFestTracks,
 ];
