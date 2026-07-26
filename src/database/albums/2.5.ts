@@ -290,6 +290,14 @@ export const Album25Tracks = [
     created_at: new Date("2026-01-02"),
     ...Artists["2.5"],
   },
+  {
+    title: "Angels of Delusion Training in Progress Event Theme (Menu)",
+    title_id: "angels-of-delusion-training-in-progress-event-theme-menu",
+    source: "/musics/2.5--angels-of-delusion-training-in-progress-event-theme-menu.mp3",
+    duration: 106,
+    created_at: new Date("2026-07-26"),
+    ...Artists["2.5"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["2.5"],
