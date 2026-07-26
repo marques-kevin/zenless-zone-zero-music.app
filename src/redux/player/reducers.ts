@@ -1,7 +1,7 @@
+import { tracks } from "@/database/tracks";
 import * as types from "./types";
 import { ReplayMode, Track, TrackWithLikes } from "@/types/track.type";
 import { shuffle } from "lodash";
-import { PLACEHOLDER_TRACK } from "@/constants/catalog";
 
 interface State {
   is_playing: boolean;
@@ -16,7 +16,6 @@ interface State {
   __volume_before_muted: number;
   __tracks_before_random: Track[];
   is_random_tracks_enabled: boolean;
-  all_tracks: Track[];
   audio_meta_data: {
     current_time: number;
     duration: number;
@@ -33,20 +32,21 @@ interface State {
   tracks_user_liked: Set<TrackWithLikes["title_id"]>;
 }
 
+const tracks_currently_playing_default = shuffle(tracks)[0];
+
 const initialState: State = {
   slider_track_time: 0,
   search_query: "",
   is_playing: false,
   is_player_mobile_full_screen_opened: false,
-  current_track: PLACEHOLDER_TRACK,
-  tracks_currently_playing: [PLACEHOLDER_TRACK],
+  current_track: tracks_currently_playing_default,
+  tracks_currently_playing: [tracks_currently_playing_default],
   next_track: null,
   volume: 100,
   replay_mode: "replay_playlist",
   __volume_before_muted: 100,
   __tracks_before_random: [],
   is_random_tracks_enabled: false,
-  all_tracks: [],
   audio_meta_data: {
     current_time: 0,
     duration: 0,
@@ -154,28 +154,8 @@ export function playerReducer(
     };
   }
 
-  if (action.type === types.player_set_all_tracks) {
-    return {
-      ...state,
-      all_tracks: action.payload.tracks,
-    };
-  }
-
-  if (action.type === types.player_init_from_catalog) {
-    const first_track = shuffle(action.payload.tracks)[0] || PLACEHOLDER_TRACK;
-
-    return {
-      ...state,
-      all_tracks: action.payload.tracks,
-      current_track: first_track,
-      tracks_currently_playing: [first_track],
-    };
-  }
-
   if (action.type === types.player_add_track_to_queue) {
-    const track = state.all_tracks.find(
-      (item) => item.title_id === action.payload.title_id
-    );
+    const track = tracks.find((t) => t.title_id === action.payload.title_id);
 
     if (!track) return state;
 

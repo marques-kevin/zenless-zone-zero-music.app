@@ -1,9 +1,4 @@
-import { unlink } from "fs/promises";
 import { join } from "path";
-import { serializeTrack } from "../catalog/build-catalog";
-import { getTrackKey } from "../catalog/catalog-utils";
-import { mutateRemoteCatalog, loadRemoteCatalog } from "../catalog/catalog-store";
-import { uploadMusicFileToR2 } from "../catalog/r2";
 import { Track } from "../../src/types/track.type";
 import { fetchPendingRequests } from "./lib/pending";
 import {
@@ -14,6 +9,10 @@ import {
   getAudioDurationSeconds,
   inferVersionFromTitle,
 } from "./lib/track-builder";
+import {
+  addTrackToLocalDatabase,
+  localTrackExists,
+} from "./lib/local-track-store";
 import { updateRequestStatus } from "./lib/update-status";
 import {
   downloadYoutubeMp3,
@@ -39,7 +38,7 @@ const is_dry_run = args.has("--dry-run");
 function printUsage() {
   console.log(
     [
-      "Process pending ask-music requests end-to-end",
+      "Process pending ask-music requests end-to-end (local database)",
       "",
       "Usage:",
       "  yarn ask-musics:process-pending [--dry-run] [--limit <n>] [--version <x.y>]",
@@ -49,9 +48,10 @@ function printUsage() {
       "  1. Fetch YouTube metadata (title, description, channel)",
       "  2. Download MP3",
       "  3. Move to musics/ with version prefix",
-      "  4. Upload MP3 to R2",
-      "  5. Add track to remote catalog",
-      "  6. Mark request as added",
+      "  4. Append track to src/database/albums/<version>.ts",
+      "  5. Mark request as added",
+      "",
+      "After processing, commit musics/ and src/database/albums/ changes.",
     ].join("\n")
   );
 }
@@ -83,37 +83,6 @@ function parseArgs(argv: string[]): ParsedArgs {
   return parsed;
 }
 
-async function catalogHasTrack(
-  title_id: string,
-  version: string
-): Promise<boolean> {
-  const catalog = await loadRemoteCatalog();
-  return catalog.tracks.some(
-    (track) => track.title_id === title_id && track.playlist_id === version
-  );
-}
-
-async function addTrackToCatalog(track: Track): Promise<void> {
-  await mutateRemoteCatalog((catalog) => {
-    const key = getTrackKey(track);
-
-    if (
-      catalog.tracks.some((entry) => {
-        const existingTitleId = entry.title_id;
-        const existingPlaylistId = entry.playlist_id;
-        return `${existingTitleId}::${existingPlaylistId}` === key;
-      })
-    ) {
-      throw new Error(`Track already exists in catalog: ${key}`);
-    }
-
-    return {
-      ...catalog,
-      tracks: [...catalog.tracks, serializeTrack(track)],
-    };
-  });
-}
-
 async function processRequest(
   request: AskMusicRequest,
   defaultVersion?: string
@@ -128,7 +97,7 @@ async function processRequest(
     const source = `/musics/${filename}`;
     const destination_path = join(process.cwd(), "musics", filename);
 
-    if (await catalogHasTrack(title_id, version)) {
+    if (await localTrackExists(title_id, version)) {
       if (!is_dry_run) {
         await updateRequestStatus({ url, status: "added" });
       }
@@ -136,7 +105,7 @@ async function processRequest(
       return {
         url,
         status: "skipped",
-        message: `Track already in catalog (${title_id}), request marked as added`,
+        message: `Track already in local database (${title_id}), request marked as added`,
         title_id,
       };
     }
@@ -171,15 +140,13 @@ async function processRequest(
       duration,
     });
 
-    await uploadMusicFileToR2(destination_path);
-    await addTrackToCatalog(track);
+    await addTrackToLocalDatabase(track, version);
     await updateRequestStatus({ url, status: "added" });
-    await unlink(destination_path).catch(() => undefined);
 
     return {
       url,
       status: "added",
-      message: `Added ${filename} (${duration}s) to catalog v${version}`,
+      message: `Added ${filename} (${duration}s) to src/database/albums/${version}.ts`,
       title_id,
     };
   } catch (error: any) {
@@ -256,8 +223,12 @@ async function main() {
     });
 
     const added = results.filter((result) => result.status === "added").length;
-    const skipped = results.filter((result) => result.status === "skipped").length;
-    const failed = results.filter((result) => result.status === "failed").length;
+    const skipped = results.filter(
+      (result) => result.status === "skipped"
+    ).length;
+    const failed = results.filter(
+      (result) => result.status === "failed"
+    ).length;
 
     console.log("\nSummary");
     console.log(`  added: ${added}`);
@@ -265,12 +236,20 @@ async function main() {
     console.log(`  failed: ${failed}`);
     console.log(`Report written to ${report_path}`);
 
+    if (added > 0) {
+      console.log(
+        "\nNext step: commit musics/ and src/database/albums/ changes, then deploy."
+      );
+    }
+
     if (failed > 0) {
       process.exit(1);
     }
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Unknown error processing pending requests";
+      error instanceof Error
+        ? error.message
+        : "Unknown error processing pending requests";
 
     console.error("Error processing pending requests:", error);
 

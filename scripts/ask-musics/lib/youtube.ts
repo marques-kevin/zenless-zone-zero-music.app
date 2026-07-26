@@ -1,12 +1,13 @@
 import { mkdir, readdir, rename, unlink } from "fs/promises";
 import { dirname, join } from "path";
-import { getYtdlpExtraArgs } from "../../youtube-downloader/ytdlp-cookies";
-import { requireCmd, runCommand, runCommandCapture, ytdlpBin } from "../../youtube-downloader/ytdlp";
+import {
+  requireCmd,
+  runCommand,
+  runCommandCapture,
+  ytdlpBin,
+} from "../../youtube-downloader/ytdlp";
 
-const DOWNLOAD_DIR = join(
-  process.cwd(),
-  "scripts/youtube-downloader/files"
-);
+const DOWNLOAD_DIR = join(process.cwd(), "scripts/youtube-downloader/files");
 
 function extractYtdlpError(stderr: string, fallback: string): string {
   const errorLine = stderr
@@ -35,18 +36,21 @@ export type YoutubeMetadata = {
   video_id: string;
 };
 
-export async function fetchYoutubeMetadata(url: string): Promise<YoutubeMetadata> {
+export async function fetchYoutubeMetadata(
+  url: string
+): Promise<YoutubeMetadata> {
   await requireCmd(ytdlpBin);
 
   const { code, stdout, stderr } = await runCommandCapture(ytdlpBin, [
-    ...(await getYtdlpExtraArgs()),
     "--no-playlist",
     "--dump-single-json",
     url,
   ]);
 
   if (code !== 0) {
-    throw new Error(extractYtdlpError(stderr, `Failed to fetch metadata for ${url}`));
+    throw new Error(
+      extractYtdlpError(stderr, `Failed to fetch metadata for ${url}`)
+    );
   }
 
   const data = JSON.parse(stdout) as YtdlpVideoJson;
@@ -71,7 +75,6 @@ export async function downloadYoutubeMp3(url: string): Promise<string> {
   const before = new Set(await readdir(DOWNLOAD_DIR));
 
   const code = await runCommand(ytdlpBin, [
-    ...(await getYtdlpExtraArgs()),
     "--no-progress",
     "--no-playlist",
     "--restrict-filenames",
@@ -97,7 +100,9 @@ export async function downloadYoutubeMp3(url: string): Promise<string> {
 
   if (created.length !== 1) {
     throw new Error(
-      `Expected one downloaded mp3 file, found ${created.length}: ${created.join(", ")}`
+      `Expected one downloaded mp3 file, found ${
+        created.length
+      }: ${created.join(", ")}`
     );
   }
 

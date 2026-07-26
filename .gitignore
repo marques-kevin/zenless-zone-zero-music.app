@@ -11,7 +11,4 @@ src/gatsby-types.d.ts
 .env
 secrets/
 
-# Ask-musics pipeline staging (source of truth is R2)
-musics/*.mp3
-
 .DS_Store

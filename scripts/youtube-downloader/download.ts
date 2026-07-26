@@ -1,7 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getYtdlpExtraArgs } from "./ytdlp-cookies";
 import { requireCmd, runCommand, ytdlpBin } from "./ytdlp";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -76,7 +75,6 @@ async function main() {
     console.log(`Downloading: ${url}`);
 
     const code = await runCommand(ytdlpBin, [
-      ...(await getYtdlpExtraArgs()),
       "--no-progress",
       "--ignore-errors",
       "--continue",
@@ -106,7 +104,7 @@ async function main() {
   }
 
   console.log(`Completed. Success: ${successCount}, Failed: ${failCount}`);
-  
+
   if (failedUrls.length > 0) {
     console.log();
     console.log("Failed URLs:");

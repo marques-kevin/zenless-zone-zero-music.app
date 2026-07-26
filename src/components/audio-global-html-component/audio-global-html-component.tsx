@@ -5,7 +5,6 @@ import {
 } from "./container/audio-global-html-component.container";
 import { AnalyticsServiceUmami } from "@/services/analytics.service.umami";
 import { getCdnUrl } from "@/utils/get-cdn-url";
-import { PLACEHOLDER_TRACK } from "@/constants/catalog";
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -116,17 +115,12 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
       <audio
         className="hidden"
         ref={audioRef}
-        crossOrigin="anonymous"
         onTimeUpdate={onTimeUpdate}
         onEnded={onEnd}
         onLoadStart={() => props.onLoading()}
         onLoadedMetadata={onTimeUpdate}
         onWaiting={() => props.onLoading()}
-        src={
-          props.current_track.title_id === PLACEHOLDER_TRACK.title_id
-            ? undefined
-            : getCdnUrl(props.current_track.source)
-        }
+        src={getCdnUrl(props.current_track.source)}
         muted={props.is_muted}
       />
     </>

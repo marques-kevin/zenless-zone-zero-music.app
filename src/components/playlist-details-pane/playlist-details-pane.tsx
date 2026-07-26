@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { resolve_playlist_cover } from "@/utils/resolve_playlist_cover";
+import { official_playlists } from "@/database/playlists";
 import { TracksList } from "../tracks-list/tracks-list";
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
@@ -33,7 +34,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
   const tracks_in_album = playlist?.tracks;
 
   const is_official_playlist =
-    props.official_playlists.findIndex(
+    official_playlists.findIndex(
       (playlist) => playlist.playlist_id === playlist_id
     ) !== -1;
 

@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { resolve_playlist_cover } from "@/utils/resolve_playlist_cover";
+import { all_playlists, official_playlists } from "@/database/playlists";
 import { TracksList } from "../tracks-list/tracks-list";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
@@ -54,7 +55,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
   );
 
   const is_official_playlist =
-    props.official_playlists.findIndex(
+    official_playlists.findIndex(
       (playlist) => playlist.playlist_id === props.playlist?.playlist_id
     ) !== -1;
 

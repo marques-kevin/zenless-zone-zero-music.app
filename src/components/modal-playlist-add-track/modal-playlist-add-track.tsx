@@ -10,12 +10,13 @@ import { MODAL_KEYS } from "@/constants/modal-keys";
 import { useModal } from "@/hooks/use-modal";
 import { resolve_playlist_cover } from "@/utils/resolve_playlist_cover";
 import clsx from "clsx";
+import { tracks } from "@/database/tracks";
 import { Track } from "@/types/track.type";
 import { FormattedMessage } from "../formatted-message/formatted-message";
 
 export const Wrapper: React.FC<ContainerProps> = (props) => {
   const { isOpen, value } = useModal(MODAL_KEYS["add-to-playlist"]);
-  const track = props.tracks.find((item) => item.title_id === value);
+  const track = tracks.find((t) => t.title_id === value);
 
   return (
     <Drawer.Root open={isOpen} onClose={props.onClose}>

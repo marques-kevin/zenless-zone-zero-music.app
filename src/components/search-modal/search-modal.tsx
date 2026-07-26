@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { useLocation } from "@reach/router";
+import { tracks } from "../../database/tracks";
 import { connector, ContainerProps } from "./container/search-modal.container";
 import { MODAL_KEYS } from "@/constants/modal-keys";
 import { ChevronDown } from "lucide-react";
@@ -42,7 +43,7 @@ export const Wrapper: React.FC<ContainerProps> = (props) => {
       <div className="grid px-2 md:overflow-auto">
         <TracksList
           tracks={uniqBy(
-            props.tracks.filter((track) =>
+            tracks.filter((track) =>
               track.title.toLowerCase().includes(props.query.toLowerCase())
             ),
             "title_id"

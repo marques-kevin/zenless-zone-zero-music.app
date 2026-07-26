@@ -2,6 +2,8 @@
 
 Users can request new tracks from the app. Requests are stored in Firestore (`ask-musics` collection) with status `pending`, `added`, or `cancelled`.
 
+Everything is **local**: MP3 files live in `musics/`, track metadata in `src/database/`. Run these scripts on your machine — there is no remote catalog and no R2 upload step.
+
 ## Full pipeline
 
 ```bash
@@ -23,11 +25,11 @@ Per request, the pipeline:
 1. Fetches YouTube metadata (title, description, channel, duration)
 2. Infers version album from title (or uses `--version`)
 3. Downloads MP3 via yt-dlp
-4. Moves file to `musics/{version}--{title-id}.mp3` (local staging only)
-5. Uploads MP3 to R2
-6. Adds track to remote catalog (CRUD)
-7. Marks Firestore request as `added`
-8. Deletes the local MP3 (R2 is the source of truth; `musics/*.mp3` is gitignored)
+4. Moves file to `musics/{version}--{title-id}.mp3`
+5. Appends track entry to `src/database/albums/<version>.ts`
+6. Marks Firestore request as `added`
+
+After a successful batch, **commit** the new MP3(s) and the updated album file(s), then deploy the site as usual.
 
 ## Individual commands
 
@@ -37,59 +39,14 @@ yarn ask-musics:update-status --url "..." --status added
 yarn ask-musics:update-status --url "..." --status cancelled --reason "..."
 ```
 
-## YouTube credentials (anti-bot)
+## Local playback
 
-YouTube often blocks datacenter IPs. Configure **one** of these in `.env` or Cursor secrets:
-
-### Option A — Local (Mac/Linux with browser)
-
-Reuse cookies from a browser where you're logged into YouTube:
-
-```bash
-# .env
-YTDLP_COOKIES_BROWSER=chrome
-# or: firefox, brave, chromium, edge, safari
-```
-
-Then test:
-
-```bash
-yarn ask-musics:process-pending --url "https://www.youtube.com/watch?v=..." --dry-run
-```
-
-### Option B — Cloud / automation (recommended for Cursor agent)
-
-1. Install a cookies exporter extension in Chrome (e.g. "Get cookies.txt LOCALLY")
-2. Go to [youtube.com](https://www.youtube.com) while logged in
-3. Export cookies as `cookies.txt` (Netscape format)
-4. Add the file content to Cursor environment secrets:
-
-```bash
-YTDLP_COOKIES_CONTENT=<paste full cookies.txt content here>
-```
-
-Cursor secrets support multiline values. If newlines are escaped, the script normalizes `\n` automatically.
-
-### Option C — Local file path
-
-Save the exported file outside the repo (e.g. `~/secrets/youtube-cookies.txt`) or in the project:
-
-```bash
-YTDLP_COOKIES_FILE=./secrets/youtube-cookies.txt
-```
-
-Add `secrets/` to `.gitignore` if you store cookies locally.
-
-**Priority:** `YTDLP_COOKIES_FILE` > `YTDLP_COOKIES_CONTENT` > `YTDLP_COOKIES_BROWSER`
-
-Cookies expire — re-export every few weeks if downloads start failing again.
+In dev, `yarn start` runs Gatsby (port 28473) and `yarn serve:musics` (port 28474). New tracks in `musics/` are playable locally without any extra upload step.
 
 ## Prerequisites
 
-- Firebase Admin credentials
-- Cloudflare R2 credentials
+- Firebase Admin credentials (`FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`)
 - `yt-dlp` and `ffprobe` installed
-- YouTube cookies (see above) if downloads are blocked
 
 ## ZZZ validation (required before downloading)
 
@@ -97,23 +54,17 @@ Only accept tracks that belong to **Zenless Zone Zero**. Validate from the **vid
 
 **Always validate before downloading the MP3.** Do not call `process-pending` without `--dry-run` until ZZZ validation passes.
 
-### Step 1 — Read the YouTube page (before any download)
+### Step 1 — Read metadata
 
-From cloud/datacenter IPs, `yt-dlp` is often blocked ("Sign in to confirm you're not a bot"). **Do not rely on yt-dlp for the first validation step.**
-
-Read the public YouTube page for the URL (e.g. web fetch / browser) and extract:
+Use `--dry-run` or read the YouTube page for the URL and extract:
 
 - Video **title**
-- Video **description** (if visible on the page)
-
-If `--dry-run` works (yt-dlp returns title + description), you may use it instead — but prefer reading the page when yt-dlp fails.
-
-**Do not say YouTube is "resolved" or "working" until a real `process-pending` run (without `--dry-run`) successfully downloads the MP3.**
+- Video **description**
 
 ### Step 2 — Validate ZZZ, then act
 
 ```bash
-# After reading title + description from the page:
+# After reading title + description:
 
 # 2a. If ZZZ → download and add
 yarn ask-musics:process-pending --url "<youtube-url>"
@@ -122,9 +73,9 @@ yarn ask-musics:process-pending --url "<youtube-url>"
 yarn ask-musics:update-status --url "<youtube-url>" --status cancelled --reason "Not ZZZ music"
 ```
 
-Optional: `yarn ask-musics:process-pending --url "<youtube-url>" --dry-run` to double-check metadata via yt-dlp when cookies work. This is **not** a substitute for reading the page when yt-dlp is blocked.
+Optional: `yarn ask-musics:process-pending --url "<youtube-url>" --dry-run` to preview metadata before downloading.
 
-For a daily batch: list pending → read each page → validate → process or cancel → next request.
+For a batch: list pending → validate each URL → process or cancel → next request.
 
 ### Accept when title or description mentions
 
@@ -142,13 +93,16 @@ For a daily batch: list pending → read each page → validate → process or c
 
 When unsure, prefer **rejecting** with reason `"Not ZZZ music"` rather than adding unrelated tracks.
 
-## Automation (Cursor daily)
+## Automation (local)
+
+Run these commands on your machine when you want to process pending requests:
 
 ```bash
 yarn ask-musics:list-pending
-# For each URL: read YouTube page → validate ZZZ → process or cancel (never download before validation)
+# For each URL: validate ZZZ → process or cancel
 yarn ask-musics:process-pending
 yarn ask-musics:send-report
+# Then commit musics/ + src/database/albums/ changes and deploy
 ```
 
 `process-pending` writes `scripts/ask-musics/last-run-report.json` and does **not** post to Discord.
@@ -171,7 +125,7 @@ yarn ask-musics:send-report --file scripts/ask-musics/last-run-report.json
 yarn ask-musics:send-report --error "Firestore unavailable"
 ```
 
-Add the webhook URL to Cursor environment secrets or `.env`:
+Add the webhook URL to `.env`:
 
 ```bash
 ASK_MUSIC_DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...

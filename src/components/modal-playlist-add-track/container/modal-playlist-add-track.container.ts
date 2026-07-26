@@ -7,7 +7,6 @@ import { Track } from "@/types/track.type";
 const mapState = (state: RootState) => ({
   create_playlist_fetching: state.playlists.create_playlist_fetching,
   playlists: state.playlists.playlists,
-  tracks: state.catalog.tracks,
 });
 
 const mapDispatch = (dispatch: any) => ({
