@@ -421,4 +421,22 @@ export const Album30Tracks: Track[] = [
     ...Artists["3.0"],
     ...Albums["3.0"],
   },
+  {
+    title: "2nd Anniversary Theme Song MV - \"Prophecy\"",
+    title_id: "2nd-anniversary-theme-song-mv-prophecy",
+    source: "/musics/3.0--2nd-anniversary-theme-song-mv-prophecy.mp3",
+    duration: 142,
+    created_at: new Date("2026-07-26"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
+  {
+    title: "Tiny Giant (Remix)",
+    title_id: "tiny-giant-remix",
+    source: "/musics/3.0--tiny-giant-remix.mp3",
+    duration: 176,
+    created_at: new Date("2026-07-26"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
 ];
