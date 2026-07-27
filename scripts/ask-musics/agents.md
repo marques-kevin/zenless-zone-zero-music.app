@@ -2,7 +2,9 @@
 
 Users can request new tracks from the app. Requests are stored in Firestore (`ask-musics` collection) with status `pending`, `added`, or `cancelled`.
 
-Everything is **local**: MP3 files live in `musics/`, track metadata in `src/database/`. Run these scripts on your machine — there is no remote catalog and no R2 upload step.
+Everything is **local** for processing: MP3 files live in `musics/`, track metadata in `src/database/`. Run these scripts on your machine.
+
+**Do not run `yarn sync-music` manually** after processing ask-music requests. On merge to `main`, the deploy workflow (`.github/workflows/firebase-hosting-merge.yml`) runs `yarn sync-music` automatically before the build and uploads new files from `musics/` to Cloudflare R2.
 
 ## Full pipeline
 
@@ -29,7 +31,7 @@ Per request, the pipeline:
 5. Appends track entry to `src/database/albums/<version>.ts`
 6. Marks Firestore request as `added`
 
-After a successful batch, **commit** the new MP3(s) and the updated album file(s), then deploy the site as usual.
+After a successful batch, **commit** the new MP3(s) and the updated album file(s), then open a PR. Once merged to `main`, CI deploys the site and syncs MP3s to R2 — no manual upload step.
 
 ## Individual commands
 
@@ -102,7 +104,7 @@ yarn ask-musics:list-pending
 # For each URL: validate ZZZ → process or cancel
 yarn ask-musics:process-pending
 yarn ask-musics:send-report
-# Then commit musics/ + src/database/albums/ changes and deploy
+# Then commit musics/ + src/database/albums/ changes and open a PR (CI syncs to R2 on merge to main)
 ```
 
 `process-pending` writes `scripts/ask-musics/last-run-report.json` and does **not** post to Discord.
