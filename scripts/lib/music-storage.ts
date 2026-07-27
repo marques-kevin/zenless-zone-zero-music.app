@@ -154,3 +154,20 @@ export async function uploadMusicFileToR2(
     })
   );
 }
+
+export async function uploadLocalMusicFileToR2(filePath: string): Promise<string> {
+  const r2Config = getR2Config();
+
+  if (!r2Config) {
+    throw new Error(
+      "Missing Cloudflare R2 credentials. Set CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_ACCESS_KEY_ID, CLOUDFLARE_SECRET_ACCESS_KEY, and CLOUDFLARE_BUCKET_NAME in .env"
+    );
+  }
+
+  const client = createR2Client(r2Config);
+  const key = `musics/${filePath.split("/").pop()}`;
+
+  await uploadMusicFileToR2(client, r2Config.CLOUDFLARE_BUCKET_NAME, filePath);
+
+  return key;
+}

@@ -11,4 +11,6 @@ src/gatsby-types.d.ts
 .env
 secrets/
 
+musics/
+
 .DS_Store

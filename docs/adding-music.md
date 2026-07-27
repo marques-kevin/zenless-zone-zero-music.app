@@ -142,19 +142,15 @@ yarn download-music
 
 This fetches MP3 files from Cloudflare R2 into `musics/`. Existing files are skipped.
 
-### 8. Sync to Cloud Storage (Optional)
+### 8. Upload to Cloud Storage
 
-If you have Cloudflare R2 configured, sync the music files:
+The `musics/` directory is not tracked in git. After adding a new MP3 locally, upload it to Cloudflare R2:
 
 ```bash
 yarn sync-music
 ```
 
-This script will:
-
-- Compare local files with R2 storage
-- Upload any missing files
-- Ensure all music files are available in the cloud
+This compares local files with R2 and uploads any missing ones. The `ask-musics:process-pending` script uploads automatically.
 
 ## Example: Adding a New Track
 
