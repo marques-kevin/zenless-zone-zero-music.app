@@ -19,6 +19,14 @@ export const RemielleTracks: Track[] = [
     created_at: new Date("2026-05-06"),
     ...Artists["2.8"],
   },
+  {
+    title: "Remielle EP - \"Two to Tango\"",
+    title_id: "remielle-ep-two-to-tango",
+    source: "/musics/3.0--remielle-ep-two-to-tango.mp3",
+    duration: 249,
+    created_at: new Date("2026-07-27"),
+    ...Artists["3.0"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["remielle"],

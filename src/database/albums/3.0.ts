@@ -439,4 +439,22 @@ export const Album30Tracks: Track[] = [
     ...Artists["3.0"],
     ...Albums["3.0"],
   },
+  {
+    title: "Phantom Blade Illusion",
+    title_id: "phantom-blade-illusion",
+    source: "/musics/3.0--phantom-blade-illusion.mp3",
+    duration: 235,
+    created_at: new Date("2026-07-27"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
+  {
+    title: "Remielle EP - \"Two to Tango\"",
+    title_id: "remielle-ep-two-to-tango",
+    source: "/musics/3.0--remielle-ep-two-to-tango.mp3",
+    duration: 249,
+    created_at: new Date("2026-07-27"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
 ];
