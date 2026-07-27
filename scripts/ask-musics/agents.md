@@ -2,9 +2,9 @@
 
 Users can request new tracks from the app. Requests are stored in Firestore (`ask-musics` collection) with status `pending`, `added`, or `cancelled`.
 
-Everything is **local** for processing: MP3 files live in `musics/`, track metadata in `src/database/`. Run these scripts on your machine.
+Processing is **local**: MP3 files are saved to `musics/` (gitignored) and track metadata is committed in `src/database/`. Run these scripts on your machine.
 
-**Do not run `yarn sync-music` manually** after processing ask-music requests. On merge to `main`, the deploy workflow (`.github/workflows/firebase-hosting-merge.yml`) runs `yarn sync-music` automatically before the build and uploads new files from `musics/` to Cloudflare R2.
+`process-pending` uploads each new MP3 to Cloudflare R2 automatically. Only commit the database changes — not `musics/`.
 
 ## Full pipeline
 
@@ -29,9 +29,10 @@ Per request, the pipeline:
 3. Downloads MP3 via yt-dlp
 4. Moves file to `musics/{version}--{title-id}.mp3`
 5. Appends track entry to `src/database/albums/<version>.ts`
-6. Marks Firestore request as `added`
+6. Uploads MP3 to Cloudflare R2
+7. Marks Firestore request as `added`
 
-After a successful batch, **commit** the new MP3(s) and the updated album file(s), then open a PR. Once merged to `main`, CI deploys the site and syncs MP3s to R2 — no manual upload step.
+After a successful batch, **commit** the updated album file(s) and open a PR. MP3s are already on R2 — do not commit `musics/`.
 
 ## Individual commands
 
@@ -48,6 +49,7 @@ In dev, `yarn start` runs Gatsby (port 28473) and `yarn serve:musics` (port 2847
 ## Prerequisites
 
 - Firebase Admin credentials (`FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`)
+- Cloudflare R2 credentials (`CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ACCESS_KEY_ID`, `CLOUDFLARE_SECRET_ACCESS_KEY`, `CLOUDFLARE_BUCKET_NAME`)
 - `yt-dlp` and `ffprobe` installed
 
 ## ZZZ validation (required before downloading)
@@ -104,7 +106,7 @@ yarn ask-musics:list-pending
 # For each URL: validate ZZZ → process or cancel
 yarn ask-musics:process-pending
 yarn ask-musics:send-report
-# Then commit musics/ + src/database/albums/ changes and open a PR (CI syncs to R2 on merge to main)
+# Then commit src/database/albums/ changes and open a PR
 ```
 
 `process-pending` writes `scripts/ask-musics/last-run-report.json` and does **not** post to Discord.

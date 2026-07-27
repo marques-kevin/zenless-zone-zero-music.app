@@ -1,5 +1,7 @@
 import { join } from "path";
+import dotenv from "dotenv";
 import { Track } from "../../src/types/track.type";
+import { uploadLocalMusicFileToR2 } from "../lib/music-storage";
 import { fetchPendingRequests } from "./lib/pending";
 import {
   buildMusicFilename,
@@ -26,6 +28,8 @@ import {
 import { ProcessResult } from "./lib/process-result";
 import { AskMusicRequest } from "./types";
 
+dotenv.config();
+
 type ParsedArgs = {
   url?: string;
   version?: string;
@@ -49,9 +53,10 @@ function printUsage() {
       "  2. Download MP3",
       "  3. Move to musics/ with version prefix",
       "  4. Append track to src/database/albums/<version>.ts",
-      "  5. Mark request as added",
+      "  5. Upload MP3 to Cloudflare R2",
+      "  6. Mark request as added",
       "",
-      "After processing, commit musics/ and src/database/albums/ changes.",
+      "After processing, commit src/database/albums/ changes only (musics/ is gitignored).",
     ].join("\n")
   );
 }
@@ -141,12 +146,13 @@ async function processRequest(
     });
 
     await addTrackToLocalDatabase(track, version);
+    const uploaded_key = await uploadLocalMusicFileToR2(destination_path);
     await updateRequestStatus({ url, status: "added" });
 
     return {
       url,
       status: "added",
-      message: `Added ${filename} (${duration}s) to src/database/albums/${version}.ts`,
+      message: `Added ${filename} (${duration}s) to src/database/albums/${version}.ts and uploaded to ${uploaded_key}`,
       title_id,
     };
   } catch (error: any) {
@@ -238,7 +244,7 @@ async function main() {
 
     if (added > 0) {
       console.log(
-        "\nNext step: commit musics/ and src/database/albums/ changes, then deploy."
+        "\nNext step: commit src/database/albums/ changes and open a PR."
       );
     }
 

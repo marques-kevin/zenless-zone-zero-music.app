@@ -118,7 +118,15 @@ export const Tracks: Track[] = [
 ];
 ```
 
-### 7. Verify
+### 7. Upload to Cloudflare R2
+
+The `musics/` directory is not tracked in git. Upload new files to R2:
+
+```bash
+yarn sync-music
+```
+
+### 8. Verify
 
 - Check that `title_id` is unique across all tracks
 - Ensure file path matches actual file location
@@ -142,4 +150,5 @@ export const Tracks: Track[] = [
 5. Create `ye-shunguang.ts` (character album) if needed
 6. Add album definition to `albums.ts` if new character
 7. Import and export in `tracks.ts`
-8. Done!
+8. Run `yarn sync-music` to upload to R2
+9. Done!

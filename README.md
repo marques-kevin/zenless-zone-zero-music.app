@@ -23,7 +23,7 @@ yarn install
 yarn download-music
 ```
 
-This downloads all MP3 files from Cloudflare R2 into the `musics/` directory (~3 GB). Files already present locally are skipped.
+This downloads all MP3 files from Cloudflare R2 into the `musics/` directory (~3 GB). Files already present locally are skipped. The `musics/` directory is not tracked in git.
 
 4. Set up environment variables (if needed):
 
