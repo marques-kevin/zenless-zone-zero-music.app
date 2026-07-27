@@ -20,6 +20,7 @@ zzz/
 │   ├── youtube-downloader/ # YouTube download utilities
 │   ├── generate-ladder-stats.ts
 │   ├── get-music-durations.sh
+│   ├── download-music.ts
 │   └── sync-music.ts
 ├── src/                    # Source code
 │   ├── components/        # React components
@@ -256,6 +257,7 @@ Redux Toolkit with feature-based slices:
 
 - `yarn start` - Start development server
 - `yarn build` - Build for production
+- `yarn download-music` - Download music files from Cloudflare R2 for local dev
 - `yarn sync-music` - Sync music files to Cloudflare R2
 - `yarn ladder:stats` - Generate ladder statistics
 - `yarn mp3` - Download music from YouTube

@@ -1,94 +1,43 @@
-import {
-  S3Client,
-  ListObjectsV2Command,
-  PutObjectCommand,
-} from "@aws-sdk/client-s3";
 import { readdir } from "fs/promises";
 import { join } from "path";
-import { createReadStream } from "fs";
 import dotenv from "dotenv";
-import { z } from "zod";
+import {
+  createR2Client,
+  getR2Config,
+  listR2MusicFiles,
+  uploadMusicFileToR2,
+} from "./lib/music-storage";
 
 dotenv.config();
 
-const ENV_SCHEMA = z.object({
-  CLOUDFLARE_ACCOUNT_ID: z.string(),
-  CLOUDFLARE_ACCESS_KEY_ID: z.string(),
-  CLOUDFLARE_SECRET_ACCESS_KEY: z.string(),
-  CLOUDFLARE_BUCKET_NAME: z.string(),
-});
-
-const env = ENV_SCHEMA.parse(process.env);
-
-// Cloudflare R2 configuration
-const R2_ACCOUNT_ID = env.CLOUDFLARE_ACCOUNT_ID;
-const R2_ACCESS_KEY_ID = env.CLOUDFLARE_ACCESS_KEY_ID;
-const R2_SECRET_ACCESS_KEY = env.CLOUDFLARE_SECRET_ACCESS_KEY;
-const R2_BUCKET_NAME = env.CLOUDFLARE_BUCKET_NAME;
-
-const s3Client = new S3Client({
-  region: "auto",
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID,
-    secretAccessKey: R2_SECRET_ACCESS_KEY,
-  },
-});
-
-async function listR2Files(): Promise<string[]> {
-  const files: string[] = [];
-  let continuationToken: string | undefined;
-
-  do {
-    const command = new ListObjectsV2Command({
-      Bucket: R2_BUCKET_NAME,
-      ContinuationToken: continuationToken,
-    });
-
-    const response = await s3Client.send(command);
-    if (response.Contents) {
-      files.push(...response.Contents.map((item) => item.Key || ""));
-    }
-
-    continuationToken = response.NextContinuationToken;
-  } while (continuationToken);
-
-  return files;
-}
-
-async function uploadFile(filePath: string): Promise<void> {
-  const fileStream = createReadStream(filePath);
-  const key = `musics/${filePath.split("/").pop()}`;
-
-  const command = new PutObjectCommand({
-    Bucket: R2_BUCKET_NAME,
-    Key: key,
-    Body: fileStream,
-    ContentType: "audio/mpeg",
-  });
-
-  await s3Client.send(command);
-  console.log(`Uploaded: ${key}`);
-}
-
 async function main() {
+  const r2Config = getR2Config();
+
+  if (!r2Config) {
+    console.error(
+      "Missing Cloudflare R2 credentials. Set CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_ACCESS_KEY_ID, CLOUDFLARE_SECRET_ACCESS_KEY, and CLOUDFLARE_BUCKET_NAME in .env"
+    );
+    process.exit(1);
+  }
+
+  const s3Client = createR2Client(r2Config);
+
   try {
-    // Get list of files in R2
     console.log("Fetching files from R2...");
-    const r2Files = await listR2Files();
+    const r2Files = await listR2MusicFiles(
+      s3Client,
+      r2Config.CLOUDFLARE_BUCKET_NAME
+    );
     console.log(`Found ${r2Files.length} files in R2`);
 
-    // Get list of local files
     console.log("Reading local files...");
     const localFiles = await readdir("musics");
     console.log(`Found ${localFiles.length} local files`);
 
-    // Filter out .DS_Store and other hidden files
     const musicFiles = localFiles.filter(
       (file) => !file.startsWith(".") && file.endsWith(".mp3")
     );
 
-    // Find missing files
     const missingFiles = musicFiles.filter(
       (file) => !r2Files.includes(`musics/${file}`)
     );
@@ -96,10 +45,14 @@ async function main() {
     console.log(`Found ${missingFiles.length} missing files`);
     console.log(missingFiles);
 
-    // Upload missing files
     for (const file of missingFiles) {
       const filePath = join("musics", file);
-      await uploadFile(filePath);
+      await uploadMusicFileToR2(
+        s3Client,
+        r2Config.CLOUDFLARE_BUCKET_NAME,
+        filePath
+      );
+      console.log(`Uploaded: musics/${file}`);
     }
 
     console.log("Sync completed successfully!");

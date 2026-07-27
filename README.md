@@ -17,12 +17,20 @@ cd zzz
 yarn install
 ```
 
-3. Set up environment variables (if needed):
+3. Download music files (required for local playback):
+
+```bash
+yarn download-music
+```
+
+This downloads all MP3 files from Cloudflare R2 into the `musics/` directory (~3 GB). Files already present locally are skipped.
+
+4. Set up environment variables (if needed):
 
    - Create a `.env` file with required configuration
    - See documentation for details on environment setup
 
-4. Start the development server:
+5. Start the development server:
 
 ```bash
 yarn start
