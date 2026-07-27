@@ -132,7 +132,17 @@ If a track belongs to multiple albums (e.g., a version album and a character alb
 2. Use the same `title_id` but different album spreads
 3. Example: A track in both `1.4` album and `anby` character album
 
-### 7. Sync to Cloud Storage (Optional)
+### 7. Download Music Files (Local Dev)
+
+If you cloned the repo without the `musics/` directory, download all tracks:
+
+```bash
+yarn download-music
+```
+
+This fetches MP3 files from Cloudflare R2 into `musics/`. Existing files are skipped.
+
+### 8. Sync to Cloud Storage (Optional)
 
 If you have Cloudflare R2 configured, sync the music files:
 

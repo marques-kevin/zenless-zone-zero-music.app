@@ -13,6 +13,7 @@
     "serve": "gatsby serve",
     "serve:musics": "npx serve -p 28474",
     "sync-music": "tsx scripts/sync-music.ts",
+    "download-music": "tsx scripts/download-music.ts",
     "ladder:stats": "tsx scripts/generate-ladder-stats.ts",
     "top-100": "tsx scripts/generate-top-liked-songs.ts",
     "most-played": "tsx scripts/generate-most-played-songs.ts",
