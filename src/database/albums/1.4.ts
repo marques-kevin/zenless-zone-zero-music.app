@@ -183,4 +183,13 @@ export const Album14: Track[] = [
     ...Artists["1.4"],
     ...Albums["1.4"],
   },
+  {
+    title: "Into That Pale Wasteland Event Theme (Full) - Melinoe Hollow",
+    title_id: "into-that-pale-wasteland-event-theme-full-melinoe-hollow",
+    source: "/musics/1.4--into-that-pale-wasteland-event-theme-full-melinoe-hollow.mp3",
+    duration: 200,
+    created_at: new Date("2026-07-30"),
+    ...Artists["1.4"],
+    ...Albums["1.4"],
+  },
 ];

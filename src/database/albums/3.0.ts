@@ -457,4 +457,22 @@ export const Album30Tracks: Track[] = [
     ...Artists["3.0"],
     ...Albums["3.0"],
   },
+  {
+    title: "The Way Home",
+    title_id: "the-way-home",
+    source: "/musics/3.0--the-way-home.mp3",
+    duration: 352,
+    created_at: new Date("2026-07-30"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
+  {
+    title: "ゼンレスゾーンゼロ｜『My Curse, My Fate（Rearrange ver.）』「ヒューゴ・ ヴラド」CV 福山潤",
+    title_id: "my-curse-my-fate-rearrange-ver-cv",
+    source: "/musics/3.0--my-curse-my-fate-rearrange-ver-cv.mp3",
+    duration: 249,
+    created_at: new Date("2026-07-30"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
 ];

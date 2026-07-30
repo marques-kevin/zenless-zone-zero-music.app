@@ -21,4 +21,13 @@ export const HugoTracks: Track[] = [
     ...Artists["1.7"],
     ...Albums["hugo"],
   },
+  {
+    title: "My Curse, My Fate (Rearrange ver.)",
+    title_id: "my-curse-my-fate-rearrange-ver-cv",
+    source: "/musics/3.0--my-curse-my-fate-rearrange-ver-cv.mp3",
+    duration: 249,
+    created_at: new Date("2026-07-30"),
+    ...Artists["1.7"],
+    ...Albums["hugo"],
+  },
 ];
