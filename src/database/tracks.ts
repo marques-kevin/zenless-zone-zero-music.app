@@ -41,6 +41,7 @@ import { Album26Tracks } from "./albums/2.6";
 import { Album27Tracks } from "./albums/2.7";
 import { Album28Tracks } from "./albums/2.8";
 import { Album30Tracks } from "./albums/3.0";
+import { Album31Tracks } from "./albums/3.1";
 import { DreamlandFestTracks } from "./albums/dreamland-fest";
 import { Album20Tracks } from "./albums/2.0";
 import { YixuanTracks } from "./albums/yixuan";
@@ -999,6 +1000,7 @@ export const tracks: Track[] = [
   ...Album27Tracks,
   ...Album28Tracks,
   ...Album30Tracks,
+  ...Album31Tracks,
   ...NangongYuTracks,
   ...CissiaTracks,
   ...PromeiaTracks,

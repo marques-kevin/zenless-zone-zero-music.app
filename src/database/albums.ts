@@ -391,6 +391,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "3.0",
     playlist_type: "jukebox",
   },
+  "3.1": {
+    playlist_name: "The Long Goodbye",
+    playlist_cover: "/covers/3.1.jpg",
+    playlist_id: "3.1",
+    playlist_type: "jukebox",
+  },
   zhao: {
     playlist_name: "Zhao",
     playlist_cover: "/characters/zhao.webp",
