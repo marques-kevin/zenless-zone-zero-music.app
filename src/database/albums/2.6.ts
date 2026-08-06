@@ -713,4 +713,13 @@ export const Album26Tracks: Track[] = [
     ...Artists["2.6"],
     ...Albums["2.6"],
   },
+  {
+    title: "Nangong Yu Character Demo - \"Full-Combo Angel\"",
+    title_id: "nangong-yu-character-demo-full-combo-angel",
+    source: "/musics/2.6--nangong-yu-character-demo-full-combo-angel.mp3",
+    duration: 125,
+    created_at: new Date("2026-08-06"),
+    ...Artists["2.6"],
+    ...Albums["2.6"],
+  },
 ];
