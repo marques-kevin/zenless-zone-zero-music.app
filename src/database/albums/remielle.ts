@@ -67,6 +67,14 @@ export const RemielleTracks: Track[] = [
     created_at: new Date("2026-07-31"),
     ...Artists["3.1"],
   },
+  {
+    title: "Remielle Character Demo — \"Just Like Old Times\"",
+    title_id: "remielle-character-demo-just-like-old-times",
+    source: "/musics/3.1--remielle-character-demo-just-like-old-times.mp3",
+    duration: 314,
+    created_at: new Date("2026-08-06"),
+    ...Artists["3.1"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["remielle"],

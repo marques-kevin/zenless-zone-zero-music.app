@@ -30,6 +30,14 @@ export const NangongYuTracks: Track[] = [
     created_at: new Date("2026-03-24"),
     ...Artists["2.7"],
   },
+  {
+    title: "Nangong Yu Character Demo - \"Full-Combo Angel\"",
+    title_id: "nangong-yu-character-demo-full-combo-angel",
+    source: "/musics/2.6--nangong-yu-character-demo-full-combo-angel.mp3",
+    duration: 125,
+    created_at: new Date("2026-08-06"),
+    ...Artists["2.6"],
+  },
 ].map((track) => ({
   ...track,
   ...Albums["nangong-yu"],

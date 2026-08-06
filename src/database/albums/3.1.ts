@@ -243,4 +243,22 @@ export const Album31Tracks: Track[] = [
     ...Artists["3.1"],
     ...Albums["3.1"],
   },
+  {
+    title: "Remielle Character Demo — \"Just Like Old Times\"",
+    title_id: "remielle-character-demo-just-like-old-times",
+    source: "/musics/3.1--remielle-character-demo-just-like-old-times.mp3",
+    duration: 314,
+    created_at: new Date("2026-08-06"),
+    ...Artists["3.1"],
+    ...Albums["3.1"],
+  },
+  {
+    title: "Sixth Street New OST",
+    title_id: "sixth-street-new-ost",
+    source: "/musics/3.1--sixth-street-new-ost.mp3",
+    duration: 480,
+    created_at: new Date("2026-08-06"),
+    ...Artists["3.1"],
+    ...Albums["3.1"],
+  },
 ];
