@@ -58,4 +58,6 @@ export const characters = [
   { name: "velina", image: "/characters/velina.webp" },
   { name: "norma", image: "/characters/norma.webp" },
   { name: "remielle", image: "/characters/remielle.webp" },
+  { name: "claret", image: "/characters/claret.webp" },
+  { name: "roxy", image: "/characters/roxy.webp" },
 ];
