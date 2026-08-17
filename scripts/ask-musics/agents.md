@@ -26,11 +26,12 @@ Per request, the pipeline:
 
 1. Fetches YouTube metadata (title, description, channel, duration)
 2. Infers version album from title (or uses `--version`)
-3. Downloads MP3 via yt-dlp
-4. Moves file to `musics/{version}--{title-id}.mp3`
-5. Appends track entry to `src/database/albums/<version>.ts`
-6. Uploads MP3 to Cloudflare R2
-7. Marks Firestore request as `added`
+3. Translates the track title to **English** if the YouTube title is not in English (use the description when it contains an official English name)
+4. Downloads MP3 via yt-dlp
+5. Moves file to `musics/{version}--{title-id}.mp3`
+6. Appends track entry to `src/database/albums/<version>.ts`
+7. Uploads MP3 to Cloudflare R2
+8. Marks Firestore request as `added`
 
 After a successful batch, **commit** the updated album file(s) and open a PR. MP3s are already on R2 — do not commit `musics/`.
 
@@ -97,6 +98,21 @@ For a batch: list pending → validate each URL → process or cancel → next r
 
 When unsure, prefer **rejecting** with reason `"Not ZZZ music"` rather than adding unrelated tracks.
 
+## Track titles (English only)
+
+All track titles stored in `src/database/` must be in **English**.
+
+- If the YouTube title is in Japanese, Chinese, or another language, translate it to English before adding the track
+- Use the video **description** when it contains the official English track name
+- Keep proper nouns as in-game (character names, locations, etc.)
+- `title_id` is derived from the English title
+
+Example:
+
+- YouTube title: `【ゼンゼロ 3.0 OST】「ヴェリナ PV」お茶会は、いつも通り「BGM」Off Vocal`
+- Description: `Velina Trailer Theme - A Routine Tea Party | Soundtrack | Zenless Zone Zero 3.0 OST`
+- Stored title: `Velina PV - A Routine Tea Party (Off Vocal)`
+
 ## Automation (local)
 
 Run these commands on your machine when you want to process pending requests:
@@ -105,32 +121,9 @@ Run these commands on your machine when you want to process pending requests:
 yarn ask-musics:list-pending
 # For each URL: validate ZZZ → process or cancel
 yarn ask-musics:process-pending
-yarn ask-musics:send-report
 # Then commit src/database/albums/ changes and open a PR
 ```
 
-`process-pending` writes `scripts/ask-musics/last-run-report.json` and does **not** post to Discord.
-The agent sends one report at the end with `send-report`.
+`process-pending` writes `scripts/ask-musics/last-run-report.json` for local review.
 
 Exit code `1` if any request failed. Exit code `0` if all processed or nothing pending.
-
-### Discord report
-
-When `ASK_MUSIC_DISCORD_WEBHOOK_URL` is set, post a single summary after the run:
-
-```bash
-yarn ask-musics:send-report
-```
-
-Optional:
-
-```bash
-yarn ask-musics:send-report --file scripts/ask-musics/last-run-report.json
-yarn ask-musics:send-report --error "Firestore unavailable"
-```
-
-Add the webhook URL to `.env`:
-
-```bash
-ASK_MUSIC_DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
-```

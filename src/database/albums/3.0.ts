@@ -476,7 +476,7 @@ export const Album30Tracks: Track[] = [
     ...Albums["3.0"],
   },
   {
-    title: "【ゼンゼロ 3.0 OST】「ヴェリナ PV」お茶会は、いつも通り「BGM」Off Vocal",
+    title: "Velina PV - A Routine Tea Party (Off Vocal)",
     title_id: "3-0-ost-pv-bgm-off-vocal",
     source: "/musics/3.0--3-0-ost-pv-bgm-off-vocal.mp3",
     duration: 138,

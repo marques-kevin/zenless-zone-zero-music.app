@@ -15,5 +15,4 @@ Never translate. We already have a script that do that yarn i18n.
 - These scripts call the local `yt-dlp` binary directly (no Docker). `ffmpeg`/`ffprobe` is installed system-wide.
 - `./scripts/get-music-durations.sh` uses `ffprobe`.
 - `yarn mp3` (`scripts/youtube-downloader/download.ts`), `yarn playlist`, and `yarn check-zzz-playlists` use `yt-dlp` via the shared helper `scripts/youtube-downloader/ytdlp.ts`. `yt-dlp` must be on `PATH` (the update script installs it to `/usr/local/bin`).
-- Ask-music Discord report: set `ASK_MUSIC_DISCORD_WEBHOOK_URL`, then run `yarn ask-musics:send-report` after `process-pending` (see `scripts/ask-musics/agents.md`).
 - `yarn mp3` reads URLs from `scripts/youtube-downloader/files-to-download.txt` and writes MP3s to `scripts/youtube-downloader/files/`.

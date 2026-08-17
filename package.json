@@ -29,8 +29,7 @@
     "deploy:firestore-rules": "tsx scripts/deploy-firestore-rules.ts",
     "ask-musics:list-pending": "tsx scripts/ask-musics/list-pending.ts",
     "ask-musics:update-status": "tsx scripts/ask-musics/update-status.ts",
-    "ask-musics:process-pending": "tsx scripts/ask-musics/process-pending.ts",
-    "ask-musics:send-report": "tsx scripts/ask-musics/send-report.ts"
+    "ask-musics:process-pending": "tsx scripts/ask-musics/process-pending.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",
