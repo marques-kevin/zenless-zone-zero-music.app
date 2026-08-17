@@ -475,4 +475,13 @@ export const Album30Tracks: Track[] = [
     ...Artists["3.0"],
     ...Albums["3.0"],
   },
+  {
+    title: "【ゼンゼロ 3.0 OST】「ヴェリナ PV」お茶会は、いつも通り「BGM」Off Vocal",
+    title_id: "3-0-ost-pv-bgm-off-vocal",
+    source: "/musics/3.0--3-0-ost-pv-bgm-off-vocal.mp3",
+    duration: 138,
+    created_at: new Date("2026-08-17"),
+    ...Artists["3.0"],
+    ...Albums["3.0"],
+  },
 ];
