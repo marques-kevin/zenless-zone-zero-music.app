@@ -184,4 +184,13 @@ export const Album28Tracks: Track[] = [
     ...Artists["2.8"],
     ...Albums["2.8"],
   },
+  {
+    title: "Promeia - Scapegoat (feat. Rosu)",
+    title_id: "azari-scapegoat-feat",
+    source: "/musics/2.8--azari-scapegoat-feat.mp3",
+    duration: 120,
+    created_at: new Date("2026-05-06"),
+    ...Artists["2.8"],
+    ...Albums["2.8"],
+  },
 ];
