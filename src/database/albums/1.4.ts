@@ -192,4 +192,22 @@ export const Album14: Track[] = [
     ...Artists["1.4"],
     ...Albums["1.4"],
   },
+  {
+    title: "Golden Sign (Female Ver.)",
+    title_id: "golden-sign-f",
+    source: "/musics/1.4--golden-sign-f.mp3",
+    duration: 68,
+    created_at: new Date("2024-12-24"),
+    ...Artists["1.4"],
+    ...Albums["1.4"],
+  },
+  {
+    title: "Golden Sign (Male Ver.)",
+    title_id: "golden-sign-m",
+    source: "/musics/1.4--golden-sign-m.mp3",
+    duration: 68,
+    created_at: new Date("2024-12-24"),
+    ...Artists["1.4"],
+    ...Albums["1.4"],
+  },
 ];
