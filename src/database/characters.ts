@@ -52,10 +52,12 @@ export const characters = [
   { name: "sunna", image: "/characters/sunna.webp" },
   { name: "nangong_yu", image: "/characters/nangong_yu.webp" },
   { name: "cissia", image: "/characters/cissia.webp" },
+  { name: "claret", image: "/characters/claret.webp" },
   { name: "promeia", image: "/characters/promeia.webp" },
   { name: "starlight_billy", image: "/characters/starlight_billy.webp" },
   { name: "pyrois", image: "/characters/pyrois.webp" },
   { name: "velina", image: "/characters/velina.webp" },
   { name: "norma", image: "/characters/norma.webp" },
   { name: "remielle", image: "/characters/remielle.webp" },
+  { name: "roxy", image: "/characters/roxy.webp" },
 ];
