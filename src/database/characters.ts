@@ -6,6 +6,7 @@ export const characters = [
   { name: "billy", image: "/characters/billy.png" },
   { name: "burnice", image: "/characters/burnice.png" },
   { name: "caesar", image: "/characters/caesar.png" },
+  { name: "claret", image: "/characters/claret.webp" },
   { name: "corin", image: "/characters/corin.png" },
   { name: "ellen", image: "/characters/ellen.png" },
   { name: "grace", image: "/characters/grace.png" },
@@ -32,6 +33,7 @@ export const characters = [
   { name: "vivian", image: "/characters/vivian.png" },
   { name: "hugo", image: "/characters/hugo.png" },
   { name: "pan yinhu", image: "/characters/pan_yinhu.webp" },
+  { name: "phoenix", image: "/characters/phoenix.webp" },
   { name: "yixuan", image: "/characters/yixuan.webp" },
   { name: "yidhari", image: "/characters/yidhari.webp" },
   { name: "yuzuha", image: "/characters/ukinami_yuzuha.webp" },
@@ -58,4 +60,6 @@ export const characters = [
   { name: "velina", image: "/characters/velina.webp" },
   { name: "norma", image: "/characters/norma.webp" },
   { name: "remielle", image: "/characters/remielle.webp" },
+  { name: "roxy", image: "/characters/roxy.webp" },
+  { name: "severian", image: "/characters/severian.webp" },
 ];
