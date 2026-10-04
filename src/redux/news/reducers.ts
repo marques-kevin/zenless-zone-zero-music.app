@@ -7,7 +7,7 @@ interface State {
 
 const initialState: State = {
   last_time_news_was_seen: null,
-  current_news_date: new Date("2026-07-05"),
+  current_news_date: new Date("2026-09-09"),
 };
 
 export function newsReducer(
