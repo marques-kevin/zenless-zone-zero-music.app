@@ -397,6 +397,12 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_id: "3.1",
     playlist_type: "jukebox",
   },
+  "3.2": {
+    playlist_name: "Their Secret Histories",
+    playlist_cover: "/covers/3.2.jpg",
+    playlist_id: "3.2",
+    playlist_type: "jukebox",
+  },
   zhao: {
     playlist_name: "Zhao",
     playlist_cover: "/characters/zhao.webp",
@@ -461,6 +467,24 @@ export const Albums: Record<string, Omit<Playlist, "tracks">> = {
     playlist_name: "Norma",
     playlist_cover: "/characters/norma.webp",
     playlist_id: "norma",
+    playlist_type: "character",
+  },
+  claret: {
+    playlist_name: "Claret",
+    playlist_cover: "/characters/claret.webp",
+    playlist_id: "claret",
+    playlist_type: "character",
+  },
+  roxy: {
+    playlist_name: "Roxy",
+    playlist_cover: "/characters/roxy.webp",
+    playlist_id: "roxy",
+    playlist_type: "character",
+  },
+  phoenix: {
+    playlist_name: "Phoenix",
+    playlist_cover: "/characters/phoenix.webp",
+    playlist_id: "phoenix",
     playlist_type: "character",
   },
   "dreamland-fest": {

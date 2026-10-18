@@ -354,6 +354,30 @@
       "rank": 59,
       "points": 0,
       "popularity": 0
+    },
+    {
+      "id": "severian",
+      "rank": 60,
+      "points": 0,
+      "popularity": 0
+    },
+    {
+      "id": "claret",
+      "rank": 61,
+      "points": 0,
+      "popularity": 0
+    },
+    {
+      "id": "phoenix",
+      "rank": 62,
+      "points": 0,
+      "popularity": 0
+    },
+    {
+      "id": "roxy",
+      "rank": 63,
+      "points": 0,
+      "popularity": 0
     }
   ],
   "characters": {
@@ -1059,6 +1083,54 @@
       "popularity": 0,
       "points": 0,
       "rank": 59,
+      "total_votes_1": 0,
+      "total_votes_2": 0,
+      "total_votes_3": 0,
+      "total_votes_4": 0,
+      "total_votes_5": 0
+    },
+    "severian": {
+      "id": "severian",
+      "total_votes": 0,
+      "popularity": 0,
+      "points": 0,
+      "rank": 60,
+      "total_votes_1": 0,
+      "total_votes_2": 0,
+      "total_votes_3": 0,
+      "total_votes_4": 0,
+      "total_votes_5": 0
+    },
+    "claret": {
+      "id": "claret",
+      "total_votes": 0,
+      "popularity": 0,
+      "points": 0,
+      "rank": 61,
+      "total_votes_1": 0,
+      "total_votes_2": 0,
+      "total_votes_3": 0,
+      "total_votes_4": 0,
+      "total_votes_5": 0
+    },
+    "phoenix": {
+      "id": "phoenix",
+      "total_votes": 0,
+      "popularity": 0,
+      "points": 0,
+      "rank": 62,
+      "total_votes_1": 0,
+      "total_votes_2": 0,
+      "total_votes_3": 0,
+      "total_votes_4": 0,
+      "total_votes_5": 0
+    },
+    "roxy": {
+      "id": "roxy",
+      "total_votes": 0,
+      "popularity": 0,
+      "points": 0,
+      "rank": 63,
       "total_votes_1": 0,
       "total_votes_2": 0,
       "total_votes_3": 0,
