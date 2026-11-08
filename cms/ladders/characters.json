@@ -1,1136 +1,1190 @@
 {
-  "total_votes": 738,
+  "total_votes": 1344,
   "ladder": [
     {
       "id": "miyabi",
       "rank": 1,
-      "points": 906,
-      "popularity": 34.28184281842818
+      "points": 1692,
+      "popularity": 35.342261904761905
     },
     {
-      "id": "yixuan",
+      "id": "ye_shunguang",
       "rank": 2,
-      "points": 552,
-      "popularity": 24.390243902439025
+      "points": 944,
+      "popularity": 22.023809523809522
     },
     {
       "id": "jane",
       "rank": 3,
-      "points": 548,
-      "popularity": 24.796747967479675
+      "points": 847,
+      "popularity": 21.05654761904762
     },
     {
-      "id": "ye_shunguang",
+      "id": "remielle",
       "rank": 4,
-      "points": 527,
-      "popularity": 22.493224932249323
+      "points": 828,
+      "popularity": 18.526785714285715
+    },
+    {
+      "id": "yixuan",
+      "rank": 5,
+      "points": 806,
+      "popularity": 20.089285714285715
     },
     {
       "id": "ellen",
-      "rank": 5,
-      "points": 430,
-      "popularity": 18.29268292682927
+      "rank": 6,
+      "points": 766,
+      "popularity": 17.410714285714285
     },
     {
       "id": "vivian",
-      "rank": 6,
-      "points": 428,
-      "popularity": 19.10569105691057
+      "rank": 7,
+      "points": 750,
+      "popularity": 18.824404761904763
     },
     {
       "id": "evelyn",
-      "rank": 7,
-      "points": 425,
-      "popularity": 18.834688346883468
-    },
-    {
-      "id": "trigger",
       "rank": 8,
-      "points": 367,
-      "popularity": 16.53116531165312
+      "points": 628,
+      "popularity": 15.550595238095239
     },
     {
       "id": "anby",
       "rank": 9,
-      "points": 350,
-      "popularity": 15.040650406504067
+      "points": 579,
+      "popularity": 13.392857142857142
     },
     {
-      "id": "sanby",
+      "id": "trigger",
       "rank": 10,
-      "points": 296,
-      "popularity": 12.059620596205962
+      "points": 544,
+      "popularity": 13.467261904761903
     },
     {
       "id": "yuzuha",
       "rank": 11,
-      "points": 285,
-      "popularity": 13.550135501355012
+      "points": 490,
+      "popularity": 12.574404761904761
     },
     {
-      "id": "banyue",
+      "id": "billy",
       "rank": 12,
-      "points": 275,
-      "popularity": 12.059620596205962
+      "points": 445,
+      "popularity": 9.74702380952381
     },
     {
-      "id": "yidhari",
+      "id": "sanby",
       "rank": 13,
-      "points": 273,
-      "popularity": 11.246612466124661
+      "points": 417,
+      "popularity": 9.300595238095239
     },
     {
-      "id": "isolde",
+      "id": "lycaon",
       "rank": 14,
-      "points": 263,
-      "popularity": 12.059620596205962
+      "points": 410,
+      "popularity": 9.672619047619047
     },
     {
       "id": "burnice",
       "rank": 15,
-      "points": 262,
-      "popularity": 11.653116531165312
+      "points": 406,
+      "popularity": 9.74702380952381
     },
     {
-      "id": "orphie",
+      "id": "yidhari",
       "rank": 16,
-      "points": 258,
-      "popularity": 12.601626016260163
+      "points": 398,
+      "popularity": 9.300595238095239
     },
     {
-      "id": "lycaon",
+      "id": "starlight_billy",
       "rank": 17,
-      "points": 256,
-      "popularity": 10.70460704607046
-    },
-    {
-      "id": "billy",
-      "rank": 18,
-      "points": 244,
-      "popularity": 10.433604336043361
-    },
-    {
-      "id": "alice",
-      "rank": 19,
-      "points": 232,
-      "popularity": 11.11111111111111
+      "points": 394,
+      "popularity": 9.449404761904761
     },
     {
       "id": "astra-yao",
+      "rank": 18,
+      "points": 390,
+      "popularity": 10.9375
+    },
+    {
+      "id": "banyue",
+      "rank": 19,
+      "points": 385,
+      "popularity": 9.598214285714286
+    },
+    {
+      "id": "cissia",
       "rank": 20,
-      "points": 231,
-      "popularity": 12.059620596205962
+      "points": 377,
+      "popularity": 9.970238095238097
+    },
+    {
+      "id": "orphie",
+      "rank": 21,
+      "points": 366,
+      "popularity": 9.523809523809524
+    },
+    {
+      "id": "isolde",
+      "rank": 22,
+      "points": 363,
+      "popularity": 9.375
+    },
+    {
+      "id": "alice",
+      "rank": 23,
+      "points": 343,
+      "popularity": 9.375
     },
     {
       "id": "zhu-yuan",
-      "rank": 21,
-      "points": 229,
-      "popularity": 9.89159891598916
-    },
-    {
-      "id": "soldier-11",
-      "rank": 22,
-      "points": 222,
-      "popularity": 8.807588075880759
+      "rank": 24,
+      "points": 330,
+      "popularity": 8.110119047619047
     },
     {
       "id": "lighter",
-      "rank": 23,
-      "points": 216,
-      "popularity": 10.569105691056912
-    },
-    {
-      "id": "zhao",
-      "rank": 24,
-      "points": 168,
-      "popularity": 8.672086720867208
-    },
-    {
-      "id": "yanagi",
       "rank": 25,
-      "points": 163,
-      "popularity": 8.401084010840108
+      "points": 315,
+      "popularity": 8.258928571428571
     },
     {
-      "id": "caesar",
+      "id": "aria",
       "rank": 26,
-      "points": 163,
-      "popularity": 7.8590785907859075
+      "points": 309,
+      "popularity": 7.663690476190476
     },
     {
       "id": "hugo",
       "rank": 27,
-      "points": 148,
-      "popularity": 6.910569105691057
-    },
-    {
-      "id": "seed",
-      "rank": 28,
-      "points": 142,
-      "popularity": 6.775067750677506
-    },
-    {
-      "id": "lucia",
-      "rank": 29,
-      "points": 140,
-      "popularity": 8.130081300813007
-    },
-    {
-      "id": "dialyn",
-      "rank": 30,
-      "points": 135,
-      "popularity": 7.588075880758807
-    },
-    {
-      "id": "komano",
-      "rank": 31,
-      "points": 134,
-      "popularity": 6.775067750677506
-    },
-    {
-      "id": "nicole",
-      "rank": 32,
-      "points": 131,
-      "popularity": 7.046070460704606
+      "points": 308,
+      "popularity": 7.514880952380952
     },
     {
       "id": "harumasa",
-      "rank": 33,
-      "points": 129,
-      "popularity": 5.691056910569105
+      "rank": 28,
+      "points": 279,
+      "popularity": 6.696428571428571
     },
     {
-      "id": "jufufu",
-      "rank": 34,
-      "points": 128,
-      "popularity": 7.046070460704606
-    },
-    {
-      "id": "nekomiya",
-      "rank": 35,
-      "points": 108,
-      "popularity": 3.9295392953929538
-    },
-    {
-      "id": "starlight_billy",
-      "rank": 36,
-      "points": 106,
-      "popularity": 4.336043360433604
-    },
-    {
-      "id": "aria",
-      "rank": 37,
-      "points": 101,
-      "popularity": 5.013550135501355
-    },
-    {
-      "id": "corin",
-      "rank": 38,
-      "points": 100,
-      "popularity": 4.336043360433604
-    },
-    {
-      "id": "qingyi",
-      "rank": 39,
-      "points": 92,
-      "popularity": 4.742547425474255
-    },
-    {
-      "id": "cissia",
-      "rank": 40,
-      "points": 90,
-      "popularity": 4.0650406504065035
-    },
-    {
-      "id": "piper",
-      "rank": 41,
-      "points": 86,
-      "popularity": 4.336043360433604
-    },
-    {
-      "id": "pulchra",
-      "rank": 42,
-      "points": 80,
-      "popularity": 3.523035230352303
+      "id": "soldier-11",
+      "rank": 29,
+      "points": 277,
+      "popularity": 6.101190476190476
     },
     {
       "id": "sunna",
-      "rank": 43,
-      "points": 79,
-      "popularity": 3.7940379403794036
+      "rank": 30,
+      "points": 276,
+      "popularity": 7.142857142857142
     },
     {
-      "id": "lucy",
-      "rank": 44,
-      "points": 74,
-      "popularity": 3.7940379403794036
+      "id": "seed",
+      "rank": 31,
+      "points": 265,
+      "popularity": 6.9940476190476195
     },
     {
-      "id": "grace",
-      "rank": 45,
-      "points": 73,
-      "popularity": 3.6585365853658534
+      "id": "caesar",
+      "rank": 32,
+      "points": 259,
+      "popularity": 6.919642857142858
     },
     {
-      "id": "alexandrina",
-      "rank": 46,
-      "points": 64,
-      "popularity": 3.523035230352303
-    },
-    {
-      "id": "koleda",
-      "rank": 47,
-      "points": 51,
-      "popularity": 2.0325203252032518
-    },
-    {
-      "id": "seth",
-      "rank": 48,
-      "points": 48,
-      "popularity": 2.168021680216802
-    },
-    {
-      "id": "promeia",
-      "rank": 49,
-      "points": 48,
-      "popularity": 2.4390243902439024
-    },
-    {
-      "id": "soukaku",
-      "rank": 50,
-      "points": 45,
-      "popularity": 2.0325203252032518
+      "id": "yanagi",
+      "rank": 33,
+      "points": 240,
+      "popularity": 6.547619047619048
     },
     {
       "id": "nangong_yu",
-      "rank": 51,
-      "points": 44,
-      "popularity": 2.168021680216802
+      "rank": 34,
+      "points": 237,
+      "popularity": 6.4732142857142865
     },
     {
-      "id": "ben",
-      "rank": 52,
-      "points": 43,
-      "popularity": 2.303523035230352
+      "id": "lucia",
+      "rank": 35,
+      "points": 232,
+      "popularity": 7.0684523809523805
     },
     {
-      "id": "anton",
-      "rank": 53,
-      "points": 41,
-      "popularity": 2.303523035230352
-    },
-    {
-      "id": "pan yinhu",
-      "rank": 54,
-      "points": 31,
-      "popularity": 1.4905149051490514
-    },
-    {
-      "id": "remielle",
-      "rank": 55,
-      "points": 5,
-      "popularity": 0.27100271002710025
+      "id": "zhao",
+      "rank": 36,
+      "points": 226,
+      "popularity": 6.398809523809524
     },
     {
       "id": "velina",
-      "rank": 56,
-      "points": 3,
-      "popularity": 0.13550135501355012
+      "rank": 37,
+      "points": 225,
+      "popularity": 6.398809523809524
     },
     {
-      "id": "norma",
-      "rank": 57,
-      "points": 2,
-      "popularity": 0.13550135501355012
+      "id": "komano",
+      "rank": 38,
+      "points": 214,
+      "popularity": 6.324404761904762
     },
     {
-      "id": "sigrid",
-      "rank": 58,
-      "points": 0,
-      "popularity": 0
+      "id": "nicole",
+      "rank": 39,
+      "points": 213,
+      "popularity": 5.803571428571429
+    },
+    {
+      "id": "corin",
+      "rank": 40,
+      "points": 208,
+      "popularity": 4.613095238095238
+    },
+    {
+      "id": "dialyn",
+      "rank": 41,
+      "points": 202,
+      "popularity": 6.25
+    },
+    {
+      "id": "jufufu",
+      "rank": 42,
+      "points": 177,
+      "popularity": 5.357142857142857
+    },
+    {
+      "id": "promeia",
+      "rank": 43,
+      "points": 173,
+      "popularity": 4.910714285714286
     },
     {
       "id": "pyrois",
+      "rank": 44,
+      "points": 139,
+      "popularity": 4.241071428571429
+    },
+    {
+      "id": "pulchra",
+      "rank": 45,
+      "points": 138,
+      "popularity": 3.3482142857142856
+    },
+    {
+      "id": "nekomiya",
+      "rank": 46,
+      "points": 132,
+      "popularity": 2.8273809523809526
+    },
+    {
+      "id": "norma",
+      "rank": 47,
+      "points": 121,
+      "popularity": 3.7946428571428568
+    },
+    {
+      "id": "piper",
+      "rank": 48,
+      "points": 119,
+      "popularity": 3.422619047619048
+    },
+    {
+      "id": "lucy",
+      "rank": 49,
+      "points": 115,
+      "popularity": 3.199404761904762
+    },
+    {
+      "id": "qingyi",
+      "rank": 50,
+      "points": 112,
+      "popularity": 3.199404761904762
+    },
+    {
+      "id": "alexandrina",
+      "rank": 51,
+      "points": 107,
+      "popularity": 2.976190476190476
+    },
+    {
+      "id": "grace",
+      "rank": 52,
+      "points": 104,
+      "popularity": 2.9017857142857144
+    },
+    {
+      "id": "seth",
+      "rank": 53,
+      "points": 84,
+      "popularity": 2.083333333333333
+    },
+    {
+      "id": "soukaku",
+      "rank": 54,
+      "points": 79,
+      "popularity": 1.9345238095238095
+    },
+    {
+      "id": "sigrid",
+      "rank": 55,
+      "points": 75,
+      "popularity": 2.232142857142857
+    },
+    {
+      "id": "ben",
+      "rank": 56,
+      "points": 67,
+      "popularity": 1.711309523809524
+    },
+    {
+      "id": "koleda",
+      "rank": 57,
+      "points": 65,
+      "popularity": 1.4136904761904763
+    },
+    {
+      "id": "anton",
+      "rank": 58,
+      "points": 52,
+      "popularity": 1.636904761904762
+    },
+    {
+      "id": "pan yinhu",
       "rank": 59,
-      "points": 0,
-      "popularity": 0
-    },
-    {
-      "id": "severian",
-      "rank": 60,
-      "points": 0,
-      "popularity": 0
-    },
-    {
-      "id": "claret",
-      "rank": 61,
-      "points": 0,
-      "popularity": 0
+      "points": 44,
+      "popularity": 1.1160714285714286
     },
     {
       "id": "phoenix",
+      "rank": 60,
+      "points": 36,
+      "popularity": 0.9672619047619048
+    },
+    {
+      "id": "roxy",
+      "rank": 61,
+      "points": 17,
+      "popularity": 0.4464285714285714
+    },
+    {
+      "id": "claret",
       "rank": 62,
+      "points": 12,
+      "popularity": 0.5208333333333333
+    },
+    {
+      "id": "severian",
+      "rank": 63,
+      "points": 9,
+      "popularity": 0.2232142857142857
+    },
+    {
+      "id": "kafka",
+      "rank": 64,
       "points": 0,
       "popularity": 0
     },
     {
-      "id": "roxy",
-      "rank": 63,
+      "id": "robin",
+      "rank": 65,
+      "points": 0,
+      "popularity": 0
+    },
+    {
+      "id": "sunbringer",
+      "rank": 66,
       "points": 0,
       "popularity": 0
     }
   ],
   "characters": {
-    "lucia": {
-      "id": "lucia",
-      "total_votes": 60,
-      "popularity": 8.130081300813007,
-      "points": 140,
-      "rank": 29,
-      "total_votes_1": 4,
-      "total_votes_2": 9,
-      "total_votes_3": 9,
-      "total_votes_4": 19,
-      "total_votes_5": 19
+    "miyabi": {
+      "id": "miyabi",
+      "total_votes": 475,
+      "popularity": 35.342261904761905,
+      "points": 1692,
+      "rank": 1,
+      "total_votes_1": 178,
+      "total_votes_2": 87,
+      "total_votes_3": 86,
+      "total_votes_4": 72,
+      "total_votes_5": 52
     },
-    "dialyn": {
-      "id": "dialyn",
-      "total_votes": 56,
-      "popularity": 7.588075880758807,
-      "points": 135,
-      "rank": 30,
-      "total_votes_1": 2,
-      "total_votes_2": 6,
-      "total_votes_3": 20,
-      "total_votes_4": 13,
-      "total_votes_5": 15
-    },
-    "yixuan": {
-      "id": "yixuan",
-      "total_votes": 180,
-      "popularity": 24.390243902439025,
-      "points": 552,
-      "rank": 2,
-      "total_votes_1": 31,
-      "total_votes_2": 44,
-      "total_votes_3": 42,
-      "total_votes_4": 32,
-      "total_votes_5": 31
-    },
-    "jane": {
-      "id": "jane",
-      "total_votes": 183,
-      "popularity": 24.796747967479675,
-      "points": 548,
-      "rank": 3,
-      "total_votes_1": 38,
-      "total_votes_2": 35,
-      "total_votes_3": 32,
-      "total_votes_4": 44,
+    "yuzuha": {
+      "id": "yuzuha",
+      "total_votes": 169,
+      "popularity": 12.574404761904761,
+      "points": 490,
+      "rank": 11,
+      "total_votes_1": 32,
+      "total_votes_2": 27,
+      "total_votes_3": 36,
+      "total_votes_4": 40,
       "total_votes_5": 34
     },
-    "trigger": {
-      "id": "trigger",
-      "total_votes": 122,
-      "popularity": 16.53116531165312,
-      "points": 367,
-      "rank": 8,
-      "total_votes_1": 24,
-      "total_votes_2": 21,
-      "total_votes_3": 33,
-      "total_votes_4": 20,
-      "total_votes_5": 24
+    "lighter": {
+      "id": "lighter",
+      "total_votes": 111,
+      "popularity": 8.258928571428571,
+      "points": 315,
+      "rank": 25,
+      "total_votes_1": 20,
+      "total_votes_2": 15,
+      "total_votes_3": 25,
+      "total_votes_4": 29,
+      "total_votes_5": 22
+    },
+    "billy": {
+      "id": "billy",
+      "total_votes": 131,
+      "popularity": 9.74702380952381,
+      "points": 445,
+      "rank": 12,
+      "total_votes_1": 38,
+      "total_votes_2": 32,
+      "total_votes_3": 22,
+      "total_votes_4": 22,
+      "total_votes_5": 17
+    },
+    "banyue": {
+      "id": "banyue",
+      "total_votes": 129,
+      "popularity": 9.598214285714286,
+      "points": 385,
+      "rank": 19,
+      "total_votes_1": 27,
+      "total_votes_2": 24,
+      "total_votes_3": 23,
+      "total_votes_4": 30,
+      "total_votes_5": 25
+    },
+    "anby": {
+      "id": "anby",
+      "total_votes": 180,
+      "popularity": 13.392857142857142,
+      "points": 579,
+      "rank": 9,
+      "total_votes_1": 51,
+      "total_votes_2": 37,
+      "total_votes_3": 26,
+      "total_votes_4": 32,
+      "total_votes_5": 34
+    },
+    "nicole": {
+      "id": "nicole",
+      "total_votes": 78,
+      "popularity": 5.803571428571429,
+      "points": 213,
+      "rank": 39,
+      "total_votes_1": 14,
+      "total_votes_2": 15,
+      "total_votes_3": 12,
+      "total_votes_4": 10,
+      "total_votes_5": 27
     },
     "aria": {
       "id": "aria",
-      "total_votes": 37,
-      "popularity": 5.013550135501355,
-      "points": 101,
-      "rank": 37,
-      "total_votes_1": 3,
-      "total_votes_2": 12,
-      "total_votes_3": 3,
-      "total_votes_4": 10,
-      "total_votes_5": 9
+      "total_votes": 103,
+      "popularity": 7.663690476190476,
+      "points": 309,
+      "rank": 26,
+      "total_votes_1": 18,
+      "total_votes_2": 26,
+      "total_votes_3": 17,
+      "total_votes_4": 22,
+      "total_votes_5": 20
     },
-    "yanagi": {
-      "id": "yanagi",
-      "total_votes": 62,
-      "popularity": 8.401084010840108,
-      "points": 163,
-      "rank": 25,
-      "total_votes_1": 6,
-      "total_votes_2": 10,
-      "total_votes_3": 15,
-      "total_votes_4": 17,
-      "total_votes_5": 14
+    "cissia": {
+      "id": "cissia",
+      "total_votes": 134,
+      "popularity": 9.970238095238097,
+      "points": 377,
+      "rank": 20,
+      "total_votes_1": 13,
+      "total_votes_2": 34,
+      "total_votes_3": 32,
+      "total_votes_4": 25,
+      "total_votes_5": 30
     },
     "ellen": {
       "id": "ellen",
-      "total_votes": 135,
-      "popularity": 18.29268292682927,
-      "points": 430,
+      "total_votes": 234,
+      "popularity": 17.410714285714285,
+      "points": 766,
+      "rank": 6,
+      "total_votes_1": 72,
+      "total_votes_2": 41,
+      "total_votes_3": 43,
+      "total_votes_4": 35,
+      "total_votes_5": 43
+    },
+    "velina": {
+      "id": "velina",
+      "total_votes": 86,
+      "popularity": 6.398809523809524,
+      "points": 225,
+      "rank": 37,
+      "total_votes_1": 4,
+      "total_votes_2": 18,
+      "total_votes_3": 20,
+      "total_votes_4": 29,
+      "total_votes_5": 15
+    },
+    "sunna": {
+      "id": "sunna",
+      "total_votes": 96,
+      "popularity": 7.142857142857142,
+      "points": 276,
+      "rank": 30,
+      "total_votes_1": 17,
+      "total_votes_2": 20,
+      "total_votes_3": 18,
+      "total_votes_4": 16,
+      "total_votes_5": 25
+    },
+    "lucia": {
+      "id": "lucia",
+      "total_votes": 95,
+      "popularity": 7.0684523809523805,
+      "points": 232,
+      "rank": 35,
+      "total_votes_1": 8,
+      "total_votes_2": 12,
+      "total_votes_3": 19,
+      "total_votes_4": 31,
+      "total_votes_5": 25
+    },
+    "dialyn": {
+      "id": "dialyn",
+      "total_votes": 84,
+      "popularity": 6.25,
+      "points": 202,
+      "rank": 41,
+      "total_votes_1": 4,
+      "total_votes_2": 11,
+      "total_votes_3": 25,
+      "total_votes_4": 19,
+      "total_votes_5": 25
+    },
+    "yixuan": {
+      "id": "yixuan",
+      "total_votes": 270,
+      "popularity": 20.089285714285715,
+      "points": 806,
       "rank": 5,
-      "total_votes_1": 39,
-      "total_votes_2": 23,
-      "total_votes_3": 26,
-      "total_votes_4": 18,
-      "total_votes_5": 29
+      "total_votes_1": 43,
+      "total_votes_2": 63,
+      "total_votes_3": 58,
+      "total_votes_4": 59,
+      "total_votes_5": 47
+    },
+    "jane": {
+      "id": "jane",
+      "total_votes": 283,
+      "popularity": 21.05654761904762,
+      "points": 847,
+      "rank": 3,
+      "total_votes_1": 63,
+      "total_votes_2": 47,
+      "total_votes_3": 51,
+      "total_votes_4": 69,
+      "total_votes_5": 53
+    },
+    "trigger": {
+      "id": "trigger",
+      "total_votes": 181,
+      "popularity": 13.467261904761903,
+      "points": 544,
+      "rank": 10,
+      "total_votes_1": 35,
+      "total_votes_2": 31,
+      "total_votes_3": 51,
+      "total_votes_4": 28,
+      "total_votes_5": 36
+    },
+    "yanagi": {
+      "id": "yanagi",
+      "total_votes": 88,
+      "popularity": 6.547619047619048,
+      "points": 240,
+      "rank": 33,
+      "total_votes_1": 13,
+      "total_votes_2": 14,
+      "total_votes_3": 18,
+      "total_votes_4": 22,
+      "total_votes_5": 21
     },
     "grace": {
       "id": "grace",
-      "total_votes": 27,
-      "popularity": 3.6585365853658534,
-      "points": 73,
-      "rank": 45,
-      "total_votes_1": 1,
-      "total_votes_2": 7,
-      "total_votes_3": 5,
-      "total_votes_4": 11,
-      "total_votes_5": 3
-    },
-    "ye_shunguang": {
-      "id": "ye_shunguang",
-      "total_votes": 166,
-      "popularity": 22.493224932249323,
-      "points": 527,
-      "rank": 4,
-      "total_votes_1": 35,
-      "total_votes_2": 46,
-      "total_votes_3": 29,
-      "total_votes_4": 25,
-      "total_votes_5": 31
-    },
-    "miyabi": {
-      "id": "miyabi",
-      "total_votes": 253,
-      "popularity": 34.28184281842818,
-      "points": 906,
-      "rank": 1,
-      "total_votes_1": 97,
-      "total_votes_2": 42,
-      "total_votes_3": 50,
-      "total_votes_4": 39,
-      "total_votes_5": 25
+      "total_votes": 39,
+      "popularity": 2.9017857142857144,
+      "points": 104,
+      "rank": 52,
+      "total_votes_1": 3,
+      "total_votes_2": 8,
+      "total_votes_3": 7,
+      "total_votes_4": 15,
+      "total_votes_5": 6
     },
     "corin": {
       "id": "corin",
-      "total_votes": 32,
-      "popularity": 4.336043360433604,
-      "points": 100,
-      "rank": 38,
-      "total_votes_1": 10,
-      "total_votes_2": 5,
-      "total_votes_3": 3,
-      "total_votes_4": 7,
-      "total_votes_5": 7
+      "total_votes": 62,
+      "popularity": 4.613095238095238,
+      "points": 208,
+      "rank": 40,
+      "total_votes_1": 23,
+      "total_votes_2": 10,
+      "total_votes_3": 7,
+      "total_votes_4": 10,
+      "total_votes_5": 12
     },
-    "vivian": {
-      "id": "vivian",
-      "total_votes": 141,
-      "popularity": 19.10569105691057,
-      "points": 428,
-      "rank": 6,
-      "total_votes_1": 18,
-      "total_votes_2": 32,
-      "total_votes_3": 46,
-      "total_votes_4": 27,
+    "remielle": {
+      "id": "remielle",
+      "total_votes": 249,
+      "popularity": 18.526785714285715,
+      "points": 828,
+      "rank": 4,
+      "total_votes_1": 72,
+      "total_votes_2": 53,
+      "total_votes_3": 51,
+      "total_votes_4": 30,
+      "total_votes_5": 43
+    },
+    "promeia": {
+      "id": "promeia",
+      "total_votes": 66,
+      "popularity": 4.910714285714286,
+      "points": 173,
+      "rank": 43,
+      "total_votes_1": 8,
+      "total_votes_2": 11,
+      "total_votes_3": 13,
+      "total_votes_4": 16,
       "total_votes_5": 18
     },
-    "zhao": {
-      "id": "zhao",
-      "total_votes": 64,
-      "popularity": 8.672086720867208,
-      "points": 168,
-      "rank": 24,
-      "total_votes_1": 7,
-      "total_votes_2": 15,
-      "total_votes_3": 8,
-      "total_votes_4": 15,
-      "total_votes_5": 19
+    "pyrois": {
+      "id": "pyrois",
+      "total_votes": 57,
+      "popularity": 4.241071428571429,
+      "points": 139,
+      "rank": 44,
+      "total_votes_1": 1,
+      "total_votes_2": 14,
+      "total_votes_3": 9,
+      "total_votes_4": 18,
+      "total_votes_5": 15
     },
-    "pulchra": {
-      "id": "pulchra",
-      "total_votes": 26,
-      "popularity": 3.523035230352303,
-      "points": 80,
-      "rank": 42,
-      "total_votes_1": 6,
-      "total_votes_2": 3,
-      "total_votes_3": 7,
-      "total_votes_4": 7,
-      "total_votes_5": 3
+    "isolde": {
+      "id": "isolde",
+      "total_votes": 126,
+      "popularity": 9.375,
+      "points": 363,
+      "rank": 22,
+      "total_votes_1": 24,
+      "total_votes_2": 21,
+      "total_votes_3": 26,
+      "total_votes_4": 26,
+      "total_votes_5": 29
     },
     "lycaon": {
       "id": "lycaon",
-      "total_votes": 79,
-      "popularity": 10.70460704607046,
-      "points": 256,
-      "rank": 17,
-      "total_votes_1": 15,
-      "total_votes_2": 21,
-      "total_votes_3": 21,
-      "total_votes_4": 12,
-      "total_votes_5": 10
+      "total_votes": 130,
+      "popularity": 9.672619047619047,
+      "points": 410,
+      "rank": 14,
+      "total_votes_1": 25,
+      "total_votes_2": 31,
+      "total_votes_3": 31,
+      "total_votes_4": 25,
+      "total_votes_5": 18
+    },
+    "hugo": {
+      "id": "hugo",
+      "total_votes": 101,
+      "popularity": 7.514880952380952,
+      "points": 308,
+      "rank": 27,
+      "total_votes_1": 18,
+      "total_votes_2": 27,
+      "total_votes_3": 16,
+      "total_votes_4": 22,
+      "total_votes_5": 18
+    },
+    "harumasa": {
+      "id": "harumasa",
+      "total_votes": 90,
+      "popularity": 6.696428571428571,
+      "points": 279,
+      "rank": 28,
+      "total_votes_1": 26,
+      "total_votes_2": 12,
+      "total_votes_3": 20,
+      "total_votes_4": 9,
+      "total_votes_5": 23
+    },
+    "seth": {
+      "id": "seth",
+      "total_votes": 28,
+      "popularity": 2.083333333333333,
+      "points": 84,
+      "rank": 53,
+      "total_votes_1": 5,
+      "total_votes_2": 8,
+      "total_votes_3": 4,
+      "total_votes_4": 4,
+      "total_votes_5": 7
+    },
+    "komano": {
+      "id": "komano",
+      "total_votes": 85,
+      "popularity": 6.324404761904762,
+      "points": 214,
+      "rank": 38,
+      "total_votes_1": 11,
+      "total_votes_2": 12,
+      "total_votes_3": 15,
+      "total_votes_4": 19,
+      "total_votes_5": 28
+    },
+    "zhao": {
+      "id": "zhao",
+      "total_votes": 86,
+      "popularity": 6.398809523809524,
+      "points": 226,
+      "rank": 36,
+      "total_votes_1": 9,
+      "total_votes_2": 16,
+      "total_votes_3": 19,
+      "total_votes_4": 18,
+      "total_votes_5": 24
+    },
+    "pulchra": {
+      "id": "pulchra",
+      "total_votes": 45,
+      "popularity": 3.3482142857142856,
+      "points": 138,
+      "rank": 45,
+      "total_votes_1": 10,
+      "total_votes_2": 8,
+      "total_votes_3": 10,
+      "total_votes_4": 9,
+      "total_votes_5": 8
     },
     "pan yinhu": {
       "id": "pan yinhu",
-      "total_votes": 11,
-      "popularity": 1.4905149051490514,
-      "points": 31,
-      "rank": 54,
-      "total_votes_1": 1,
-      "total_votes_2": 3,
+      "total_votes": 15,
+      "popularity": 1.1160714285714286,
+      "points": 44,
+      "rank": 59,
+      "total_votes_1": 2,
+      "total_votes_2": 4,
       "total_votes_3": 1,
-      "total_votes_4": 5,
+      "total_votes_4": 7,
       "total_votes_5": 1
     },
     "ben": {
       "id": "ben",
-      "total_votes": 17,
-      "popularity": 2.303523035230352,
-      "points": 43,
-      "rank": 52,
-      "total_votes_1": 2,
-      "total_votes_2": 3,
+      "total_votes": 23,
+      "popularity": 1.711309523809524,
+      "points": 67,
+      "rank": 56,
+      "total_votes_1": 5,
+      "total_votes_2": 5,
       "total_votes_3": 2,
       "total_votes_4": 5,
-      "total_votes_5": 5
+      "total_votes_5": 6
+    },
+    "vivian": {
+      "id": "vivian",
+      "total_votes": 253,
+      "popularity": 18.824404761904763,
+      "points": 750,
+      "rank": 7,
+      "total_votes_1": 35,
+      "total_votes_2": 56,
+      "total_votes_3": 69,
+      "total_votes_4": 51,
+      "total_votes_5": 42
     },
     "alice": {
       "id": "alice",
-      "total_votes": 82,
-      "popularity": 11.11111111111111,
-      "points": 232,
-      "rank": 19,
-      "total_votes_1": 13,
-      "total_votes_2": 15,
-      "total_votes_3": 16,
-      "total_votes_4": 21,
-      "total_votes_5": 17
-    },
-    "billy": {
-      "id": "billy",
-      "total_votes": 77,
-      "popularity": 10.433604336043361,
-      "points": 244,
-      "rank": 18,
-      "total_votes_1": 18,
-      "total_votes_2": 17,
-      "total_votes_3": 16,
-      "total_votes_4": 12,
-      "total_votes_5": 14
-    },
-    "seth": {
-      "id": "seth",
-      "total_votes": 16,
-      "popularity": 2.168021680216802,
-      "points": 48,
-      "rank": 48,
-      "total_votes_1": 2,
-      "total_votes_2": 6,
-      "total_votes_3": 3,
-      "total_votes_4": 0,
-      "total_votes_5": 5
-    },
-    "soldier-11": {
-      "id": "soldier-11",
-      "total_votes": 65,
-      "popularity": 8.807588075880759,
-      "points": 222,
-      "rank": 22,
-      "total_votes_1": 22,
-      "total_votes_2": 16,
-      "total_votes_3": 4,
-      "total_votes_4": 13,
-      "total_votes_5": 10
-    },
-    "banyue": {
-      "id": "banyue",
-      "total_votes": 89,
-      "popularity": 12.059620596205962,
-      "points": 275,
-      "rank": 12,
-      "total_votes_1": 22,
-      "total_votes_2": 18,
-      "total_votes_3": 13,
-      "total_votes_4": 18,
-      "total_votes_5": 18
-    },
-    "anton": {
-      "id": "anton",
-      "total_votes": 17,
-      "popularity": 2.303523035230352,
-      "points": 41,
-      "rank": 53,
-      "total_votes_1": 3,
-      "total_votes_2": 2,
-      "total_votes_3": 2,
-      "total_votes_4": 2,
-      "total_votes_5": 8
-    },
-    "yidhari": {
-      "id": "yidhari",
-      "total_votes": 83,
-      "popularity": 11.246612466124661,
-      "points": 273,
-      "rank": 13,
-      "total_votes_1": 20,
-      "total_votes_2": 18,
-      "total_votes_3": 20,
-      "total_votes_4": 16,
-      "total_votes_5": 9
-    },
-    "soukaku": {
-      "id": "soukaku",
-      "total_votes": 15,
-      "popularity": 2.0325203252032518,
-      "points": 45,
-      "rank": 50,
-      "total_votes_1": 4,
-      "total_votes_2": 2,
-      "total_votes_3": 2,
-      "total_votes_4": 4,
-      "total_votes_5": 3
-    },
-    "koleda": {
-      "id": "koleda",
-      "total_votes": 15,
-      "popularity": 2.0325203252032518,
-      "points": 51,
-      "rank": 47,
-      "total_votes_1": 3,
-      "total_votes_2": 5,
-      "total_votes_3": 3,
-      "total_votes_4": 3,
-      "total_votes_5": 1
-    },
-    "qingyi": {
-      "id": "qingyi",
-      "total_votes": 35,
-      "popularity": 4.742547425474255,
-      "points": 92,
-      "rank": 39,
-      "total_votes_1": 5,
-      "total_votes_2": 4,
-      "total_votes_3": 9,
-      "total_votes_4": 7,
-      "total_votes_5": 10
-    },
-    "piper": {
-      "id": "piper",
-      "total_votes": 32,
-      "popularity": 4.336043360433604,
-      "points": 86,
-      "rank": 41,
-      "total_votes_1": 4,
-      "total_votes_2": 6,
-      "total_votes_3": 6,
-      "total_votes_4": 8,
-      "total_votes_5": 8
-    },
-    "orphie": {
-      "id": "orphie",
-      "total_votes": 93,
-      "popularity": 12.601626016260163,
-      "points": 258,
-      "rank": 16,
-      "total_votes_1": 13,
-      "total_votes_2": 18,
-      "total_votes_3": 17,
-      "total_votes_4": 25,
-      "total_votes_5": 20
-    },
-    "anby": {
-      "id": "anby",
-      "total_votes": 111,
-      "popularity": 15.040650406504067,
-      "points": 350,
-      "rank": 9,
-      "total_votes_1": 29,
-      "total_votes_2": 21,
-      "total_votes_3": 19,
-      "total_votes_4": 22,
-      "total_votes_5": 20
-    },
-    "evelyn": {
-      "id": "evelyn",
-      "total_votes": 139,
-      "popularity": 18.834688346883468,
-      "points": 425,
-      "rank": 7,
-      "total_votes_1": 32,
-      "total_votes_2": 27,
-      "total_votes_3": 26,
-      "total_votes_4": 25,
-      "total_votes_5": 29
-    },
-    "lighter": {
-      "id": "lighter",
-      "total_votes": 78,
-      "popularity": 10.569105691056912,
-      "points": 216,
+      "total_votes": 126,
+      "popularity": 9.375,
+      "points": 343,
       "rank": 23,
-      "total_votes_1": 11,
-      "total_votes_2": 11,
-      "total_votes_3": 19,
-      "total_votes_4": 23,
-      "total_votes_5": 14
-    },
-    "sanby": {
-      "id": "sanby",
-      "total_votes": 89,
-      "popularity": 12.059620596205962,
-      "points": 296,
-      "rank": 10,
-      "total_votes_1": 19,
-      "total_votes_2": 25,
-      "total_votes_3": 20,
-      "total_votes_4": 16,
-      "total_votes_5": 9
-    },
-    "caesar": {
-      "id": "caesar",
-      "total_votes": 58,
-      "popularity": 7.8590785907859075,
-      "points": 163,
-      "rank": 26,
-      "total_votes_1": 8,
-      "total_votes_2": 12,
-      "total_votes_3": 13,
-      "total_votes_4": 11,
-      "total_votes_5": 14
-    },
-    "starlight_billy": {
-      "id": "starlight_billy",
-      "total_votes": 32,
-      "popularity": 4.336043360433604,
-      "points": 106,
-      "rank": 36,
-      "total_votes_1": 11,
-      "total_votes_2": 4,
-      "total_votes_3": 7,
-      "total_votes_4": 4,
-      "total_votes_5": 6
-    },
-    "komano": {
-      "id": "komano",
-      "total_votes": 50,
-      "popularity": 6.775067750677506,
-      "points": 134,
-      "rank": 31,
-      "total_votes_1": 7,
-      "total_votes_2": 9,
-      "total_votes_3": 8,
-      "total_votes_4": 13,
-      "total_votes_5": 13
+      "total_votes_1": 16,
+      "total_votes_2": 26,
+      "total_votes_3": 21,
+      "total_votes_4": 33,
+      "total_votes_5": 30
     },
     "seed": {
       "id": "seed",
-      "total_votes": 50,
-      "popularity": 6.775067750677506,
-      "points": 142,
-      "rank": 28,
-      "total_votes_1": 8,
-      "total_votes_2": 7,
-      "total_votes_3": 12,
-      "total_votes_4": 15,
-      "total_votes_5": 8
-    },
-    "hugo": {
-      "id": "hugo",
-      "total_votes": 51,
-      "popularity": 6.910569105691057,
-      "points": 148,
-      "rank": 27,
-      "total_votes_1": 8,
-      "total_votes_2": 13,
-      "total_votes_3": 7,
-      "total_votes_4": 12,
-      "total_votes_5": 11
-    },
-    "harumasa": {
-      "id": "harumasa",
-      "total_votes": 42,
-      "popularity": 5.691056910569105,
-      "points": 129,
-      "rank": 33,
-      "total_votes_1": 11,
-      "total_votes_2": 7,
-      "total_votes_3": 9,
-      "total_votes_4": 4,
-      "total_votes_5": 11
-    },
-    "burnice": {
-      "id": "burnice",
-      "total_votes": 86,
-      "popularity": 11.653116531165312,
-      "points": 262,
-      "rank": 15,
-      "total_votes_1": 18,
+      "total_votes": 94,
+      "popularity": 6.9940476190476195,
+      "points": 265,
+      "rank": 31,
+      "total_votes_1": 13,
       "total_votes_2": 18,
-      "total_votes_3": 16,
-      "total_votes_4": 18,
-      "total_votes_5": 16
-    },
-    "yuzuha": {
-      "id": "yuzuha",
-      "total_votes": 100,
-      "popularity": 13.550135501355012,
-      "points": 285,
-      "rank": 11,
-      "total_votes_1": 17,
-      "total_votes_2": 18,
-      "total_votes_3": 21,
+      "total_votes_3": 22,
       "total_votes_4": 21,
-      "total_votes_5": 23
-    },
-    "astra-yao": {
-      "id": "astra-yao",
-      "total_votes": 89,
-      "popularity": 12.059620596205962,
-      "points": 231,
-      "rank": 20,
-      "total_votes_1": 8,
-      "total_votes_2": 17,
-      "total_votes_3": 20,
-      "total_votes_4": 19,
-      "total_votes_5": 25
-    },
-    "nicole": {
-      "id": "nicole",
-      "total_votes": 52,
-      "popularity": 7.046070460704606,
-      "points": 131,
-      "rank": 32,
-      "total_votes_1": 7,
-      "total_votes_2": 8,
-      "total_votes_3": 10,
-      "total_votes_4": 7,
       "total_votes_5": 20
-    },
-    "promeia": {
-      "id": "promeia",
-      "total_votes": 18,
-      "popularity": 2.4390243902439024,
-      "points": 48,
-      "rank": 49,
-      "total_votes_1": 2,
-      "total_votes_2": 4,
-      "total_votes_3": 3,
-      "total_votes_4": 4,
-      "total_votes_5": 5
-    },
-    "isolde": {
-      "id": "isolde",
-      "total_votes": 89,
-      "popularity": 12.059620596205962,
-      "points": 263,
-      "rank": 14,
-      "total_votes_1": 19,
-      "total_votes_2": 16,
-      "total_votes_3": 16,
-      "total_votes_4": 18,
-      "total_votes_5": 20
-    },
-    "zhu-yuan": {
-      "id": "zhu-yuan",
-      "total_votes": 73,
-      "popularity": 9.89159891598916,
-      "points": 229,
-      "rank": 21,
-      "total_votes_1": 15,
-      "total_votes_2": 19,
-      "total_votes_3": 10,
-      "total_votes_4": 19,
-      "total_votes_5": 10
-    },
-    "nekomiya": {
-      "id": "nekomiya",
-      "total_votes": 29,
-      "popularity": 3.9295392953929538,
-      "points": 108,
-      "rank": 35,
-      "total_votes_1": 17,
-      "total_votes_2": 2,
-      "total_votes_3": 2,
-      "total_votes_4": 1,
-      "total_votes_5": 7
-    },
-    "lucy": {
-      "id": "lucy",
-      "total_votes": 28,
-      "popularity": 3.7940379403794036,
-      "points": 74,
-      "rank": 44,
-      "total_votes_1": 3,
-      "total_votes_2": 6,
-      "total_votes_3": 5,
-      "total_votes_4": 6,
-      "total_votes_5": 8
-    },
-    "jufufu": {
-      "id": "jufufu",
-      "total_votes": 52,
-      "popularity": 7.046070460704606,
-      "points": 128,
-      "rank": 34,
-      "total_votes_1": 6,
-      "total_votes_2": 5,
-      "total_votes_3": 15,
-      "total_votes_4": 7,
-      "total_votes_5": 19
-    },
-    "alexandrina": {
-      "id": "alexandrina",
-      "total_votes": 26,
-      "popularity": 3.523035230352303,
-      "points": 64,
-      "rank": 46,
-      "total_votes_1": 2,
-      "total_votes_2": 5,
-      "total_votes_3": 5,
-      "total_votes_4": 5,
-      "total_votes_5": 9
-    },
-    "remielle": {
-      "id": "remielle",
-      "total_votes": 2,
-      "popularity": 0.27100271002710025,
-      "points": 5,
-      "rank": 55,
-      "total_votes_1": 0,
-      "total_votes_2": 1,
-      "total_votes_3": 0,
-      "total_votes_4": 0,
-      "total_votes_5": 1
-    },
-    "cissia": {
-      "id": "cissia",
-      "total_votes": 30,
-      "popularity": 4.0650406504065035,
-      "points": 90,
-      "rank": 40,
-      "total_votes_1": 6,
-      "total_votes_2": 8,
-      "total_votes_3": 3,
-      "total_votes_4": 6,
-      "total_votes_5": 7
-    },
-    "nangong_yu": {
-      "id": "nangong_yu",
-      "total_votes": 16,
-      "popularity": 2.168021680216802,
-      "points": 44,
-      "rank": 51,
-      "total_votes_1": 2,
-      "total_votes_2": 3,
-      "total_votes_3": 4,
-      "total_votes_4": 3,
-      "total_votes_5": 4
-    },
-    "sunna": {
-      "id": "sunna",
-      "total_votes": 28,
-      "popularity": 3.7940379403794036,
-      "points": 79,
-      "rank": 43,
-      "total_votes_1": 4,
-      "total_votes_2": 8,
-      "total_votes_3": 4,
-      "total_votes_4": 3,
-      "total_votes_5": 9
     },
     "norma": {
       "id": "norma",
-      "total_votes": 1,
-      "popularity": 0.13550135501355012,
-      "points": 2,
-      "rank": 57,
-      "total_votes_1": 0,
-      "total_votes_2": 0,
-      "total_votes_3": 0,
-      "total_votes_4": 1,
-      "total_votes_5": 0
+      "total_votes": 51,
+      "popularity": 3.7946428571428568,
+      "points": 121,
+      "rank": 47,
+      "total_votes_1": 2,
+      "total_votes_2": 9,
+      "total_votes_3": 8,
+      "total_votes_4": 19,
+      "total_votes_5": 13
     },
-    "velina": {
-      "id": "velina",
-      "total_votes": 1,
-      "popularity": 0.13550135501355012,
-      "points": 3,
-      "rank": 56,
-      "total_votes_1": 0,
-      "total_votes_2": 0,
-      "total_votes_3": 1,
-      "total_votes_4": 0,
-      "total_votes_5": 0
+    "burnice": {
+      "id": "burnice",
+      "total_votes": 131,
+      "popularity": 9.74702380952381,
+      "points": 406,
+      "rank": 15,
+      "total_votes_1": 28,
+      "total_votes_2": 29,
+      "total_votes_3": 25,
+      "total_votes_4": 26,
+      "total_votes_5": 23
+    },
+    "starlight_billy": {
+      "id": "starlight_billy",
+      "total_votes": 127,
+      "popularity": 9.449404761904761,
+      "points": 394,
+      "rank": 17,
+      "total_votes_1": 26,
+      "total_votes_2": 30,
+      "total_votes_3": 26,
+      "total_votes_4": 21,
+      "total_votes_5": 24
+    },
+    "nangong_yu": {
+      "id": "nangong_yu",
+      "total_votes": 87,
+      "popularity": 6.4732142857142865,
+      "points": 237,
+      "rank": 34,
+      "total_votes_1": 7,
+      "total_votes_2": 17,
+      "total_votes_3": 26,
+      "total_votes_4": 19,
+      "total_votes_5": 18
+    },
+    "soldier-11": {
+      "id": "soldier-11",
+      "total_votes": 82,
+      "popularity": 6.101190476190476,
+      "points": 277,
+      "rank": 29,
+      "total_votes_1": 26,
+      "total_votes_2": 20,
+      "total_votes_3": 8,
+      "total_votes_4": 15,
+      "total_votes_5": 13
+    },
+    "anton": {
+      "id": "anton",
+      "total_votes": 22,
+      "popularity": 1.636904761904762,
+      "points": 52,
+      "rank": 58,
+      "total_votes_1": 4,
+      "total_votes_2": 2,
+      "total_votes_3": 2,
+      "total_votes_4": 4,
+      "total_votes_5": 10
+    },
+    "koleda": {
+      "id": "koleda",
+      "total_votes": 19,
+      "popularity": 1.4136904761904763,
+      "points": 65,
+      "rank": 57,
+      "total_votes_1": 4,
+      "total_votes_2": 7,
+      "total_votes_3": 3,
+      "total_votes_4": 3,
+      "total_votes_5": 2
+    },
+    "ye_shunguang": {
+      "id": "ye_shunguang",
+      "total_votes": 296,
+      "popularity": 22.023809523809522,
+      "points": 944,
+      "rank": 2,
+      "total_votes_1": 60,
+      "total_votes_2": 86,
+      "total_votes_3": 53,
+      "total_votes_4": 44,
+      "total_votes_5": 53
+    },
+    "yidhari": {
+      "id": "yidhari",
+      "total_votes": 125,
+      "popularity": 9.300595238095239,
+      "points": 398,
+      "rank": 16,
+      "total_votes_1": 26,
+      "total_votes_2": 30,
+      "total_votes_3": 28,
+      "total_votes_4": 23,
+      "total_votes_5": 18
+    },
+    "soukaku": {
+      "id": "soukaku",
+      "total_votes": 26,
+      "popularity": 1.9345238095238095,
+      "points": 79,
+      "rank": 54,
+      "total_votes_1": 7,
+      "total_votes_2": 4,
+      "total_votes_3": 4,
+      "total_votes_4": 5,
+      "total_votes_5": 6
+    },
+    "qingyi": {
+      "id": "qingyi",
+      "total_votes": 43,
+      "popularity": 3.199404761904762,
+      "points": 112,
+      "rank": 50,
+      "total_votes_1": 5,
+      "total_votes_2": 6,
+      "total_votes_3": 11,
+      "total_votes_4": 9,
+      "total_votes_5": 12
+    },
+    "piper": {
+      "id": "piper",
+      "total_votes": 46,
+      "popularity": 3.422619047619048,
+      "points": 119,
+      "rank": 48,
+      "total_votes_1": 5,
+      "total_votes_2": 8,
+      "total_votes_3": 9,
+      "total_votes_4": 11,
+      "total_votes_5": 13
+    },
+    "orphie": {
+      "id": "orphie",
+      "total_votes": 128,
+      "popularity": 9.523809523809524,
+      "points": 366,
+      "rank": 21,
+      "total_votes_1": 21,
+      "total_votes_2": 27,
+      "total_votes_3": 21,
+      "total_votes_4": 31,
+      "total_votes_5": 28
+    },
+    "evelyn": {
+      "id": "evelyn",
+      "total_votes": 209,
+      "popularity": 15.550595238095239,
+      "points": 628,
+      "rank": 8,
+      "total_votes_1": 46,
+      "total_votes_2": 39,
+      "total_votes_3": 40,
+      "total_votes_4": 38,
+      "total_votes_5": 46
+    },
+    "astra-yao": {
+      "id": "astra-yao",
+      "total_votes": 147,
+      "popularity": 10.9375,
+      "points": 390,
+      "rank": 18,
+      "total_votes_1": 11,
+      "total_votes_2": 32,
+      "total_votes_3": 36,
+      "total_votes_4": 31,
+      "total_votes_5": 37
+    },
+    "sanby": {
+      "id": "sanby",
+      "total_votes": 125,
+      "popularity": 9.300595238095239,
+      "points": 417,
+      "rank": 13,
+      "total_votes_1": 30,
+      "total_votes_2": 32,
+      "total_votes_3": 26,
+      "total_votes_4": 24,
+      "total_votes_5": 13
+    },
+    "caesar": {
+      "id": "caesar",
+      "total_votes": 93,
+      "popularity": 6.919642857142858,
+      "points": 259,
+      "rank": 32,
+      "total_votes_1": 14,
+      "total_votes_2": 18,
+      "total_votes_3": 19,
+      "total_votes_4": 18,
+      "total_votes_5": 24
     },
     "sigrid": {
       "id": "sigrid",
-      "total_votes": 0,
-      "popularity": 0,
-      "points": 0,
-      "rank": 58,
-      "total_votes_1": 0,
-      "total_votes_2": 0,
-      "total_votes_3": 0,
-      "total_votes_4": 0,
-      "total_votes_5": 0
+      "total_votes": 30,
+      "popularity": 2.232142857142857,
+      "points": 75,
+      "rank": 55,
+      "total_votes_1": 4,
+      "total_votes_2": 4,
+      "total_votes_3": 4,
+      "total_votes_4": 9,
+      "total_votes_5": 9
     },
-    "pyrois": {
-      "id": "pyrois",
-      "total_votes": 0,
-      "popularity": 0,
-      "points": 0,
-      "rank": 59,
-      "total_votes_1": 0,
-      "total_votes_2": 0,
-      "total_votes_3": 0,
-      "total_votes_4": 0,
-      "total_votes_5": 0
+    "zhu-yuan": {
+      "id": "zhu-yuan",
+      "total_votes": 109,
+      "popularity": 8.110119047619047,
+      "points": 330,
+      "rank": 24,
+      "total_votes_1": 22,
+      "total_votes_2": 20,
+      "total_votes_3": 20,
+      "total_votes_4": 33,
+      "total_votes_5": 14
+    },
+    "nekomiya": {
+      "id": "nekomiya",
+      "total_votes": 38,
+      "popularity": 2.8273809523809526,
+      "points": 132,
+      "rank": 46,
+      "total_votes_1": 19,
+      "total_votes_2": 2,
+      "total_votes_3": 4,
+      "total_votes_4": 4,
+      "total_votes_5": 9
+    },
+    "jufufu": {
+      "id": "jufufu",
+      "total_votes": 72,
+      "popularity": 5.357142857142857,
+      "points": 177,
+      "rank": 42,
+      "total_votes_1": 8,
+      "total_votes_2": 7,
+      "total_votes_3": 20,
+      "total_votes_4": 12,
+      "total_votes_5": 25
+    },
+    "lucy": {
+      "id": "lucy",
+      "total_votes": 43,
+      "popularity": 3.199404761904762,
+      "points": 115,
+      "rank": 49,
+      "total_votes_1": 6,
+      "total_votes_2": 8,
+      "total_votes_3": 8,
+      "total_votes_4": 8,
+      "total_votes_5": 13
+    },
+    "alexandrina": {
+      "id": "alexandrina",
+      "total_votes": 40,
+      "popularity": 2.976190476190476,
+      "points": 107,
+      "rank": 51,
+      "total_votes_1": 5,
+      "total_votes_2": 10,
+      "total_votes_3": 5,
+      "total_votes_4": 7,
+      "total_votes_5": 13
     },
     "severian": {
       "id": "severian",
-      "total_votes": 0,
-      "popularity": 0,
-      "points": 0,
-      "rank": 60,
+      "total_votes": 3,
+      "popularity": 0.2232142857142857,
+      "points": 9,
+      "rank": 63,
       "total_votes_1": 0,
-      "total_votes_2": 0,
-      "total_votes_3": 0,
-      "total_votes_4": 0,
-      "total_votes_5": 0
-    },
-    "claret": {
-      "id": "claret",
-      "total_votes": 0,
-      "popularity": 0,
-      "points": 0,
-      "rank": 61,
-      "total_votes_1": 0,
-      "total_votes_2": 0,
-      "total_votes_3": 0,
-      "total_votes_4": 0,
+      "total_votes_2": 1,
+      "total_votes_3": 1,
+      "total_votes_4": 1,
       "total_votes_5": 0
     },
     "phoenix": {
       "id": "phoenix",
+      "total_votes": 13,
+      "popularity": 0.9672619047619048,
+      "points": 36,
+      "rank": 60,
+      "total_votes_1": 1,
+      "total_votes_2": 0,
+      "total_votes_3": 9,
+      "total_votes_4": 1,
+      "total_votes_5": 2
+    },
+    "roxy": {
+      "id": "roxy",
+      "total_votes": 6,
+      "popularity": 0.4464285714285714,
+      "points": 17,
+      "rank": 61,
+      "total_votes_1": 1,
+      "total_votes_2": 1,
+      "total_votes_3": 2,
+      "total_votes_4": 0,
+      "total_votes_5": 2
+    },
+    "claret": {
+      "id": "claret",
+      "total_votes": 7,
+      "popularity": 0.5208333333333333,
+      "points": 12,
+      "rank": 62,
+      "total_votes_1": 0,
+      "total_votes_2": 1,
+      "total_votes_3": 1,
+      "total_votes_4": 0,
+      "total_votes_5": 5
+    },
+    "kafka": {
+      "id": "kafka",
       "total_votes": 0,
       "popularity": 0,
       "points": 0,
-      "rank": 62,
+      "rank": 64,
       "total_votes_1": 0,
       "total_votes_2": 0,
       "total_votes_3": 0,
       "total_votes_4": 0,
       "total_votes_5": 0
     },
-    "roxy": {
-      "id": "roxy",
+    "robin": {
+      "id": "robin",
       "total_votes": 0,
       "popularity": 0,
       "points": 0,
-      "rank": 63,
+      "rank": 65,
+      "total_votes_1": 0,
+      "total_votes_2": 0,
+      "total_votes_3": 0,
+      "total_votes_4": 0,
+      "total_votes_5": 0
+    },
+    "sunbringer": {
+      "id": "sunbringer",
+      "total_votes": 0,
+      "popularity": 0,
+      "points": 0,
+      "rank": 66,
       "total_votes_1": 0,
       "total_votes_2": 0,
       "total_votes_3": 0,
