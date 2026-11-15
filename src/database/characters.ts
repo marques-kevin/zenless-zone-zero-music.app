@@ -10,6 +10,7 @@ export const characters = [
   { name: "ellen", image: "/characters/ellen.png" },
   { name: "grace", image: "/characters/grace.png" },
   { name: "harumasa", image: "/characters/harumasa.png" },
+  { name: "kafka", image: "/characters/kafka.webp" },
   { name: "koleda", image: "/characters/koleda.png" },
   { name: "lighter", image: "/characters/lighter.png" },
   { name: "lucy", image: "/characters/lucy.png" },
@@ -50,6 +51,7 @@ export const characters = [
   { name: "zhao", image: "/characters/zhao.webp" },
   { name: "ye_shunguang", image: "/characters/ye_shunguang.webp" },
   { name: "aria", image: "/characters/aria.webp" },
+  { name: "sunbringer", image: "/characters/sunbringer.webp" },
   { name: "sunna", image: "/characters/sunna.webp" },
   { name: "nangong_yu", image: "/characters/nangong_yu.webp" },
   { name: "cissia", image: "/characters/cissia.webp" },
@@ -61,5 +63,6 @@ export const characters = [
   { name: "velina", image: "/characters/velina.webp" },
   { name: "norma", image: "/characters/norma.webp" },
   { name: "remielle", image: "/characters/remielle.webp" },
+  { name: "robin", image: "/characters/robin.webp" },
   { name: "roxy", image: "/characters/roxy.webp" },
 ];
